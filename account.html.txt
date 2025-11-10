@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Login - Holistic Therapy Dog Association</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display.swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">HOLISTIC DOG ASSOC.</a>
+            <nav class="navbar-menu">
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="meet-our-dogs.html" class="nav-link">Meet Our Dogs</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+                <a href="account.html" class="nav-link">Account</a>
+            </nav>
+            <a href="verify.html" class="nav-cta">Verify a License</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="page-header-container">
+                <h1>Account Login</h1>
+            </div>
+        </section>
+
+        <section class="account-form-section">
+            <div class="account-form-container">
+                <h2 class="section-title">Welcome Back</h2>
+                <p class="account-form-intro">Please log in to access your Account Dashboard and manage your dog's license.</p>
+                
+                <form id="login-form" action="d1-template.farberstyle.workers.dev" method="POST">
+                    
+                    <fieldset>
+                        <legend>Login</legend>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                    </fieldset>
+
+                    <div class="account-submit-container">
+                        <button type="submit" class="hero-cta-button">Login</button>
+                    </div>
+
+                </form>
+
+                <div class="account-link-container">
+                    <p>Don't have an account? <a href="signup.html">Create one here.</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links-main">
+                <a href="how-it-works.html">How It Works</a>
+                <a href="why.html">Why the Holistic Therapy Dog?</a>
+            </div>
+            <div class="footer-links-legal">
+                <a href="terms.html">Terms and Conditions</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+            <p class="footer-copyright">© 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

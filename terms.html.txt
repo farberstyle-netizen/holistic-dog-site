@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions - Holistic Therapy Dog Association</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">HOLISTIC DOG ASSOC.</a>
+            <nav class="navbar-menu">
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="meet-our-dogs.html" class="nav-link">Meet Our Dogs</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+                <a href="account.html" class="nav-link">Account</a>
+            </nav>
+            <a href="verify.html" class="nav-cta">Verify a License</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="page-header-container">
+                <h1>Terms and Conditions</h1>
+            </div>
+        </section>
+
+        <section class="content-page-section">
+            <div class="content-container">
+                
+                <p><strong>Last Updated:</strong> [Date You Launch]</p>
+
+                <h3>1. LEGALLY BINDING AGREEMENT</h3>
+                <p>These Terms and Conditions ("Terms") constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("User," "you," "your"), and the Holistic Therapy Dog Association ("Association," "we," "us," or "our"), concerning your access to and use of this website as well as any other media form related (collectively, the "Services" or "Site").</p>
+                <p>You agree that by accessing the Services, you have read, understood, and agree to be bound by all of these Terms. <strong>If you do not agree with all of these Terms, you are expressly prohibited from using the Services and you must discontinue use immediately.</strong></p>
+
+                <h3>2. ACKNOWLEDGEMENT AND EXPLICIT DISCLAIMER OF LEGAL STATUS</h3>
+                <p>This section is the basis of our agreement. By creating an account, purchasing our products (the "Products"), or using our Services, <strong>YOU ACKNOWLEDGE, FULLY UNDERSTAND, AND EXPLICITLY AGREE TO THE FOLLOWING:</strong></p>
+                <ul>
+                    <li><strong>COMMEMORATIVE, NOVELTY-ONLY CERTIFICATION:</strong> The "Certified Holistic Therapy Dog" title, diploma, and registry license are strictly <strong>commemorative and for novelty purposes only.</strong> It is intended to honor your pet, similar to the honor of naming a star or dedicating a park bench.</li>
+                    <li><strong>NO LEGAL RIGHTS CONFERRED:</strong> The Products <strong>DO NOT</strong> confer any legal rights or privileges. This includes, but is not limited to, any rights or privileges granted to official Service Animals under the Americans with Disabilities Act (ADA) or any other local, state, or federal laws.</li>
+                    <li><strong>NO PUBLIC ACCESS RIGHTS:</strong> The Products <strong>DO NOT</strong> grant, imply, or suggest any right of public access (e.g., entry into stores, restaurants, or aircraft cabins where pets are not normally allowed).</li>
+                    <li><strong>NOT AN ESA OR SERVICE ANIMAL:</strong> The Products <strong>ARE NOT</strong> a substitute for an Emotional Support Animal (ESA) prescription or a Service Animal certification, nor do they represent any form of professional behavioral training or certification.</li>
+                    <li><strong>ACKNOWLEDGEMENT OF FRAUD:</strong> You acknowledge that any attempt to misrepresent this novelty certification as a legal Service Animal, Emotional Support Animal, or any other status that grants legal public access is a <strong>violation of these Terms and may constitute an act of fraud.</strong></li>
+                </ul>
+
+                <h3>3. USER ACCOUNTS AND ELIGIBILITY</h3>
+                <ul>
+                    <li><strong>Eligibility:</strong> To use our Services, you must be at least eighteen (18) years of age and possess the legal authority to enter into these Terms.</li>
+                    <li><strong>Account Security:</strong> You are <strong>solely and entirely responsible</strong> for maintaining the confidentiality of your account and password. You agree to provide current, complete, and accurate information. You are responsible for all activities that occur under your account.</li>
+                    <li><strong>Refusal of Service:</strong> We reserve the right to refuse service, terminate accounts, or cancel orders in our sole discretion, without notice or liability.</li>
+                </ul>
+
+                <h3>4. CERTIFICATION AND LICENSE TERM</h3>
+                <ul>
+                    <li><strong>Initial Certification:</strong> The initial purchase price of $100.00 grants you one (1) official embossed diploma and one (1) active license in our "National Database of Certified Holistic Therapy Dogs."</li>
+                    <li><strong>License Term:</strong> The license term is <strong>two (2) years</strong> from the date of purchase.</li>
+                    <li><strong>Expired License:</strong> Upon the expiration of the two (2) year term, your dog's status in the database will be automatically changed from "Active" to "Expired." There is no provision for renewal.</li>
+                </ul>
+
+                <h3>5. PAYMENT, FINAL SALE, AND "NO REFUND" POLICY</h3>
+                <ul>
+                    <li><strong>ALL SALES ARE FINAL.</strong> Due to the immediate, custom, and personalized nature of the Products (the diploma) and the immediate provisioning of your digital license in our National Database, <strong>all sales are final. We do not offer refunds</strong> for the initial certification fee for any reason whatsoever.</li>
+                    <li><strong>Payments:</strong> All payments are processed securely via PayPal. The Association does not collect, process, or store your full credit card information.</li>
+                    <li><strong>Personalization & Reprints:</strong> The name for the diploma will be embossed <em>exactly</em> as you confirm it at checkout. <strong>You are solely responsible for confirming the correct spelling.</strong> The Association shall not be held liable for spelling errors provided by the User. Reprints due to user error are at the sole discretion of the Association and will be subject to an additional re-print and shipping fee.</li>
+                </ul>
+
+                <h3>6. INTELLECTUAL PROPERTY RIGHTS</h3>
+                <ul>
+                    <li><strong>Our Content:</strong> The Services, our logo, all text, graphics, the diploma design, and the embossed seal (the "Trade Dress") are the exclusive property of the Holistic Therapy Dog Association and are protected by copyright and trademark laws.</li>
+                    <li><strong>User-Generated Content (UGC):</strong> You retain ownership of your dog's photos. However, by uploading any content (photo, bio, etc.), you grant the Association a perpetual, irrevocable, worldwide, non-exclusive, royalty-free, fully-paid-up license to use, display, reproduce, modify, and distribute your UGC in connection with the Services (including the "Verify a License" page, "Meet Our Dogs" page, and "Gallery") and in our marketing materials. You waive any and all moral rights to such UGC.</li>
+                </ul>
+
+                <h3>7. PROHIBITED CONDUCT</h3>
+                <p>As a user of our Services, you agree not to:</p>
+                <ul>
+                    <li>Attempt to represent, or encourage others to represent, your novelty certification as a legal Service Animal or Emotional Support Animal.</li>
+                    <li>Use the Products to deceive, defraud, or mislead any person, business, or government entity.</li>
+                    <li>Use any robot, spider, or other automated means to access the Site or scrape data from our National Database.</li>
+                    <li>Harass, intimidate, or threaten any Association employee or agent (including Dr. Gräber and Mr. Farber).</li>
+                    <li>Upload any viruses, Trojan horses, or other malicious code.</li>
+                    <li><strong>VIOLATION OF THIS SECTION WILL RESULT IN IMMEDIATE, PERMANENT TERMINATION OF YOUR ACCOUNT AND LICENSE WITHOUT REFUND.</strong></li>
+                </ul>
+
+                <h3>8. INDEMNIFICATION</h3>
+                <p>You agree to defend, indemnify, and hold us harmless, including our officers, directors, trustees, agents, and employees (including Dr. Bernard Gräber and Christian Farber), from and against any loss, damage, liability, claim, or demand, including reasonable attorneys’ fees and expenses, made by any third party due to or arising out of: (1) your use of the Services; (2) your breach of these Terms; (3) any misrepresentation or fraudulent activity you commit regarding the status of your certification; or (4) your User-Generated Content.</p>
+
+                <h3>9. LIMITATION OF LIABILITY</h3>
+                <p><strong>IN NO EVENT SHALL THE ASSOCIATION OR ITS OFFICERS, TRUSTEES, OR EMPLOYEES BE LIABLE FOR ANY DIRECT, INDIRECT, CONSEQUENTIAL, EXEMPLARY, INCIDENTAL, SPECIAL, OR PUNITIVE DAMAGES, INCLUDING LOST PROFIT, LOST REVENUE, OR OTHER DAMAGES ARISING FROM YOUR USE OF THE SERVICES OR YOUR MISUSE OF THE PRODUCTS, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</strong> OUR TOTAL LIABILITY TO YOU FOR ANY CAUSE WHATSOEVER SHALL BE LIMITED TO THE AMOUNT PAID, IF ANY, BY YOU TO US.</p>
+
+                <h3>10. GOVERNING LAW & DISPUTE RESOLUTION</h3>
+                <p>These Terms shall be governed by and construed in accordance with the laws of the State of New York. Any dispute arising from these Terms shall be resolved exclusively by binding arbitration in New York County, New York. You waive any right to a jury trial and agree to not participate in a class-action lawsuit.</p>
+
+                <h3>11. GENERAL PROVISIONS</h3>
+                <ul>
+                    <li><strong>Entire Agreement:</strong> These Terms constitute the entire agreement between you and the Association.</li>
+                    <li><strong>Severability:</strong> If any provision of these Terms is found to be invalid, the remaining provisions will remain in full force and effect.</li>
+                    <li><strong>No Waiver:</strong> Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights.</li>
+                    <li><strong>Contact:</strong> All inquiries regarding these Terms may be directed to us at the address listed on our Contact Us page.</li>
+                </ul>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links-main">
+                <a href="how-it-works.html">How It Works</a>
+                <a href="why.html">Why the Holistic Therapy Dog?</a>
+            </div>
+            <div class="footer-links-legal">
+                <a href="terms.html">Terms and Conditions</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+            <p class="footer-copyright">© 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take the Quiz - Holistic Therapy Dog Association</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display.swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">HOLISTIC DOG ASSOC.</a>
+            <nav class="navbar-menu">
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="meet-our-dogs.html" class="nav-link">Meet Our Dogs</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+                <a href="account.html" class="nav-link">Account</a>
+            </nav>
+            <a href="verify.html" class="nav-cta">Verify a License</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="page-header-container">
+                <h1>The Holistic Therapy Dog Quiz</h1>
+            </div>
+        </section>
+
+        <section class="quiz-section">
+            <div class="quiz-container">
+                <div class="quiz-intro">
+                    <h2 class="section-title">Does your dog have what it takes?</h2>
+                    <p>This 3-question self-certification is the first step to joining the elite ranks. Answer honestly to affirm your dog's unique spirit.</p>
+                </div>
+                
+                <form id="quiz-form" action="checkout.html" method="GET">
+                    
+                    <div class="quiz-question-card">
+                        <h3 class="quiz-question">Question 1: Intuitive Bond</h3>
+                        <p class="quiz-question-desc">Does your dog often seem to sense your feelings or provide comfort without being asked, demonstrating an intuitive, spiritual, or heartfelt connection?</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="q1" value="yes" required> Yes</label>
+                            <label><input type="radio" name="q1" value="no"> No</label>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question-card">
+                        <h3 class="quiz-question">Question 2: Healing Presence</h3>
+                        <p class="quiz-question-desc">Do you consider your dog's presence to be a healing, compassionate, or calming force, enriching the lives of those they encounter?</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="q2" value="yes" required> Yes</label>
+                            <label><input type="radio" name="q2" value="no"> No</label>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question-card">
+                        <h3 class="quiz-question">Question 3: Formal Honor</h3>
+                        <p class="quiz-question-desc">Do you believe this profound, commemorative bond deserves to be formally recognized with the Association's highest honor?</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="q3" value="yes" required> Yes</label>
+                            <label><input type="radio" name="q3" value="no"> No</label>
+                        </div>
+                    </div>
+
+                    <div class="quiz-submit-container">
+                        <button type="submit" class="hero-cta-button">See My Results & Proceed</button>
+                    </div>
+
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links-main">
+                <a href="how-it-works.html">How It Works</a>
+                <a href="why.html">Why the Holistic Therapy Dog?</a>
+            </div>
+            <div class="footer-links-legal">
+                <a href="terms.html">Terms and Conditions</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+            <p class="footer-copyright">© 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

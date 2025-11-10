@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Canceled - Holistic Therapy Dog Association</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">HOLISTIC DOG ASSOC.</a>
+            <nav class="navbar-menu">
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="meet-our-dogs.html" class="nav-link">Meet Our Dogs</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+                <a href="account.html" class="nav-link">Account</a>
+            </nav>
+            <a href="verify.html" class="nav-cta">Verify a License</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="page-header-container">
+                <h1>Payment Canceled</h1>
+            </div>
+        </section>
+
+        <section class="content-page-section">
+            <div class="content-container" style="text-align: center;">
+                
+                <h2 style="font-size: 2.5rem; color: #d4af37;">Your Order Has Been Canceled</h2>
+                
+                <p style="font-size: 1.2rem; color: #ccc;">You have not been charged.</p>
+                
+                <p>You have successfully canceled the checkout process. Your license and diploma order has been saved but is not active. If you'd like to try again, you can return to the previous step.</p>
+
+                <a href="add-dog.html" class="hero-cta-button" style="text-decoration: none; margin-top: 20px;">Return to Checkout</a>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links-main">
+                <a href="how-it-works.html">How It Works</a>
+                <a href="why.html">Why the Holistic Therapy Dog?</a>
+            </div>
+            <div class="footer-links-legal">
+                <a href="terms.html">Terms and Conditions</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+            <p class="footer-copyright">© 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

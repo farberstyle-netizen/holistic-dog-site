@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout: Add Your Dog - Holistic Therapy Dog Association</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display.swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">HOLISTIC DOG ASSOC.</a>
+            <nav class="navbar-menu">
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="meet-our-dogs.html" class="nav-link">Meet Our Dogs</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+                <a href="account.html" class="nav-link">Account</a>
+            </nav>
+            <a href="verify.html" class="nav-cta">Verify a License</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="page-header-container">
+                <h1>Final Step: Certify Your Dog</h1>
+            </div>
+        </section>
+
+        <section class="account-form-section">
+            <div class="account-form-container">
+                <h2 class="section-title">Step 2: Dog & License Details</h2>
+                <p class="account-form-intro">Your account is created! Now, please provide your dog's details for the diploma and the National Database.</p>
+                
+                <form id="checkout-form" action="api-checkout.farberstyle.workers.dev" method="POST" enctype="multipart/form-data">
+                    
+                    <fieldset>
+                        <legend>Verify Your Account</legend>
+                        <div class="form-group">
+                            <label for="email">Enter Your Email Again (to link this license to your account)</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Dog's Official Details</legend>
+                        <div class="form-group">
+                            <label for="dog_name">Dog's Full Name (for Diploma)</label>
+                            <input type="text" id="dog_name" name="dog_name" placeholder="e.g., BUDWORD 'BUDDY' WOODS" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state_of_licensure">State of Licensure (2-Letter Abbreviation)</label>
+                            <input type="text" id="state_of_licensure" name="state_of_licensure" placeholder="e.g., CA" maxlength="2" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dog_photo">Upload Dog's Photo (for Database)</label>
+                            <input type="file" id="dog_photo" name="dog_photo" accept="image/jpeg, image/png" required>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Final Confirmation</legend>
+                        <div class="form-group">
+                            <label for="confirm_spelling">
+                                <input type="checkbox" id="confirm_spelling" name="confirm_spelling" required>
+                                <strong>I confirm the spelling of my dog's name is 100% correct.</strong>
+                                <br>
+                                <span style="font-size: 0.9rem; color: #ccc;">I understand reprints due to my error may take up to four weeks and incur a fee, as per the Terms and Conditions.</span>
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <div class="account-submit-container">
+                        <button type="submit" class="hero-cta-button">Proceed to PayPal ($100.00)</button>
+                    </div>
+
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links-main">
+                <a href="how-it-works.html">How It Works</a>
+                <a href="why.html">Why the Holistic Therapy Dog?</a>
+            </div>
+            <div class="footer-links-legal">
+                <a href="terms.html">Terms and Conditions</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+            <p class="footer-copyright">© 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

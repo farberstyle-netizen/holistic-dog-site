@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify a License - Holistic Therapy Dog Association</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">HOLISTIC DOG ASSOC.</a>
+            <nav class="navbar-menu">
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="meet-our-dogs.html" class="nav-link">Meet Our Dogs</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+                <a href="account.html" class="nav-link">Account</a>
+            </nav>
+            <a href="verify.html" class="nav-cta">Verify a License</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="page-header-container">
+                <h1>National Database of Certified Holistic Therapy Dogs</h1>
+            </div>
+        </section>
+
+        <section class="verify-section">
+            <div class="verify-container">
+                <div class="verify-intro">
+                    <h2 class="section-title">Verify a License</h2>
+                    <p>Use this tool to confirm the good-standing of a Certified Holistic Therapy Dog. You can search by the dog's full registered name or their unique License ID number.</p>
+                </div>
+                
+                <form id="verify-form" class="verify-form">
+                    <input type="text" id="search-term" name="search-term" placeholder="Enter Dog's Name or License ID..." required>
+                    <button type="submit" class="hero-cta-button" id="search-button">Search</button>
+                </form>
+
+                <div id="results-container" class="results-container">
+                    </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links-main">
+                <a href="how-it-works.html">How It Works</a>
+                <a href="why.html">Why the Holistic Therapy Dog?</a>
+            </div>
+            <div class="footer-links-legal">
+                <a href="terms.html">Terms and Conditions</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+            <p class="footer-copyright">© 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Get references to the form and results elements
+        const verifyForm = document.getElementById('verify-form');
+        const searchTermInput = document.getElementById('search-term');
+        const resultsContainer = document.getElementById('results-container');
+        const searchButton = document.getElementById('search-button');
+
+        // Listen for the form to be submitted
+        verifyForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Stop the page from reloading
+            
+            const searchTerm = searchTermInput.value.trim();
+            if (!searchTerm) return;
+
+            // --- ⚠️ PASTE YOUR WORKER URL HERE ⚠️ ---
+            // Find this URL on your 'api-verify' Worker dashboard in Cloudflare
+            const workerUrl = 'api-verify.farberstyle.workers.dev';
+            // ------------------------------------------
+
+            const queryUrl = `${workerUrl}?q=${encodeURIComponent(searchTerm)}`;
+
+            // Show a "loading" state
+            searchButton.disabled = true;
+            searchButton.textContent = 'Searching...';
+            resultsContainer.innerHTML = ''; // Clear old results
+
+            try {
+                const response = await fetch(queryUrl);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    // Handle "Not Found" (404) or other errors
+                    showError(data.error || data.message || 'No license found.');
+                } else {
+                    // Handle "Found" (200)
+                    showResult(data);
+                }
+
+            } catch (error) {
+                console.error('Fetch error:', error);
+                showError('Could not connect to the database. Please try again.');
+            } finally {
+                // Restore the button
+                searchButton.disabled = false;
+                searchButton.textContent = 'Search';
+            }
+        });
+
+        function showResult(data) {
+            const isExpired = data.license_status === 'Expired';
+            const statusColor = isExpired ? '#A52A2A' : '#2E8B57'; // Red or Green
+            const statusText = isExpired ? `LICENSE: EXPIRED (Expired on: ${data.expires_at})` : `LICENSE: ACTIVE (Expires: ${data.expires_at})`;
+
+            const resultHtml = `
+                <h3 class="results-title">Search Results</h3>
+                <div class="dog-card dog-result">
+                    <div class="dog-image-placeholder">[ Photo ]</div>
+                    <div class="dog-content">
+                        <h3 class="dog-name">${escapeHTML(data.dog_name)}</h3>
+                        <h4 class="dog-status" style="color: ${statusColor};">${escapeHTML(statusText)}</h4>
+                        <p class="dog-bio">
+                            <strong>State of Licensure:</strong> ${escapeHTML(data.state_of_licensure)}
+                        </p>
+                    </div>
+                </div>
+            `;
+            resultsContainer.innerHTML = resultHtml;
+        }
+
+        function showError(message) {
+            const errorHtml = `
+                <h3 class="results-title">Search Results</h3>
+                <p style="text-align: center; font-size: 1.2rem; color: #ccc;">
+                    ${escapeHTML(message)}
+                </p>
+            `;
+            resultsContainer.innerHTML = errorHtml;
+        }
+
+        // Helper function to prevent XSS attacks
+        function escapeHTML(str) {
+            return str.replace(/[&<>"']/g, (match) => {
+                const swap = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;'
+                };
+                return swap[match];
+            });
+        }
+    </script>
+
+</body>
+</html>

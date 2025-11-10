@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Holistic Therapy Dog Association</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">HOLISTIC DOG ASSOC.</a>
+            <nav class="navbar-menu">
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="meet-our-dogs.html" class="nav-link">Meet Our Dogs</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+                <a href="account.html" class="nav-link">Account</a>
+            </nav>
+            <a href="verify.html" class="nav-cta">Verify a License</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="page-header-container">
+                <h1>About the Holistic Therapy Dog Association</h1>
+            </div>
+        </section>
+
+        <section class="mission-section">
+            <div class="mission-container">
+                <h2 class="mission-title">Our Mission</h2>
+                <blockquote class="mission-quote">
+                    "The Holistic Therapy Dog Association was founded on the simple, powerful belief that the profound, <strong>intuitive</strong> bond between an owner and their companion, is one of the <strong>greatest</strong> spiritual and emotional forces in our lives.
+                    <br><br>
+                    While traditional certifications focus on tasks and training, our singular mission is to provide the most formal, <strong>prestigious</strong> honor for the dogs whose very presence can heal the deepest, darkest wounds.
+                    <br><br>
+                    We are The Premier Organization dedicated to Commemorating these Outstanding Companions. Our On-Line National Database can be quickly and easily used to verify the good-standing of Licensed Holistic Therapy Dogs. The official diploma serves as a lasting testament to the dogs who build special connections and enrich the souls around them."
+                </blockquote>
+            </div>
+        </section>
+
+        <section class="leadership-section">
+            <div class="leadership-container">
+                <h2 class="section-title">Our Leadership Team</h2>
+                <div class="leadership-grid">
+                    
+                    <div class="bio-card">
+                        <div class="bio-image-placeholder">[ C.F. ]</div>
+                        <div class="bio-content">
+                            <h3 class="bio-name">Christian Farber</h3>
+                            <h4 class="bio-title">President, Holistic Therapy Dog Association</h4>
+                            <p class="bio-text">As President, Christian Farber provides the core vision and leadership for the Holistic Therapy Dog Association. He has long been an advocate for supporting those in need, championing the power of holistic and emotional well-being to build stronger communities. This passion translates to his steadfast belief in formally recognizing the profound, intuitive bond that owners share with their companions. Mr. Farber is dedicated to building a global community that celebrates these outstanding animals and honors their unique ability to heal.</p>
+                        </div>
+                    </div>
+
+                    <div class="bio-card">
+                        <div class="bio-image-placeholder">[ B.G. ]</div>
+                        <div class="bio-content">
+                            <h3 class="bio-name">Dr. Bernard Gräber</h3>
+                            <h4 class="bio-title">Chairman of the Board of Trustees</h4>
+                            <p class="bio-text">Dr. Bernard Gräber, as Chairman of the Board of Trustees, provides the foundational guidance and ethical oversight for the Association. A distinguished Swiss-Canadian equine veterinarian, Dr. Gräber has spent decades studying the intuitive, non-verbal communication between animals and humans. His extensive work with performance horses has provided unique insights into the nature of the holistic, spiritual bond. He champions the core mission of honoring the animal's role as a healer and ensures the Association maintains its prestigious standards and integrity.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links-main">
+                <a href="how-it-works.html">How It Works</a>
+                <a href="why.html">Why the Holistic Therapy Dog?</a>
+            </div>
+            <div class="footer-links-legal">
+                <a href="terms.html">Terms and Conditions</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+            <p class="footer-copyright">© 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

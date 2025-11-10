@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holistic Therapy Dog Association</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">HOLISTIC DOG ASSOC.</a>
+            <nav class="navbar-menu">
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="meet-our-dogs.html" class="nav-link">Meet Our Dogs</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+                <a href="account.html" class="nav-link">Account</a>
+            </nav>
+            <a href="verify.html" class="nav-cta">Verify a License</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="hero-container">
+                <div class="hero-visual">
+                    <div class="video-placeholder">
+                        [ Video Animation of Spinning Diploma Goes Here ]
+                    </div>
+                </div>
+                <div class="hero-content">
+                    <h1 class="hero-headline">The Ultimate Recognition of an Unconditional Bond.</h1>
+                    <h2 class="hero-subheadline">ELEVATE YOUR COMPANION.</h2>
+                    <p class="hero-text">Commemorate their unique healing spirit with the official 2-year certification.</p>
+                    <a href="quiz.html" class="hero-cta-button">CERTIFY YOUR DOG NOW</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="value-section">
+            <div class="value-container">
+                <div class="value-column">
+                    <div class="value-icon">[ 🛡️ ]</div> <h3 class="value-title">Professional Accreditation</h3>
+                    <p class="value-text">Gain a recognized, commemorative title supported by our Board of Trustees and President.</p>
+                </div>
+                <div class="value-column">
+                    <div class="value-icon">[ ❤️ ]</div> <h3 class="value-title">A Growing, Global Community</h3>
+                    <p class="value-text">Join owners who believe in the powerful, intuitive connection with their dogs.</p>
+                </div>
+                <div class="value-column">
+                    <div class="value-icon">[ 📜 ]</div> <h3 class="value-title">Lifetime Digital Record</h3>
+                    <p class="value-text">Your dog's status and photo remain verifiable in our exclusive database for two years.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links-main">
+                <a href="how-it-works.html">How It Works</a>
+                <a href="why.html">Why the Holistic Therapy Dog?</a>
+            </div>
+            <div class="footer-links-legal">
+                <a href="terms.html">Terms and Conditions</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+            <p class="footer-copyright">© 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
