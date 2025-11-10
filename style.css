@@ -880,3 +880,77 @@ h1, h2, h3 {
 .account-link-container a:hover {
     text-decoration: underline;
 }
+/* ---------------------------------
+   14. MOBILE RESPONSIVE STYLES
+   (Applies to all screens 900px or less)
+   --------------------------------- */
+@media (max-width: 900px) {
+
+    /* --- General Column Stacking --- */
+    .hero-container,
+    .leadership-grid,
+    .steps-container,
+    .registry-grid,
+    .contact-layout,
+    .form-group-split,
+    .value-container {
+        display: flex;
+        flex-direction: column;
+        grid-template-columns: 1fr; /* Override all grid settings */
+    }
+
+    /* --- Navigation Bar --- */
+    .navbar-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .navbar-logo {
+        margin-bottom: 15px; /* Add space below logo */
+    }
+    .navbar-menu {
+        display: flex;
+        flex-direction: column; /* Stack the nav links */
+        width: 100%;
+    }
+    .nav-link {
+        padding: 10px 0;
+        border-top: 1px solid #444; /* Add dividers */
+        width: 100%;
+        text-align: center;
+        margin: 0;
+    }
+    .nav-cta {
+        margin-top: 15px;
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box; /* Make 100% width work with padding */
+    }
+
+    /* --- Forms --- */
+    .account-form-container {
+        padding: 20px; /* Reduce padding on mobile */
+    }
+    .verify-form {
+        flex-direction: column; /* Stack search button under input */
+    }
+
+    /* --- Page-specific tweaks --- */
+    .hero-content {
+        text-align: center;
+    }
+    .hero-headline {
+        font-size: 2.2rem; /* Slightly smaller text */
+    }
+    .page-header h1 {
+        font-size: 2.0rem; /* Slightly smaller text */
+    }
+    .section-title, .mission-title {
+        font-size: 1.8rem; /* Slightly smaller text */
+    }
+    .content-container {
+        padding: 20px; /* Reduce padding on mobile */
+    }
+    .mission-quote {
+        font-size: 1.2rem;
+    }
+}
