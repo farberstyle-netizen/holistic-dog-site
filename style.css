@@ -1026,3 +1026,17 @@ h1, h2, h3 {
 .dashboard-link:hover {
     text-decoration: underline;
 }
+/* ---------------------------------
+   16. HERO VIDEO STYLES
+   --------------------------------- */
+.hero-video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #d4af37;
+}
+
+/* Remove the old placeholder style */
+.video-placeholder {
+    display: none;
+}
