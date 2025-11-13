@@ -67,3 +67,22 @@
                             <div class="form-group">
                                 <label for="message">Message</label>
                                 <textarea id="message" name="message" rows="6
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const contactForm = document.getElementById('contact-form');
+            
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault(); 
+                
+                // In a real application, this is where a Worker would be called to send the email.
+                // For now, we provide instant visual confirmation.
+
+                alert("Thank you! Your message has been sent to the Association team.");
+                
+                // Optional: Clear the form fields after successful 'submission'
+                contactForm.reset();
+            });
+        });
+    </script>
+</body>
+</html>

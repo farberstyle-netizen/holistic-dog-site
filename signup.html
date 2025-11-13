@@ -43,6 +43,9 @@
                     
                     <fieldset>
                         <legend>Login Details</legend>
+                        <div id="password-error" class="form-error" style="color: #A52A2A; margin-bottom: 10px; display: none;">
+                            Passwords must match and be at least 8 characters.
+                        </div>
                         <div class="form-group">
                             <label for="email">Email Address (This will be your username)</label>
                             <input type="email" id="email" name="email" required>
@@ -50,7 +53,7 @@
                         <div class="form-group-split">
                             <div class="form-group">
                                 <label for="password">Create Password (min. 8 characters)</label>
-                                <input type="password" id="password" name="password" required>
+                                <input type="password" id="password" name="password" required minlength="8">
                             </div>
                             <div class="form-group">
                                 <label for="password-confirm">Confirm Password</label>
@@ -96,6 +99,10 @@
                     </div>
 
                 </form>
+
+                <div class="account-link-container">
+                     <p>Don't have an account? <a href="account.html">Log in here.</a></p>
+                </div>
             </div>
         </section>
     </main>
@@ -104,16 +111,44 @@
         <div class="footer-container">
             <div class="footer-links-main">
                 <a href="how-it-works.html">How It Works</a>
-                <a href="why.html">Why the Holistic Therapy Dog?</a>
                 <a href="diploma.html">The Diploma</a>
             </div>
             <div class="footer-links-legal">
                 <a href="terms.html">Terms and Conditions</a>
                 <a href="privacy.html">Privacy Policy</a>
+                <a href="why.html">Association Philosophy</a> 
             </div>
             <p class="footer-copyright">© 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <script>
+        const signupForm = document.getElementById('signup-form');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('password-confirm');
+        const passwordError = document.getElementById('password-error');
+
+        signupForm.addEventListener('submit', (e) => {
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                e.preventDefault(); 
+                passwordError.textContent = 'Error: Passwords must match exactly.';
+                passwordError.style.display = 'block';
+                // Highlight the fields
+                passwordInput.style.borderColor = '#A52A2A'; 
+                confirmPasswordInput.style.borderColor = '#A52A2A'; 
+            } else if (passwordInput.value.length < 8) {
+                e.preventDefault();
+                passwordError.textContent = 'Error: Password must be at least 8 characters.';
+                passwordError.style.display = 'block';
+                passwordInput.style.borderColor = '#A52A2A';
+                confirmPasswordInput.style.borderColor = '#A52A2A';
+            } else {
+                passwordError.style.display = 'none';
+                passwordInput.style.borderColor = ''; // Reset border
+                confirmPasswordInput.style.borderColor = ''; // Reset border
+            }
+        });
+    </script>
 
 </body>
 </html>
