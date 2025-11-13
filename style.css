@@ -1,40 +1,56 @@
 /* ---------------------------------
-   GLOBAL STYLES & COLORS
+   NEW GLOBAL STYLES & COLORS (Clinical Theme)
    ---------------------------------
-   - Background: Deep Charcoal (#1a1a1a)
-   - Primary Text: Off-white (#f5f5f5)
-   - NEW Primary CTA: Crimson Red (#C70039)
-   - NEW Accent: Metallic Gold (#d4af37)
+   - Page Background: Off-white (#f5f5f5)
+   - Text Color: Dark Charcoal (#333333)
+   - Primary Color: Deep Burgundy (#6D2E2E - from logo)
+   - Accent Color: Soft Gold (#C0A070 - from logo)
+   - Font: 'Roboto' (Clean Sans-Serif)
 */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
 body {
     margin: 0;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #1a1a1a;
-    color: #f5f5f5;
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333333;
     line-height: 1.6;
 }
 
 .navbar-container,
 .hero-container,
 .value-container,
-.footer-container {
+.footer-container,
+.page-header-container,
+.mission-container,
+.leadership-container,
+.steps-container,
+.intro-container,
+.registry-container,
+.contact-container,
+.content-container,
+.quiz-container,
+.verify-container,
+.account-form-container,
+.dashboard-container {
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px 0;
 }
 
-h1, h2, h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
 }
 
 /* ---------------------------------
    1. NAVIGATION BAR
    --------------------------------- */
 .navbar {
-    border-bottom: 1px solid #444;
+    background-color: #6D2E2E; /* Burgundy */
+    border-bottom: 2px solid #C0A070; /* Gold */
 }
 
 .navbar-container {
@@ -43,12 +59,12 @@ h1, h2, h3 {
     align-items: center;
 }
 
-/* NEW: Styles for the image logo */
 .navbar-logo {
     text-decoration: none;
+    padding: 5px 0;
 }
 .navbar-logo img {
-    height: 50px; /* Adjust this height as needed */
+    height: 60px; /* Adjust this height as needed */
     width: auto;
     display: block;
 }
@@ -58,24 +74,24 @@ h1, h2, h3 {
     color: #f5f5f5;
     text-decoration: none;
     font-size: 1rem;
+    font-weight: 400;
 }
 .navbar-menu .nav-link:hover {
-    color: #d4af37; /* Gold for hover */
+    color: #C0A070; /* Gold */
 }
 
-/* UPDATED: Changed button to Crimson Red */
 .nav-cta {
-    background-color: #C70039;
-    color: #f5f5f5;
+    background-color: #C0A070; /* Gold */
+    color: #333;
     padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s;
+    font-weight: 700;
+    transition: all 0.3s;
 }
 .nav-cta:hover {
     background-color: #f5f5f5;
-    color: #C70039;
+    color: #6D2E2E;
 }
 
 /* ---------------------------------
@@ -83,6 +99,7 @@ h1, h2, h3 {
    --------------------------------- */
 .hero-section {
     padding: 60px 0;
+    background-color: #ffffff; /* Clean white */
 }
 
 .hero-container {
@@ -97,48 +114,48 @@ h1, h2, h3 {
 
 .hero-content {
     flex: 1; /* Takes up 50% */
-    text-align: center;
+    text-align: left;
 }
 
 .hero-headline {
     font-size: 2.8rem;
-    color: #f5f5f5;
+    color: #333;
     margin-bottom: 10px;
 }
 
 .hero-subheadline {
     font-size: 2rem;
-    color: #d4af37; /* Gold accent */
+    color: #6D2E2E; /* Burgundy */
     margin-bottom: 20px;
 }
 
 .hero-text {
     font-size: 1.1rem;
     margin-bottom: 30px;
+    color: #555;
 }
 
-/* UPDATED: Changed button to Crimson Red */
 .hero-cta-button {
-    background-color: #C70039;
-    color: #f5f5f5;
+    background-color: #C0A070; /* Gold */
+    color: #333;
     padding: 15px 30px;
     border-radius: 5px;
     text-decoration: none;
     font-size: 1.2rem;
-    font-weight: bold;
+    font-weight: 700;
     text-transform: uppercase;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
 }
 .hero-cta-button:hover {
-    background-color: #f5f5f5;
-    color: #C70039;
+    background-color: #6D2E2E; /* Burgundy */
+    color: #f5f5f5;
 }
 
 /* ---------------------------------
    3. VALUE SECTION
    --------------------------------- */
 .value-section {
-    background-color: #2a2a2a; /* Slightly lighter background */
+    background-color: #f5f5f5; /* Off-white */
     padding: 60px 0;
     text-align: center;
 }
@@ -151,30 +168,34 @@ h1, h2, h3 {
 
 .value-column {
     flex: 1;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .value-icon {
     font-size: 3rem;
-    color: #d4af37; /* Gold accent */
+    color: #C0A070; /* Gold */
 }
 
 .value-title {
     font-size: 1.8rem;
-    color: #f5f5f5;
+    color: #333;
     margin-bottom: 10px;
 }
 
 .value-text {
     font-size: 1rem;
-    color: #ccc;
+    color: #555;
 }
 
 /* ---------------------------------
    4. FOOTER
    --------------------------------- */
 .footer {
-    background-color: #111;
-    color: #888;
+    background-color: #6D2E2E; /* Burgundy */
+    color: #f5f5f5;
     padding: 40px 0;
     text-align: center;
     font-size: 0.9rem;
@@ -182,14 +203,14 @@ h1, h2, h3 {
 
 .footer-links-main a,
 .footer-links-legal a {
-    color: #ccc;
+    color: #f5f5f5;
     text-decoration: none;
     margin: 0 10px;
 }
 
 .footer-links-main a:hover,
 .footer-links-legal a:hover {
-    color: #d4af37; /* Gold accent */
+    color: #C0A070; /* Gold */
 }
 
 .footer-links-main {
@@ -203,62 +224,58 @@ h1, h2, h3 {
 
 .footer-copyright {
     margin: 0;
+    color: #C0A070;
 }
 /* ---------------------------------
    5. "ABOUT US" PAGE STYLES
    --------------------------------- */
 
-/* Generic Page Header for 'About', 'Contact', etc. */
 .page-header {
-    background-color: #2a2a2a;
+    background-color: #6D2E2E; /* Burgundy */
     padding: 30px 0;
     text-align: center;
 }
-.page-header-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
 .page-header h1 {
     font-size: 2.5rem;
-    color: #d4af37; /* Gold accent */
+    color: #C0A070; /* Gold */
     margin: 0;
 }
 
-/* Mission Section */
 .mission-section {
     padding: 60px 0;
+    background-color: #ffffff;
 }
 .mission-container {
     width: 90%;
-    max-width: 900px; /* Narrower for reading */
+    max-width: 900px;
     margin: 0 auto;
     text-align: center;
 }
 .mission-title {
     font-size: 2.2rem;
-    color: #d4af37; /* Gold accent */
+    color: #6D2E2E; /* Burgundy */
     margin-bottom: 30px;
 }
 .mission-quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    color: #f5f5f5;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    color: #333;
     line-height: 1.7;
-    border-left: 4px solid #d4af37; /* Gold accent */
+    border-left: 4px solid #C0A070; /* Gold */
     padding-left: 25px;
     margin: 0;
     text-align: left;
     font-style: italic;
+    font-weight: 300;
 }
 .mission-quote strong {
-    color: #d4af37; /* Gold accent */
+    color: #6D2E2E; /* Burgundy */
     font-style: normal;
+    font-weight: 700;
 }
 
-/* Leadership Section */
 .leadership-section {
-    background-color: #2a2a2a;
+    background-color: #f5f5f5;
     padding: 60px 0;
 }
 .leadership-container {
@@ -268,130 +285,120 @@ h1, h2, h3 {
 }
 .section-title {
     font-size: 2.2rem;
-    color: #d4af37; /* Gold accent */
+    color: #6D2E2E; /* Burgundy */
     text-align: center;
     margin-bottom: 40px;
 }
 .leadership-grid {
     display: grid;
-    grid-template-columns: 1fr; /* Single column by default */
+    grid-template-columns: 1fr;
     gap: 40px;
 }
-
-/* On larger screens, switch to 2 columns */
 @media (min-width: 900px) {
     .leadership-grid {
         grid-template-columns: 1fr 1fr;
     }
 }
-
 .bio-card {
-    background-color: #1a1a1a;
+    background-color: #ffffff;
     border-radius: 10px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
-
-/* This is the placeholder for your headshots */
-.bio-image-placeholder {
+.bio-image-placeholder, .dog-image-placeholder {
     width: 100%;
     height: 300px;
-    background-color: #333;
+    background-color: #eee;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 3rem;
-    color: #d4af37; /* Gold accent */
-    font-family: 'Cormorant Garamond', serif;
+    color: #6D2E2E;
+    font-weight: 700;
 }
-/* When you have images, use this class instead */
-.bio-image {
+.bio-image, .dog-image {
     width: 100%;
     height: auto;
 }
-
 .bio-content {
     padding: 30px;
 }
 .bio-name {
     font-size: 2rem;
-    color: #f5f5f5;
+    color: #333;
     margin: 0 0 5px 0;
 }
 .bio-title {
     font-size: 1.2rem;
-    color: #d4af37; /* Gold accent */
+    color: #C0A070; /* Gold */
     margin: 0 0 20px 0;
-    font-family: 'Helvetica Neue', Arial, sans-serif; /* Use sans-serif for the title */
-    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
 }
 .bio-text {
     font-size: 1rem;
-    color: #ccc;
+    color: #555;
     line-height: 1.7;
 }
+
 /* ---------------------------------
    6. "HOW IT WORKS" PAGE STYLES
    --------------------------------- */
 .steps-section {
     padding: 60px 0;
+    background-color: #ffffff;
 }
-
 .steps-container {
     width: 90%;
     max-width: 1000px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr; /* Single column on mobile */
+    grid-template-columns: 1fr;
     gap: 30px;
 }
-
-/* On larger screens, switch to 2 columns */
 @media (min-width: 768px) {
     .steps-container {
         grid-template-columns: 1fr 1fr;
     }
 }
-
 .step-card {
-    background-color: #2a2a2a;
+    background-color: #f5f5f5;
     border-radius: 10px;
     padding: 30px;
     display: flex;
     gap: 20px;
+    border: 1px solid #eee;
 }
-
 .step-number {
-    font-family: 'Cormorant Garamond', serif;
     font-size: 3rem;
-    font-weight: 600;
-    color: #d4af37; /* Gold accent */
+    font-weight: 700;
+    color: #C0A070; /* Gold */
     flex-shrink: 0;
 }
-
 .step-content {
     flex-grow: 1;
 }
-
 .step-title {
     font-size: 1.8rem;
-    color: #f5f5f5;
+    color: #333;
     margin: 0 0 10px 0;
 }
-
 .step-text {
     font-size: 1rem;
-    color: #ccc;
+    color: #555;
     line-height: 1.7;
     font-style: italic;
     margin: 0;
 }
+
 /* ---------------------------------
    7. "MEET OUR DOGS" PAGE STYLES
    --------------------------------- */
 .intro-section {
     padding: 40px 0 0 0;
+    background-color: #fff;
 }
 .intro-container {
     width: 90%;
@@ -400,19 +407,21 @@ h1, h2, h3 {
     text-align: center;
 }
 .intro-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    color: #f5f5f5;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    color: #333;
     line-height: 1.7;
     font-style: italic;
+    font-weight: 300;
 }
 .intro-text strong {
-    color: #d4af37; /* Gold accent */
+    color: #6D2E2E; /* Burgundy */
     font-style: normal;
+    font-weight: 700;
 }
-
 .registry-section {
     padding: 60px 0;
+    background-color: #fff;
 }
 .registry-container {
     width: 90%;
@@ -421,107 +430,86 @@ h1, h2, h3 {
 }
 .registry-grid {
     display: grid;
-    grid-template-columns: 1fr; /* 1 column by default */
+    grid-template-columns: 1fr;
     gap: 30px;
 }
-
-/* On larger screens, switch to 2 columns */
 @media (min-width: 900px) {
     .registry-grid {
         grid-template-columns: 1fr 1fr;
     }
 }
-
 .dog-card {
-    background-color: #2a2a2a;
+    background-color: #f5f5f5;
+    border: 1px solid #eee;
     border-radius: 10px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
 }
-
-.dog-image-placeholder {
-    width: 100%;
-    height: 300px;
-    background-color: #333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    color: #d4af37; /* Gold accent */
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-}
-.dog-image {
-    width: 100%;
-    height: auto;
-}
-
 .dog-content {
     padding: 30px;
 }
 .dog-name {
     font-size: 1.6rem;
-    color: #f5f5f5;
+    color: #333;
     margin: 0 0 5px 0;
     text-transform: uppercase;
 }
 .dog-status {
     font-size: 1rem;
-    color: #d4af37; /* Gold accent */
+    color: #C0A070; /* Gold */
     margin: 0 0 20px 0;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-weight: 600;
+    font-weight: 700;
 }
 .dog-bio {
     font-size: 1rem;
-    color: #ccc;
+    color: #555;
     line-height: 1.7;
     font-style: italic;
 }
 .dog-bio strong {
-    color: #f5f5f5;
+    color: #333;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
 }
+
 /* ---------------------------------
-   8. "CONTACT US" PAGE STYLES
+   8. "CONTACT US" & FORMS
    --------------------------------- */
-.contact-section {
+.contact-section, .account-form-section, .quiz-section, .verify-section, .dashboard-section {
     padding: 60px 0;
 }
-.contact-container {
+.contact-container, .quiz-container, .verify-container, .account-form-container, .dashboard-container {
     width: 90%;
-    max-width: 1200px;
+    max-width: 900px;
     margin: 0 auto;
 }
-.contact-intro {
-    max-width: 900px;
-    margin: 0 auto 40px auto;
+.contact-intro, .account-form-intro, .quiz-intro, .verify-intro {
     text-align: center;
+    margin-bottom: 40px;
+}
+.contact-intro p, .account-form-intro p, .quiz-intro p, .verify-intro p {
     font-size: 1.1rem;
-    color: #ccc;
+    color: #555;
     line-height: 1.7;
 }
-
 .contact-layout {
     display: grid;
-    grid-template-columns: 1fr; /* 1 column by default */
+    grid-template-columns: 1fr;
     gap: 40px;
 }
-
-/* On larger screens, switch to 2 columns */
 @media (min-width: 900px) {
     .contact-layout {
-        grid-template-columns: 2fr 1fr; /* Form is 2/3, Details are 1/3 */
+        grid-template-columns: 2fr 1fr;
     }
 }
-
-/* Form Styles */
-.contact-form-container {
-    background-color: #2a2a2a;
+.contact-form-container, .account-form-container, .quiz-question-card, .dashboard-card, .details-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
     padding: 30px;
     border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 .form-group {
     margin-bottom: 20px;
@@ -530,210 +518,135 @@ h1, h2, h3 {
     display: block;
     margin-bottom: 8px;
     font-size: 0.9rem;
-    font-weight: 600;
-    color: #f5f5f5;
+    font-weight: 700;
+    color: #333;
 }
-.form-group input,
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
 .form-group select,
 .form-group textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #555;
-    background-color: #333;
-    color: #f5f5f5;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
     border-radius: 5px;
     font-size: 1rem;
-    box-sizing: border-box; /* Important for 100% width */
+    box-sizing: border-box;
 }
-
-/* Overrides the global CTA button to be 100% width */
-#contact-form .hero-cta-button {
+#contact-form .hero-cta-button,
+#signup-form .hero-cta-button,
+#checkout-form .hero-cta-button,
+#login-form .hero-cta-button,
+#quiz-form .hero-cta-button {
     width: 100%;
     border: none;
     cursor: pointer;
 }
-
-/* Details Sidebar Styles */
-.details-card {
-    background-color: #2a2a2a;
-    padding: 25px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
 .details-title {
     font-size: 1.5rem;
-    color: #d4af37; /* Gold accent */
+    color: #6D2E2E; /* Burgundy */
     margin: 0 0 10px 0;
 }
 .details-text {
     font-size: 1rem;
-    color: #ccc;
+    color: #555;
     line-height: 1.7;
     margin: 0;
 }
 .details-text a {
-    color: #ccc;
-    text-decoration: none;
+    color: #6D2E2E;
 }
 .details-text a:hover {
-    color: #d4af37; /* Gold accent */
+    color: #C0A070;
 }
+
 /* ---------------------------------
    9. "LEGAL / CONTENT" PAGE STYLES
-   (For Terms, Privacy, Why, etc.)
    --------------------------------- */
 .content-page-section {
     padding: 60px 0;
 }
-
 .content-container {
-    width: 90%;
-    max-width: 900px; /* Narrower width for easier reading */
-    margin: 0 auto;
-    background-color: #2a2a2a;
-    border-radius: 10px;
-    padding: 40px;
-}
-
-.content-container h2 {
-    font-size: 2rem;
-    color: #d4af37; /* Gold accent */
-    margin-top: 0;
-    margin-bottom: 20px;
-}
-
-.content-container h3 {
-    font-size: 1.6rem;
-    color: #f5f5f5;
-    margin-top: 30px;
-    margin-bottom: 15px;
-}
-
-.content-container p,
-.content-container li {
-    font-size: 1.1rem;
-    color: #ccc;
-    line-height: 1.8;
-}
-
-.content-container strong {
-    color: #f5f5f5;
-    font-weight: 600;
-}
-
-.content-container ul {
-    padding-left: 20px;
-}
-/* ---------------------------------
-   10. "QUIZ" PAGE STYLES
-   --------------------------------- */
-.quiz-section {
-    padding: 60px 0;
-}
-
-.quiz-container {
     width: 90%;
     max-width: 900px;
     margin: 0 auto;
-}
-
-.quiz-intro {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.quiz-intro .section-title {
-    margin-bottom: 10px;
-}
-
-.quiz-intro p {
-    font-size: 1.1rem;
-    color: #ccc;
-    line-height: 1.7;
-}
-
-.quiz-question-card {
-    background-color: #2a2a2a;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
     border-radius: 10px;
-    padding: 30px;
+    padding: 40px;
+}
+.content-container h2 {
+    font-size: 2rem;
+    color: #6D2E2E; /* Burgundy */
+    margin-top: 0;
     margin-bottom: 20px;
 }
-
-.quiz-question {
-    font-size: 1.8rem;
-    color: #f5f5f5;
-    margin: 0 0 10px 0;
+.content-container h3 {
+    font-size: 1.6rem;
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+.content-container p,
+.content-container li {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.8;
+}
+.content-container strong {
+    color: #333;
+    font-weight: 700;
+}
+.content-container ul {
+    padding-left: 20px;
 }
 
+/* ---------------------------------
+   10. "QUIZ" PAGE STYLES
+   --------------------------------- */
+.quiz-question {
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0 0 10px 0;
+}
 .quiz-question-desc {
     font-size: 1.1rem;
-    color: #ccc;
+    color: #555;
     line-height: 1.7;
     margin: 0 0 20px 0;
 }
-
 .quiz-options label {
     display: inline-block;
     margin-right: 20px;
     font-size: 1.2rem;
-    color: #f5f5f5;
+    color: #333;
     cursor: pointer;
 }
-
 .quiz-options input[type="radio"] {
     margin-right: 8px;
-    /* Custom styling for radio buttons can be complex; this is a simple default */
 }
-
 .quiz-submit-container {
     text-align: center;
     margin-top: 40px;
 }
-
-/* Overrides the global CTA button to be larger */
 #quiz-form .hero-cta-button {
     font-size: 1.3rem;
     padding: 18px 40px;
-    border: none;
-    cursor: pointer;
 }
+
 /* ---------------------------------
    11. "VERIFY" PAGE STYLES
    --------------------------------- */
-.verify-section {
-    padding: 60px 0;
-}
-.verify-container {
-    width: 90%;
-    max-width: 900px;
-    margin: 0 auto;
-}
-.verify-intro {
-    text-align: center;
-    margin-bottom: 40px;
-}
-.verify-intro .section-title {
-    margin-bottom: 10px;
-}
-.verify-intro p {
-    font-size: 1.1rem;
-    color: #ccc;
-    line-height: 1.7;
-}
-
-/* Verification Search Form */
 .verify-form {
     display: flex;
     gap: 10px;
     margin-bottom: 40px;
 }
 .verify-form input[type="text"] {
-    flex-grow: 1; /* Takes up all available space */
+    flex-grow: 1;
     padding: 15px;
-    border: 1px solid #555;
-    background-color: #333;
-    color: #f5f5f5;
-    border-radius: 5px;
     font-size: 1.1rem;
 }
 .verify-form .hero-cta-button {
@@ -741,69 +654,38 @@ h1, h2, h3 {
     cursor: pointer;
     font-size: 1.1rem;
     padding: 15px 25px;
+    width: auto; /* Override 100% width */
 }
-
-/* Verification Results */
 .results-container {
     margin-top: 40px;
-    border-top: 1px solid #444;
+    border-top: 1px solid #ddd;
     padding-top: 40px;
 }
 .results-title {
     font-size: 2rem;
-    color: #d4af37; /* Gold accent */
+    color: #6D2E2E; /* Burgundy */
     text-align: center;
     margin-bottom: 30px;
 }
-/* Re-using the .dog-card style from "Meet Our Dogs" */
 .dog-result {
     max-width: 800px;
     margin: 0 auto 20px auto;
 }
 .dog-result .dog-bio {
-    font-style: normal; /* Override italic style */
+    font-style: normal;
 }
 .dog-result .dog-bio strong {
-    color: #f5f5f5;
-    font-weight: 600;
+    color: #333;
+    font-weight: 700;
 }
+
 /* ---------------------------------
    12. "ACCOUNT FORM" STYLES
-   (For Signup, Login, etc.)
    --------------------------------- */
-.account-form-section {
-    padding: 60px 0;
-}
-
-.account-form-container {
-    width: 90%;
-    max-width: 900px;
-    margin: 0 auto;
-    background-color: #2a2a2a;
-    border-radius: 10px;
-    padding: 40px;
-}
-
-.account-form-intro {
-    font-size: 1.1rem;
-    color: #ccc;
-    line-height: 1.7;
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 30px auto;
-}
-
-.account-form-container .section-title {
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 20px;
-}
-
-/* Form <fieldset> styles */
 #signup-form fieldset,
 #checkout-form fieldset,
 #login-form fieldset {
-    border: 1px solid #555;
+    border: 1px solid #ccc;
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 20px;
@@ -811,82 +693,61 @@ h1, h2, h3 {
 #signup-form legend,
 #checkout-form legend,
 #login-form legend {
-    font-family: 'Cormorant Garamond', serif;
     font-size: 1.6rem;
-    font-weight: 600;
-    color: #d4af37; /* Gold accent */
+    font-weight: 700;
+    color: #6D2E2E; /* Burgundy */
     padding: 0 10px;
     margin-left: 10px;
 }
-
-/* Re-using .form-group from contact.css */
 .form-group-split {
     display: flex;
-    flex-direction: column; /* Stack on mobile */
+    flex-direction: column;
     gap: 20px;
 }
 @media (min-width: 768px) {
     .form-group-split {
-        flex-direction: row; /* Side-by-side on desktop */
+        flex-direction: row;
     }
     .form-group-split .form-group {
-        flex: 1; /* Each takes equal space */
+        flex: 1;
     }
 }
-
 .account-submit-container {
     text-align: center;
     margin-top: 30px;
 }
-
-#signup-form .hero-cta-button,
-#checkout-form .hero-cta-button,
-#login-form .hero-cta-button {
-    width: 100%;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2rem;
-    padding: 16px 30px;
-}
-
 @media (min-width: 768px) {
     #signup-form .hero-cta-button,
     #checkout-form .hero-cta-button,
     #login-form .hero-cta-button {
-        width: auto; /* Auto-width on desktop */
+        width: auto;
     }
 }
+
 /* ---------------------------------
    13. "ACCOUNT LOGIN" PAGE STYLES
-   (Mostly re-uses existing styles)
    --------------------------------- */
-
 .account-link-container {
     text-align: center;
     margin-top: 30px;
 }
-
 .account-link-container p {
     font-size: 1rem;
-    color: #ccc;
+    color: #555;
 }
-
 .account-link-container a {
-    color: #d4af37; /* Gold accent */
+    color: #6D2E2E; /* Burgundy */
     font-weight: 600;
     text-decoration: none;
 }
-
 .account-link-container a:hover {
     text-decoration: underline;
 }
+
 /* ---------------------------------
    14. MOBILE RESPONSIVE STYLES
-   (Applies to all screens 900px or less)
    --------------------------------- */
 @media (max-width: 900px) {
-
-    /* --- General Column Stacking --- */
     .hero-container,
     .leadership-grid,
     .steps-container,
@@ -894,31 +755,26 @@ h1, h2, h3 {
     .contact-layout,
     .form-group-split,
     .value-container {
-        display: flex;
         flex-direction: column;
-        grid-template-columns: 1fr; /* Override all grid settings */
     }
-
-    /* --- Navigation Bar --- */
     .navbar-container {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center; /* Center logo on mobile */
     }
     .navbar-logo {
-        margin-bottom: 15px; /* Add space below logo */
+        margin-bottom: 15px;
     }
-    /* NEW: Constrain logo image on mobile */
     .navbar-logo img {
-        height: 40px; /* Smaller logo on mobile */
+        height: 50px;
     }
     .navbar-menu {
         display: flex;
-        flex-direction: column; /* Stack the nav links */
+        flex-direction: column;
         width: 100%;
     }
     .nav-link {
         padding: 10px 0;
-        border-top: 1px solid #444; /* Add dividers */
+        border-top: 1px solid #8a4a4a; /* Darker red border */
         width: 100%;
         text-align: center;
         margin: 0;
@@ -927,102 +783,71 @@ h1, h2, h3 {
         margin-top: 15px;
         width: 100%;
         text-align: center;
-        box-sizing: border-box; /* Make 100% width work with padding */
+        box-sizing: border-box;
     }
-
-    /* --- Forms --- */
-    .account-form-container {
-        padding: 20px; /* Reduce padding on mobile */
+    .account-form-container, .content-container, .dashboard-card, .details-card, .contact-form-container {
+        padding: 20px;
     }
     .verify-form {
-        flex-direction: column; /* Stack search button under input */
+        flex-direction: column;
     }
-
-    /* --- Page-specific tweaks --- */
+    .verify-form .hero-cta-button {
+        width: 100%;
+    }
     .hero-content {
         text-align: center;
     }
     .hero-headline {
-        font-size: 2.2rem; /* Slightly smaller text */
+        font-size: 2.2rem;
     }
     .page-header h1 {
-        font-size: 2.0rem; /* Slightly smaller text */
+        font-size: 2.0rem;
     }
     .section-title, .mission-title {
-        font-size: 1.8rem; /* Slightly smaller text */
-    }
-    .content-container {
-        padding: 20px; /* Reduce padding on mobile */
+        font-size: 1.8rem;
     }
     .mission-quote {
         font-size: 1.2rem;
     }
 }
+
 /* ---------------------------------
    15. "ACCOUNT DASHBOARD" STYLES
    --------------------------------- */
-.dashboard-section {
-    padding: 60px 0;
-}
-
-.dashboard-container {
-    width: 90%;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.dashboard-container .section-title {
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 30px;
-}
-
 .dashboard-card {
-    background-color: #2a2a2a;
-    border-radius: 10px;
-    padding: 30px;
-    margin-bottom: 30px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
 }
-
 .dashboard-card-title {
-    font-family: 'Cormorant Garamond', serif;
     font-size: 1.8rem;
-    font-weight: 600;
-    color: #d4af37; /* Gold accent */
-    margin: 0 0 20px 0;
-    border-bottom: 1px solid #555;
-    padding-bottom: 10px;
+    font-weight: 700;
+    color: #6D2E2E; /* Burgundy */
+    border-bottom: 1px solid #eee;
 }
-
-/* Re-using the .dog-result from verify.html */
 .dashboard-card .dog-result {
     max-width: 100%;
     margin: 0;
 }
-
-/* Upsell Card */
 .upsell-card {
-    background-color: #333;
-    border: 2px dashed #d4af37; /* Gold accent */
+    background-color: #f5f5f5;
+    border: 2px dashed #C0A070; /* Gold */
     text-align: center;
 }
 .upsell-title {
     font-size: 1.5rem;
-    color: #f5f5f5;
+    color: #333;
     margin: 0 0 10px 0;
 }
 .upsell-text {
     font-size: 1rem;
-    color: #ccc;
+    color: #555;
     line-height: 1.7;
     margin-bottom: 25px;
 }
-
-/* Account Links */
 .dashboard-link {
     display: block;
     font-size: 1.1rem;
-    color: #d4af37; /* Gold accent */
+    color: #6D2E2E; /* Burgundy */
     text-decoration: none;
     font-weight: 600;
     margin-bottom: 10px;
@@ -1041,19 +866,54 @@ h1, h2, h3 {
     background-color: #000;
     border-radius: 10px;
     overflow: hidden;
-    border: 2px solid #d4af37; /* Gold accent */
+    border: 2px solid #C0A070; /* Gold */
 }
-
 .hero-video {
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    object-fit: cover; /* This is the CSS trick to fill the container */
+    object-fit: cover;
 }
-
-/* Remove the old placeholder style */
 .video-placeholder {
     display: none;
+}
+/* ---------------------------------
+   18. "DIPLOMA PREVIEW" STYLES
+   --------------------------------- */
+.diploma-preview-box {
+    width: 100%;
+    padding: 30px 20px;
+    box-sizing: border-box;
+    background-color: #f5f5f5;
+    border: 1px dashed #C0A070; /* Gold */
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* The Watermark */
+.diploma-preview-box::before {
+    content: "PREVIEW";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.05); /* Very faint text */
+    z-index: 1;
+}
+
+#diploma-preview-text {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    z-index: 2;
+    position: relative;
+    word-break: break-all;
 }

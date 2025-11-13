@@ -5,15 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout: Add Your Dog - Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display.swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header class="navbar">
         <div class="navbar-container">
-            <a href="index.html" class="navbar-logo">HOLISTIC DOG ASSOC.</a>
+            <a href="index.html" class="navbar-logo">
+                <img src="logo-header.jpg" alt="Holistic Therapy Dog Association">
+            </a>
             <nav class="navbar-menu">
                 <a href="about.html" class="nav-link">About Us</a>
+                <a href="diploma.html" class="nav-link">The Diploma</a>
                 <a href="meet-our-dogs.html" class="nav-link">Meet Our Dogs</a>
                 <a href="gallery.html" class="nav-link">Gallery</a>
                 <a href="contact.html" class="nav-link">Contact Us</a>
@@ -51,6 +55,11 @@
                             <label for="dog_name">Dog's Full Name (for Diploma)</label>
                             <input type="text" id="dog_name" name="dog_name" placeholder="e.g., BUDWORD 'BUDDY' WOODS" required>
                         </div>
+                        
+                        <div class="diploma-preview-box">
+                            <span id="diploma-preview-text">Type your dog's name above...</span>
+                        </div>
+                        
                         <div class="form-group">
                             <label for="state_of_licensure">State of Licensure (2-Letter Abbreviation)</label>
                             <input type="text" id="state_of_licensure" name="state_of_licensure" placeholder="e.g., CA" maxlength="2" required>
@@ -66,9 +75,9 @@
                         <div class="form-group">
                             <label for="confirm_spelling">
                                 <input type="checkbox" id="confirm_spelling" name="confirm_spelling" required>
-                                <strong>I confirm the spelling of my dog's name is 100% correct.</strong>
+                                <strong>I confirm the spelling in the preview is 100% correct.</strong>
                                 <br>
-                                <span style="font-size: 0.9rem; color: #ccc;">I understand reprints due to my error may take up to four weeks and incur a fee, as per the Terms and Conditions.</span>
+                                <span style="font-size: 0.9rem; color: #555;">I understand reprints due to my error may take up to four weeks and incur a fee, as per the Terms and Conditions.</span>
                             </label>
                         </div>
                     </fieldset>
@@ -87,6 +96,7 @@
             <div class="footer-links-main">
                 <a href="how-it-works.html">How It Works</a>
                 <a href="why.html">Why the Holistic Therapy Dog?</a>
+                <a href="diploma.html">The Diploma</a>
             </div>
             <div class="footer-links-legal">
                 <a href="terms.html">Terms and Conditions</a>
@@ -95,6 +105,21 @@
             <p class="footer-copyright">© 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dogNameInput = document.getElementById('dog_name');
+            const previewText = document.getElementById('diploma-preview-text');
+
+            dogNameInput.addEventListener('keyup', () => {
+                if (dogNameInput.value.trim() === '') {
+                    previewText.textContent = 'Type your dog\'s name above...';
+                } else {
+                    previewText.textContent = dogNameInput.value;
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
