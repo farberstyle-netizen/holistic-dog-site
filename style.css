@@ -971,3 +971,46 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     word-break: break-all;
 }
+/* ---------------------------------
+   19. GLOBAL HOVER EFFECT (POP)
+   --------------------------------- */
+
+/* * Apply smooth transitions to all interactive card/button elements 
+ */
+.nav-cta,
+.hero-cta-button,
+.value-column,
+.bio-card,
+.dog-card,
+.step-card,
+.dashboard-card,
+.details-card,
+.diploma-column,
+.diploma-preview-box {
+    /* Ensure all elements have a smooth animation when transformed */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* * Define the "pop" effect on hover 
+ */
+.nav-cta:hover,
+.hero-cta-button:hover,
+.value-column:hover,
+.bio-card:hover,
+.dog-card:hover,
+.step-card:hover,
+.dashboard-card:hover,
+.details-card:hover,
+.diploma-column:hover,
+.diploma-preview-box:hover {
+    /* Scale the element up slightly (3%) to give it lift */
+    transform: scale(1.03); 
+    /* Add a subtle shadow for depth, matching the clinical look */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15); 
+}
+
+/* * Prevents text links in the nav bar from breaking the layout when scaled 
+ */
+.nav-link:hover {
+    transform: none; 
+}
