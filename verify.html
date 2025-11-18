@@ -5,93 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verify a License | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* Page-specific styles for the result card */
-        .result-card {
-            max-width: 500px;
-            margin: 2rem auto;
-            text-align: center;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background: var(--bg-white);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            padding: 2rem;
-        }
-        .result-card h3 {
-            font-family: var(--font-header);
-            color: var(--primary-maroon);
-            font-size: 1.8rem;
-        }
-        .result-card p {
-            font-size: 1.1rem;
-            margin-top: 0.5rem;
-        }
-        .result-status {
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-top: 1rem;
-        }
-        .status-active { color: #2e7d32; }
-        .status-expired { color: #c62828; }
-    </style>
 </head>
 <body>
 
-    <!-- Dynamic Header -->
     <header>
         <div class="nav-container">
-            <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
+            <a href="index.html" class="navbar-logo">
+                <img src="logo-header.jpg" alt="Holistic Therapy Dog Association">
+            </a>
             <nav>
                 <ul id="nav-links">
-                    <li><a href="about-holistic.html">What is the HTDA?</a></li>
-                    <li><a href="gallery.html">Meet Our Dogs</a></li>
-                    <li><a href="verify.html">Verify License</a></li>
-                </ul>
+                    </ul>
             </nav>
-            <div class="nav-account" id="nav-account-links">
-                <!-- JS Fills This -->
-            </div>
+            <div class="nav-account" id="nav-account-links"></div>
         </div>
     </header>
 
-    <!-- Page Content (From your file) -->
     <main class="page-container">
         <h1>Verify a Certification</h1>
-        <p class="section-intro">Enter a dog's name or certification ID to verify their status in our registry.</p>
+        <p class="section-intro">Enter a dog's name or certification ID to verify their status in our national registry.</p>
         
         <form class="contact-form" id="verify-form" style="max-width: 600px; margin: auto;">
             <div class="form-group">
-                <label for="search_id">Search by ID or Dog's Name</label>
-                <input type="text" id="search_id" name="search_id" required>
+                <label for="search_term">Search by Dog's Name or ID</label>
+                <input type="text" id="search_term" name="search_term" placeholder="e.g. 1001 or 'Buddy'" required>
             </div>
             <button type="submit" class="btn-submit" id="searchBtn">Search Registry</button>
         </form>
 
-        <!-- Search results will appear here -->
-        <div id="results-container" class="results-container" style="margin-top: 2rem;">
-            <!-- Example:
-            <div class="result-card">
-                <h3>Pickle</h3>
-                <p><strong>State:</strong> NY</p>
-                <p class="result-status status-active">LICENSE: ACTIVE</p>
-            </div>
-            -->
-        </div>
+        <div id="results-container" style="margin-top: 2rem;"></div>
     </main>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-links">
             <a href="about.html">About Us</a>
+            <a href="meet-our-dogs.html">Meet Our Dogs</a>
+            <a href="careers.html">Careers</a>
+            <a href="advocacy.html">Advocacy</a>
             <a href="contact.html">Contact</a>
             <a href="privacy-policy.html">Privacy Policy</a>
             <a href="terms.html">Terms & Conditions</a>
         </div>
-        <p class="disclaimer">
-            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title...
+        <p class="disclaimer">The Holistic Therapy Dog certification is a commemorative title...</p>
+        <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+    </footer>
+
+    <script src="header.js"></script>
+    <script>
+        const verifyForm = document.getElementById('verify-form');
+        const resultsContainer = document.getElementById('results-container');
+        const searchBtn = document.getElementById('searchBtn');
+
+        verifyForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const term = document.getElementById('search_term').value;
+            
+            searchBtn.disabled = true;
+            searchBtn.innerText = "Searching...";
+            resultsContainer.innerHTML = '';
+
+            try {
+                // Connects to the worker we built previously
+                const response = await fetch(`https://api-verify.farberstyle.workers.dev?q=${encodeURIComponent(term)}`);
+                const data = await response.json();
+
+                if (data.found) {
+                    const isExpired = data.license_status === 'Expired';
+                    const color = isExpired ? '#c62828' : '#2e7d32'; // Red or Green
+                    
+                    resultsContainer.innerHTML = `
+                        <div class="dashboard-card" style="text-align:center; border-top: 4px solid ${color};">
+                            <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem;">${data.dog_name}</h3>
+                            <h4 style="color: ${color}; font-weight: bold; font-size: 1.2rem;">LICENSE: ${data.license_status.toUpperCase()}</h4>
+                            <p style="margin-top: 1rem;">
+                                <strong>State:</strong> ${data.state_of_licensure}<br>
+                                <strong>Expires:</strong> ${data.expires_at}
+                            </p>
+                        </div>
+                    `;
+                } else {
+                    resultsContainer.innerHTML = `<p style="text-align:center; color: #777;">No record found for "${term}".</p>`;
+                }
+            } catch (err) {
+                resultsContainer.innerHTML = `<p style="text-align:center; color: red;">Error connecting to database.</p>`;
+            } finally {
+                searchBtn.disabled = false;
+                searchBtn.innerText = "Search Registry";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,35 +1,41 @@
-/* style.css - The Unified Design System */
+/* style.css - The Unified Clinical Design System */
+
+/* IMPORT MONTSERRAT FONT */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
 
 :root {
-    --primary-color: #5D2A2A; /* Deep Maroon/Brown */
-    --accent-color: #B89A6A;  /* Muted Gold */
-    --bg-color: #fdfbf7;      /* Warm Off-White */
-    --text-color: #333;
+    /* Clinical Theme Colors */
+    --primary-maroon: #5D2A2A; 
+    --accent-gold: #B89A6A;    
+    --bg-offwhite: #f5f5f5;    
+    --text-charcoal: #333333;
     --white: #ffffff;
-    --font-main: 'Lato', sans-serif;
-    --font-serif: 'Playfair Display', serif;
+    
+    /* Unified Font */
+    --font-main: 'Montserrat', sans-serif;
+    --font-header: 'Montserrat', sans-serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: var(--font-main);
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background-color: var(--bg-offwhite);
+    color: var(--text-charcoal);
     line-height: 1.6;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-/* --- Header & Nav --- */
+/* --- HEADER & NAV --- */
 header {
-    background-color: var(--white);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    padding: 1rem 0;
+    background-color: var(--primary-maroon);
+    border-bottom: 3px solid var(--accent-gold);
+    padding: 0.5rem 0;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .nav-container {
@@ -41,166 +47,128 @@ header {
     align-items: center;
 }
 
-.logo {
-    font-family: var(--font-serif);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    text-decoration: none;
+/* Logo Image Styling */
+.logo img {
+    height: 60px;
+    width: auto;
+    display: block;
 }
 
+/* Navigation Links */
 nav ul {
     display: flex;
     list-style: none;
     gap: 2rem;
+    margin: 0;
+    padding: 0;
 }
 
 nav a {
     text-decoration: none;
-    color: var(--text-color);
-    font-weight: 700;
+    color: var(--white);
+    font-weight: 600;
+    font-size: 0.95rem;
     transition: color 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-nav a:hover { color: var(--accent-color); }
+nav a:hover { color: var(--accent-gold); }
 
-/* --- Typography & Page Structure --- */
+/* --- TOP RIGHT ACCOUNT AREA (PFP/LOGIN) --- */
+.nav-account {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-login-header {
+    background-color: var(--accent-gold);
+    color: var(--primary-maroon);
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.btn-login-header:hover {
+    background-color: var(--white);
+}
+
+.user-pfp {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent-gold);
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+.user-pfp:hover { transform: scale(1.1); }
+
+/* --- TYPOGRAPHY & LAYOUT --- */
 .page-container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 40px auto;
     padding: 0 20px;
     flex: 1;
 }
 
-h1, h2, h3 { font-family: var(--font-serif); color: var(--primary-color); margin-bottom: 1rem; }
+h1, h2, h3 { color: var(--primary-maroon); margin-bottom: 1rem; font-weight: 700; }
 h1 { font-size: 2.5rem; text-align: center; margin-bottom: 2rem; }
-.section-intro { font-size: 1.2rem; text-align: center; margin-bottom: 3rem; }
+.section-intro { font-size: 1.2rem; text-align: center; margin-bottom: 3rem; color: #555; }
 
-/* --- New Section: Homepage Hero and Grid Layout --- */
-.hero {
-    background-color: var(--accent-color); /* Use gold for the hero background */
-    color: var(--primary-color);
-    padding: 80px 20px;
-    text-align: center;
-}
-
-.hero h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
-}
-.hero p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-}
-.cta-button {
+/* --- BUTTONS & FORMS --- */
+.cta-button, .btn-submit, .btn-save {
     display: inline-block;
-    background-color: var(--primary-color);
-    color: var(--white);
-    padding: 15px 40px;
+    background-color: var(--accent-gold);
+    color: var(--primary-maroon);
+    padding: 15px 30px;
     text-decoration: none;
     font-weight: 700;
     border-radius: 4px;
-    transition: background-color 0.3s;
-}
-.cta-button:hover {
-    background-color: #4a2222;
-}
-
-.trust-section {
-    padding: 60px 20px;
-    background-color: #f8f5f1; /* Light contrast background */
-    text-align: center;
-}
-
-.icons-grid {
-    display: grid;
-    /* Create three equal columns for the icons */
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 30px;
-    max-width: 1000px;
-    margin: 30px auto 0;
-}
-
-.icon-card {
-    padding: 20px;
-    background: var(--white);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-.icon-card img {
-    width: 80px; /* Standardize icon size */
-    height: 80px;
-    margin-bottom: 15px;
-}
-.icon-card h3 {
-    font-size: 1.1rem;
-    color: var(--primary-color);
-}
-/* --- End Homepage Layout --- */
-
-
-/* --- Forms & Cards --- */
-.account-container, .checkout-container {
-    max-width: 600px;
-    margin: 40px auto;
-    background: var(--white);
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-}
-
-.form-group { margin-bottom: 1.5rem; }
-label { display: block; margin-bottom: 0.5rem; font-weight: 700; font-size: 0.9rem; }
-input[type="text"], input[type="email"], input[type="password"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-
-.btn-submit, .btn-save {
-    background-color: var(--primary-color);
-    color: var(--white);
     border: none;
-    padding: 15px 30px;
-    font-size: 1rem;
-    border-radius: 4px;
     cursor: pointer;
-    width: 100%;
-    font-weight: 700;
-    transition: background 0.3s;
+    transition: all 0.3s ease-in-out;
+    font-family: var(--font-main);
 }
 
-.btn-submit:hover, .btn-save:hover { background-color: #4a2222; }
+.cta-button:hover, .btn-submit:hover, .btn-save:hover {
+    background-color: var(--primary-maroon);
+    color: var(--white);
+    transform: scale(1.03);
+    box-shadow: 0 4px 15px rgba(93, 42, 42, 0.4);
+}
 
-/* --- Footer --- */
+/* --- GLOBAL HOVER "POP" EFFECT --- */
+.dog-card, .icon-card, .step-card, .gallery-item, .dashboard-card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.dog-card:hover, .icon-card:hover, .step-card:hover, .gallery-item:hover, .dashboard-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* --- FOOTER --- */
 footer {
-    background-color: var(--primary-color);
+    background-color: var(--primary-maroon);
     color: var(--white);
     text-align: center;
     padding: 40px 20px;
-    margin-top: auto;
+    margin-top: 40px;
+    border-top: 4px solid var(--accent-gold);
 }
 
 .footer-links { margin-bottom: 20px; }
-.footer-links a { color: #ebdcc1; margin: 0 15px; text-decoration: none; }
+.footer-links a { color: var(--accent-gold); margin: 0 15px; text-decoration: none; font-weight: 600; }
+.footer-links a:hover { text-decoration: underline; color: var(--white); }
 .disclaimer { font-size: 0.85rem; opacity: 0.8; max-width: 800px; margin: 20px auto; }
 
-/* --- Profile/Card Utility --- */
-.profile-card {
-    display: flex;
-    gap: 20px;
-    background: var(--white);
-    padding: 20px;
-    border-left: 5px solid var(--accent-color);
-    margin-bottom: 20px;
+/* --- MOBILE --- */
+@media (max-width: 768px) {
+    .nav-container { flex-direction: column; gap: 15px; }
+    nav ul { flex-direction: column; gap: 10px; text-align: center; }
+    .icons-grid, .contact-layout, .registry-grid { grid-template-columns: 1fr; }
 }
-.profile-img { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; }
-
-/* --- Admin & Legal Specific --- */
-.legal-entry { margin-bottom: 40px; }
-.status-msg { padding: 15px; margin-bottom: 20px; border-radius: 4px; display: none; }
-.status-msg.info { background: #e3f2fd; color: #0d47a1; }
-.status-msg.error { background: #ffebee; color: #c62828; }
