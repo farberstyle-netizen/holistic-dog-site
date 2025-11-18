@@ -6,10 +6,11 @@ document.addEventListener("DOMContentLoaded", function() {
     // Standard navigation for all pages
     if (navLinksContainer) {
         navLinksContainer.innerHTML = `
-            <li><a href="about.html">About Us</a></li>
+            <li><a href="how-it-works.html">How It Works</a></li>
             <li><a href="meet-our-dogs.html">Meet Our Dogs</a></li>
             <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="verify.html">Verify License</a></li>
+            <li><a href="why.html">Why the HTDA</a></li>
+            <li><a href="verify.html" class="nav-verify-prominent">Verify License</a></li>
         `;
     }
 
