@@ -6,53 +6,175 @@
     <title>Gallery | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .registry-section {
+            padding: 3rem 0;
+        }
+        .registry-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .registry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .dog-card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary-maroon);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .dog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .dog-image-placeholder {
+            background: var(--bg-offwhite);
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            border: 2px solid var(--accent-gold);
+        }
+        .dog-content h3 {
+            font-family: var(--font-header);
+            color: var(--primary-maroon);
+            margin-bottom: 0.3rem;
+            font-size: 1.3rem;
+        }
+        .dog-content h4 {
+            color: #2E8B57;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .dog-content p {
+            line-height: 1.7;
+            color: #555;
+            font-style: normal;
+        }
+        @media (max-width: 768px) {
+            .registry-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Dynamic Header -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
             <nav>
                 <ul id="nav-links">
-                    <li><a href="about-holistic.html">What is the HTDA?</a></li>
-                    <li><a href="gallery.html">Meet Our Dogs</a></li>
-                    <li><a href="verify.html">Verify License</a></li>
+                    <!-- Populated by header.js -->
                 </ul>
             </nav>
             <div class="nav-account" id="nav-account-links">
-                <!-- JS Fills This -->
+                <!-- Populated by header.js -->
             </div>
         </div>
     </header>
 
-    <!-- Page Content -->
-    <main class="page-container">
-        <h1>Meet Our Certified Dogs</h1>
-        <p class="section-intro">A showcase of the companions we are proud to honor. This registry is updated in real-time.</p>
-        
-        <div id="gallery-grid" class="gallery-grid">
-            <p id="loading-message">Loading registry...</p>
-            <!-- 
-              JavaScript will fill this area with dog cards.
-              Example card structure:
-              <div class="gallery-item">
-                <img src="..." alt="Dog Name">
-                <h3>Dog Name</h3>
-                <p>Status: Active</p>
-              </div>
-            -->
+    <main>
+        <div class="page-container">
+            <h1>The Association Gallery</h1>
         </div>
+
+        <section class="registry-section">
+            <div class="registry-container">
+                <h2 class="section-title" style="text-align: center; color: var(--primary-maroon);">Showcase of Certified Companions</h2>
+                <p style="text-align: center; max-width: 700px; margin: 0 auto 40px auto; color: #555; font-size: 1.1rem;">
+                    This is a live feed of the newest members to our National Database. To feature your dog, simply complete the certification and upload their photo during checkout!
+                </p>
+                
+                <div class="registry-grid">
+                    
+                    <div class="dog-card">
+                        <div class="dog-image-placeholder">[ Live Dog Photo ]</div>
+                        <div class="dog-content">
+                            <h3 class="dog-name">POPPY VALENTINE</h3>
+                            <h4 class="dog-status">LICENSE: ACTIVE</h4>
+                            <p class="dog-bio">License ID: 1012</p>
+                            <p class="dog-bio">Latest entry in the National Database.</p>
+                        </div>
+                    </div>
+
+                    <div class="dog-card">
+                        <div class="dog-image-placeholder">[ Live Dog Photo ]</div>
+                        <div class="dog-content">
+                            <h3 class="dog-name">PROFESSOR PAWS</h3>
+                            <h4 class="dog-status">LICENSE: ACTIVE</h4>
+                            <p class="dog-bio">License ID: 1011</p>
+                            <p class="dog-bio">Latest entry in the National Database.</p>
+                        </div>
+                    </div>
+
+                    <div class="dog-card">
+                        <div class="dog-image-placeholder">[ Live Dog Photo ]</div>
+                        <div class="dog-content">
+                            <h3 class="dog-name">DUKE SILVER</h3>
+                            <h4 class="dog-status">LICENSE: ACTIVE</h4>
+                            <p class="dog-bio">License ID: 1010</p>
+                            <p class="dog-bio">Latest entry in the National Database.</p>
+                        </div>
+                    </div>
+
+                    <div class="dog-card">
+                        <div class="dog-image-placeholder">[ Live Dog Photo ]</div>
+                        <div class="dog-content">
+                            <h3 class="dog-name">PICKLE MERCADO FRANCISCO</h3>
+                            <h4 class="dog-status">LICENSE: ACTIVE</h4>
+                            <p class="dog-bio">License ID: 1009</p>
+                            <p class="dog-bio">Latest entry in the National Database.</p>
+                        </div>
+                    </div>
+
+                    <div class="dog-card">
+                        <div class="dog-image-placeholder">[ Live Dog Photo ]</div>
+                        <div class="dog-content">
+                            <h3 class="dog-name">LILY LAFROMBOISE</h3>
+                            <h4 class="dog-status">LICENSE: ACTIVE</h4>
+                            <p class="dog-bio">License ID: 1008</p>
+                            <p class="dog-bio">Latest entry in the National Database.</p>
+                        </div>
+                    </div>
+
+                    <div class="dog-card">
+                        <div class="dog-image-placeholder">[ Live Dog Photo ]</div>
+                        <div class="dog-content">
+                            <h3 class="dog-name">JIMI CORBIN</h3>
+                            <h4 class="dog-status">LICENSE: ACTIVE</h4>
+                            <p class="dog-bio">License ID: 1007</p>
+                            <p class="dog-bio">Latest entry in the National Database.</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-links">
             <a href="about.html">About Us</a>
+            <a href="meet-our-dogs.html">Meet Our Dogs</a>
+            <a href="careers.html">Careers</a>
+            <a href="advocacy.html">Advocacy</a>
             <a href="contact.html">Contact</a>
             <a href="privacy-policy.html">Privacy Policy</a>
             <a href="terms.html">Terms & Conditions</a>
@@ -64,59 +186,5 @@
     </footer>
 
     <script src="header.js"></script>
-    <script>
-        // This is the logic from your gallery.html file,
-        // adapted for the new styles.
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchDogs();
-        });
-
-        async function fetchDogs() {
-            const grid = document.getElementById('gallery-grid');
-            const loadingMsg = document.getElementById('loading-message');
-            
-            try {
-                // We will need to create this 'api-gallery' worker later
-                const response = await fetch('https://api-gallery.farberstyle.workers.dev'); 
-                const dogs = await response.json();
-
-                if (!response.ok || !dogs || !dogs.length) {
-                    throw new Error('No dogs found in registry.');
-                }
-
-                grid.innerHTML = ''; // Clear "loading"
-                dogs.forEach(dog => {
-                    grid.appendChild(createDogCard(dog));
-                });
-
-            } catch (err) {
-                loadingMsg.textContent = 'Could not load dog registry: ' + err.message;
-            }
-        }
-
-        function createDogCard(dog) {
-            // Placeholder: R2 domain needs to be set up
-            // You will need to replace 'YOUR-R2-DOMAIN.com'
-            const imageUrl = `https://YOUR-R2-DOMAIN.com/${escapeHTML(dog.dog_photo_url)}`;
-            
-            const card = document.createElement('div');
-            card.className = 'gallery-item';
-            
-            card.innerHTML = `
-                <img src="${imageUrl}" alt="${escapeHTML(dog.dog_name)}" onerror="this.src='https://placehold.co/300x300/6e0d25/white?text=HTD'">
-                <h3>${escapeHTML(dog.dog_name)}</h3>
-                <p>Status: ${escapeHTML(dog.license_status)}</p>
-            `;
-            return card;
-        }
-
-        function escapeHTML(str) {
-            if (!str) return '';
-            return String(str).replace(/[&<>"']/g, match => {
-                const swap = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
-                return swap[match];
-            });
-        }
-    </script>
 </body>
 </html>

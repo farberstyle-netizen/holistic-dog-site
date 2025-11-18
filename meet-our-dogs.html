@@ -6,74 +6,235 @@
     <title>Meet Our Dogs | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
     
-    <!-- Fonts -->
-    <link rel="preconnect" href="https.googleapis.com">
-    <link rel="preconnect" href="https.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Page-specific style for the feature dog */
-        .feature-dog-card {
-            display: flex;
+        .intro-section {
+            background: var(--white);
+            padding: 3rem 0;
+        }
+        .intro-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .intro-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            text-align: center;
+            color: #555;
+        }
+        .registry-section {
+            padding: 3rem 0;
+        }
+        .registry-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .registry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            align-items: center;
-            background: var(--bg-white);
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border-left: 5px solid var(--primary-maroon);
             margin-top: 2rem;
         }
-        .feature-dog-img {
-            width: 300px;
-            height: 300px;
-            border-radius: 4px;
-            object-fit: cover;
-            border: 3px solid var(--accent-gold);
-            flex-shrink: 0; /* Prevents image from shrinking */
+        .dog-card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary-maroon);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        .feature-dog-content h3 {
+        .dog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .dog-image-placeholder {
+            background: var(--bg-offwhite);
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            border: 2px solid var(--accent-gold);
+        }
+        .dog-content h3 {
             font-family: var(--font-header);
             color: var(--primary-maroon);
-            margin-bottom: 0.2rem;
-            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+            font-size: 1.3rem;
         }
-        .feature-dog-content h4 {
+        .dog-content h4 {
             color: var(--accent-gold);
             font-size: 0.9rem;
             text-transform: uppercase;
             margin-bottom: 1rem;
-            font-weight: 700;
+            font-weight: 600;
         }
-         .feature-dog-content p {
-            font-size: 1.1rem;
+        .dog-content p {
             line-height: 1.7;
-         }
-        
+            color: #555;
+        }
         @media (max-width: 768px) {
-            .feature-dog-card { flex-direction: column; text-align: center; }
-            .feature-dog-img { width: 100%; height: auto; }
+            .registry-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Dynamic Header -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
             <nav>
                 <ul id="nav-links">
-                    <li><a href="about-holistic.html">What is the HTDA?</a></li>
-                    <li><a href="gallery.html">Meet Our Dogs</a></li>
-                    <li><a href="verify.html">Verify License</a></li>
+                    <!-- Populated by header.js -->
                 </ul>
             </nav>
             <div class="nav-account" id="nav-account-links">
-                <!-- JS Fills This -->
+                <!-- Populated by header.js -->
             </div>
         </div>
     </header>
 
-    <!-- Page Content -->
-    <main class="page-container
+    <main>
+        <div class="page-container">
+            <h1>Meet Our Certified Holistic Therapy Dogs</h1>
+        </div>
+
+        <section class="intro-section">
+            <div class="intro-container">
+                <p class="intro-text">
+                    "Welcome to our gallery of honor. The animals featured here are more than just pets—they are members of the elite ranks of Certified Holistic Therapy Dogs. 
+                    <br><br>
+                    Each dog in our National Database has been recognized for their intuitive spirit and the profound healing impact they have on the lives they touch. Read their stories, celebrate their honor, and see the community you are a part of."
+                </p>
+            </div>
+        </section>
+
+        <section class="registry-section">
+            <div class="registry-container">
+                <h2 class="section-title" style="text-align: center; color: var(--primary-maroon); margin-bottom: 1rem;">Our Founding Members</h2>
+                <div class="registry-grid">
+                    
+                    <!-- 1. ADDIE -->
+                    <div class="dog-card">
+                        <div class="dog-image-placeholder">[ Addie ]</div>
+                        <div class="dog-content">
+                            <h3 class="dog-name">ADDIE THE CADDIE</h3>
+                            <h4 class="dog-status">Certified Holistic Therapy Dog</h4>
+                            <p class="dog-bio">"Addie the Caddie is a true companion, offering unwavering support and compassion. Her recognition is a testament to her deep understanding of human feeling, especially in those with a wounded spirit. Her quiet presence enriches the spiritual well-being of all who meet her."</p>
+                        </div>
+                    </div>
+
+                    <!-- 2. AVON -->
+                    <div class="dog-card">
+                        <div class="dog-image-placeholder">[ Avon ]</div>
+                        <div class="dog-content">
+                            <h3 class="dog-name">AVON BARKSDALE LAURITSEN</h3>
+                            <h4 class="dog-status">Certified Holistic Therapy Dog</h4>
+                            <p class="dog-bio">"Avon Barksdale Lauritsen is noted for a sharp intuitive nature, often sensing a need for comfort in those with a wounded spirit. This remarkable healing presence has made Avon a central, heartfelt figure in his home, earning this formal commemoration."</p>
+                        </div>
+                    </div>
+
+                    <!-- 3. BUDDY -->
+                    <div class="dog-card">
+                        <div class="dog-image-placeholder">[ Buddy ]</div>
+                        <div class="dog-content">
+                            <h3 class="dog-name">BUDWORD "BUDDY" WOODS</h3>
+                            <h4 class="dog-status">Certified Holistic Therapy Dog</h4>
+                            <p class="dog-bio">"Buddy is a cornerstone of his family and a local legend, providing a grounding presence described as a 'calming force.' His intuitive ability for healing extends beyond his home, offering profound comfort to the heart of wounded individuals in his neighborhood. This recognition is a testament to the essential role he plays in lifting the spirit of all he meets."</p>
+                        </div>
+                    </div>
+
+                    <!-- 4. CHA CHA -->
+                    <div class="dog-card">
+                        <div class="dog-image-placeholder">[ Cha Cha ]</div>
+                        <div class="dog-content">
+                            <h3 class="dog-name">CHA CHA FARBER</h3>
+                            <h4 class="dog-status">Certified Holistic Therapy Dog</h4>
+                            <p class="dog-bio">"Cha Cha Farber's certification honors a remarkable capacity for empathy. Cha Cha has a unique ability to absorb the feelings of her companions, providing a powerful anchor for their spirit. This recognition celebrates her role as a true healing force for the wider circle she touches."</p>
+                        </div>
+                    </div>
+
+                    <!-- 5. CHEWIE -->
+                    <div class="dog-card">
+                        <div class="dog-image-placeholder">[ Chewie ]</div>
+                        <div class="dog-content">
+                            <h3 class="dog-name">CHEWIE MCLEAN</h3>
+                            <h4 class="dog-status">Certified Holistic Therapy Dog</h4>
+                            <p class="dog-bio">"Chewie McLean is celebrated for an immense compassion that radiates to all. He is a fixture in his neighborhood, and his deep feeling for his companions offers healing comfort to all those he encounters. This certification honors his significant spiritual impact."</p>
+                        </div>
+                    </div>
+
+                    <!-- 6. JIMI -->
+                    <div class="dog-card">
+                        <div class="dog-image-placeholder">[ Jimi ]</div>
+                        <div class="dog-content">
+                            <h3 class="dog-name">JIMI CORBIN</h3>
+                            <h4 class="dog-status">Certified Holistic Therapy Dog</h4>
+                            <p class="dog-bio">"Jimi Corbin is honored for the deep spiritual connection he forges. He possesses an advanced sensing ability, providing silent support. His work with those he encounters as an intuitive healer for the wounded of heart has earned him this certification."</p>
+                        </div>
+                    </div>
+
+                    <!-- 7. KASHISITO -->
+                    <div class="dog-card">
+                        <div class="dog-image-placeholder">[ Kashisito ]</div>
+                        <div class="dog-content">
+                            <h3 class="dog-name">KASHISITO</h3>
+                            <h4 class="dog-status">Certified Holistic Therapy Dog</h4>
+                            <p class="dog-bio">"Kashisito is recognized for a profound sensing ability, demonstrating a deep understanding of those with a wounded spirit. He provides a quiet, steady presence for his family and their visitors, and his remarkable capacity for empathy has earned him this place of honor in the registry."</p>
+                        </div>
+                    </div>
+
+                    <!-- 8. LILY -->
+                    <div class="dog-card">
+                        <div class="dog-image-placeholder">[ Lily ]</div>
+                        <div class="dog-content">
+                            <h3 class="dog-name">LILY LAFROMBOISE</h3>
+                            <h4 class="dog-status">Certified Holistic Therapy Dog</h4>
+                            <p class="dog-bio">"Lily LaFromboise's certification celebrates her gentle, healing presence. She has shown a profound empathy for the wounded of spirit, bringing a sense of peace and calm to the heart of her home and neighborhood. She is a prime example of a companion with a truly intuitive spirit."</p>
+                        </div>
+                    </div>
+
+                    <!-- 9. PICKLE -->
+                    <div class="dog-card">
+                        <div class="dog-image-placeholder">[ Pickle ]</div>
+                        <div class="dog-content">
+                            <h3 class="dog-name">PICKLE MERCADO FRANCISCO</h3>
+                            <h4 class="dog-status">Certified Holistic Therapy Dog</h4>
+                            <p class="dog-bio">"Pickle Mercado Francisco is recognized for oversized compassion and a deep well of feeling. His intuitive actions provide constant support to the spirit of his family, and his 'rounds' from his front yard have made him a beloved healing presence."</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="meet-our-dogs.html">Meet Our Dogs</a>
+            <a href="careers.html">Careers</a>
+            <a href="advocacy.html">Advocacy</a>
+            <a href="contact.html">Contact</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
+        </div>
+        <p class="disclaimer">
+            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
+        </p>
+        <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+    </footer>
+
+    <script src="header.js"></script>
+</body>
+</html>

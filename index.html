@@ -4,12 +4,195 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Holistic Therapy Dog Association | Official Certification</title>
-    
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Hero Video Section */
+        .hero {
+            position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: var(--primary-maroon); /* Fallback color */
+        }
+        
+        /* Background Video */
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            object-fit: cover;
+        }
+        
+        /* Dark overlay for text readability */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(93, 42, 42, 0.7); /* Semi-transparent maroon */
+            z-index: 1;
+        }
+        
+        /* Hero content on top of video */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-gold);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-gold);
+            color: var(--primary-maroon);
+            padding: 15px 40px;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--white);
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* Trust Section */
+        .trust-section {
+            padding: 4rem 0;
+            background: var(--white);
+        }
+        
+        .trust-section h2 {
+            text-align: center;
+            color: var(--primary-maroon);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .icons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .icon-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-offwhite);
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .icon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .icon-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            border: 3px solid var(--accent-gold);
+        }
+        
+        .icon-card h3 {
+            color: var(--primary-maroon);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .icon-card p {
+            color: #555;
+            line-height: 1.7;
+        }
+        
+        /* Diploma Preview Section */
+        .diploma-preview {
+            padding: 4rem 0;
+            background: var(--bg-offwhite);
+        }
+        
+        .diploma-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        
+        .diploma-container h2 {
+            color: var(--primary-maroon);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .video-placeholder {
+            background: var(--white);
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin: 3rem 0;
+            border: 2px dashed var(--accent-gold);
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                height: 500px;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+            .icons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -18,24 +201,36 @@
             <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
             <nav>
                 <ul id="nav-links">
-                    <li><a href="about-holistic.html">What is the HTDA?</a></li>
-                    <li><a href="gallery.html">Meet Our Dogs</a></li>
-                    <li><a href="verify.html">Verify License</a></li>
+                    <!-- Populated by header.js -->
                 </ul>
             </nav>
             <div class="nav-account" id="nav-account-links">
-                </div>
+                <!-- Populated by header.js -->
+            </div>
         </div>
     </header>
 
+    <!-- HERO SECTION WITH VIDEO BACKGROUND -->
     <section class="hero">
+        <!-- Background Video - Replace "diploma-hero-video.mp4" with your actual video file -->
+        <video autoplay muted loop playsinline class="hero-video">
+            <source src="diploma-hero-video.mp4" type="video/mp4">
+            <!-- Fallback for browsers that don't support video -->
+            Your browser does not support the video tag.
+        </video>
+        
+        <!-- Dark overlay for text readability -->
+        <div class="hero-overlay"></div>
+        
+        <!-- Hero Content -->
         <div class="hero-content">
             <h1>Honor Their Impact.</h1>
-            <p>More than a pet. A partner in holistic wellness. <br>Certify your dog with the official Holistic Therapy Dog Association.</p>
+            <p>More than a pet. A partner in holistic wellness.<br>Certify your dog with the official Holistic Therapy Dog Association.</p>
             <a href="add-dog.html" class="cta-button">Start Certification</a>
         </div>
     </section>
 
+    <!-- OUR STANDARD OF EXCELLENCE SECTION -->
     <section class="trust-section">
         <h2>Our Standard of Excellence</h2>
         <div class="icons-grid">
@@ -59,6 +254,7 @@
         </div>
     </section>
 
+    <!-- DIPLOMA PREVIEW SECTION -->
     <section class="diploma-preview">
         <div class="diploma-container">
             <h2>The Official Certification Package</h2>
@@ -68,13 +264,16 @@
                 <p>[Spinning Diploma Video Placeholder]</p>
             </div>
             
-            <a href="add-dog.html" class="cta-button" style="background-color: var(--primary-maroon); color: white; border: none;">Order Yours Today</a>
+            <a href="add-dog.html" class="cta-button" style="background-color: var(--primary-maroon); color: white;">Order Yours Today</a>
         </div>
     </section>
 
     <footer>
         <div class="footer-links">
             <a href="about.html">About Us</a>
+            <a href="meet-our-dogs.html">Meet Our Dogs</a>
+            <a href="careers.html">Careers</a>
+            <a href="advocacy.html">Advocacy</a>
             <a href="contact.html">Contact</a>
             <a href="privacy-policy.html">Privacy Policy</a>
             <a href="terms.html">Terms & Conditions</a>
@@ -82,4 +281,9 @@
         <p class="disclaimer">
             <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
         </p>
-        <p>&copy;
+        <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+    </footer>
+
+    <script src="header.js"></script>
+</body>
+</html>

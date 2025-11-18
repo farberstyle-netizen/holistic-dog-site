@@ -5,21 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Certified | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
         <div class="nav-container">
-            <a href="index.html" class="navbar-logo">
-                <!-- Ensure you upload logo-header.jpg -->
-                <img src="logo-header.jpg" alt="Holistic Therapy Dog Association">
-            </a>
+            <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
             <nav>
                 <ul id="nav-links">
                     <!-- Populated by header.js -->
                 </ul>
             </nav>
-            <div class="nav-account" id="nav-account-links"></div>
+            <div class="nav-account" id="nav-account-links">
+                <!-- Populated by header.js -->
+            </div>
         </div>
     </header>
 
@@ -28,7 +31,7 @@
         <p class="section-intro">Complete the form below to receive your official diploma and entry into the National Database.</p>
 
         <div class="checkout-container">
-            <div id="msg-box" class="status-msg"></div>
+            <div id="msg-box" class="status-msg" style="display: none;"></div>
 
             <form id="checkoutForm">
                 
@@ -72,6 +75,7 @@
     <footer>
         <div class="footer-links">
             <a href="about.html">About Us</a>
+            <a href="meet-our-dogs.html">Meet Our Dogs</a>
             <a href="careers.html">Careers</a>
             <a href="advocacy.html">Advocacy</a>
             <a href="contact.html">Contact</a>
@@ -79,7 +83,7 @@
             <a href="terms.html">Terms & Conditions</a>
         </div>
         <p class="disclaimer">
-            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA.
+            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
         </p>
         <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>
@@ -101,15 +105,12 @@
             
             btn.disabled = true;
             btn.innerText = "Processing...";
+            msg.style.display = 'none';
 
-            // Note: You need to ensure your 'api-checkout' worker is configured for Stripe
-            // If not, this fetch will fail.
             try {
-                // Placeholder for file upload logic (requires R2 integration we discussed previously)
-                // For now, assuming standard form submission
                 const formData = new FormData(document.getElementById('checkoutForm'));
                 
-                // SIMULATED STRIPE REDIRECT (Replace URL with your Worker)
+                // Replace with your actual Cloudflare Worker URL
                 const response = await fetch('https://api-checkout.farberstyle.workers.dev', {
                     method: 'POST',
                     body: formData
@@ -117,7 +118,7 @@
                 
                 const data = await response.json();
                 if (data.url) {
-                    window.location.href = data.url; // Go to Stripe
+                    window.location.href = data.url; // Redirect to Stripe
                 } else {
                     throw new Error('Payment initialization failed.');
                 }
@@ -126,34 +127,11 @@
                 console.error(error);
                 msg.style.display = 'block';
                 msg.className = 'status-msg error';
-                msg.innerText = "Error connecting to payment processor.";
+                msg.innerText = "Error connecting to payment processor. Please try again.";
                 btn.disabled = false;
+                btn.innerText = "Proceed to Stripe ($99.99)";
             }
         });
     </script>
 </body>
 </html>
-```
-
----
-
-### **Step 4: Update Footer in All Files**
-You have 30+ files. I cannot edit them all for you instantly here, but you must manually copy/paste this specific footer block into the bottom of every HTML file (`index.html`, `about.html`, `careers.html`, `advocacy.html`, etc.).
-
-**The Footer Block (Copy/Paste this):**
-```html
-    <footer>
-        <div class="footer-links">
-            <a href="about.html">About Us</a>
-            <a href="meet-our-dogs.html">Meet Our Dogs</a>
-            <a href="careers.html">Careers</a>
-            <a href="advocacy.html">Advocacy</a>
-            <a href="contact.html">Contact</a>
-            <a href="privacy-policy.html">Privacy Policy</a>
-            <a href="terms.html">Terms & Conditions</a>
-        </div>
-        <p class="disclaimer">
-            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
-        </p>
-        <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
-    </footer>

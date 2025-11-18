@@ -3,35 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Diploma & Holder - Holistic Therapy Dog Association</title>
+    <title>The Diploma & Holder | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .diploma-section {
+            padding: 3rem 0;
+        }
+        .diploma-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .diploma-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .diploma-visual {
+            width: 100%;
+        }
+        .bio-image-placeholder {
+            background: var(--bg-offwhite);
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+            border-radius: 4px;
+            border: 2px solid var(--accent-gold);
+        }
+        .diploma-content h2 {
+            color: var(--primary-maroon);
+            margin-bottom: 1rem;
+        }
+        .diploma-content p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        @media (max-width: 768px) {
+            .diploma-column {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <header class="navbar">
-        <div class="navbar-container">
-            <a href="index.html" class="navbar-logo">
-                <img src="logo-header.jpg" alt="Holistic Therapy Dog Association">
-            </a>
-            <nav class="navbar-menu">
-                <a href="about.html" class="nav-link">About Us</a>
-                <a href="diploma.html" class="nav-link">The Diploma</a>
-                <a href="meet-our-dogs.html" class="nav-link">Meet Our Dogs</a>
-                <a href="gallery.html" class="nav-link">Gallery</a>
-                <a href="contact.html" class="nav-link">Contact Us</a>
-                <a href="account.html" class="nav-link">Account</a>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
+            <nav>
+                <ul id="nav-links">
+                    <!-- Populated by header.js -->
+                </ul>
             </nav>
-            <a href="verify.html" class="nav-cta">Verify a License</a>
+            <div class="nav-account" id="nav-account-links">
+                <!-- Populated by header.js -->
+            </div>
         </div>
     </header>
 
     <main>
-        <section class="page-header">
-            <div class="page-header-container">
-                <h1>The Official Diploma & Holder</h1>
-            </div>
-        </section>
+        <div class="page-container">
+            <h1>The Official Diploma & Holder</h1>
+        </div>
 
         <section class="diploma-section">
             <div class="diploma-container">
@@ -39,7 +86,7 @@
                 <div class="diploma-column">
                     <div class="diploma-visual">
                         <div class="bio-image-placeholder">[ Photo of Diploma ]</div>
-                        </div>
+                    </div>
                     <div class="diploma-content">
                         <h2 class="diploma-title">A Prestigious Honor</h2>
                         <p>Your certification is commemorated with a formal, 8.5" x 11" diploma. Each document is personalized with your dog's official registered name, the date of certification, and the signatures of the Association President and the Chairman of the Board of Trustees.</p>
@@ -50,7 +97,7 @@
                 <div class="diploma-column">
                     <div class="diploma-visual">
                         <div class="bio-image-placeholder">[ Photo of Diploma Holder ]</div>
-                        </div>
+                    </div>
                     <div class="diploma-content">
                         <h2 class="diploma-title">The Professional Holder</h2>
                         <p>To protect and display your diploma, every order includes a professional-grade, padded leatherette holder.</p>
@@ -62,20 +109,22 @@
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-links-main">
-                <a href="how-it-works.html">How It Works</a>
-                <a href="why.html">Why the Holistic Therapy Dog?</a>
-                <a href="diploma.html">The Diploma</a>
-            </div>
-            <div class="footer-links-legal">
-                <a href="terms.html">Terms and Conditions</a>
-                <a href="privacy.html">Privacy Policy</a>
-            </div>
-            <p class="footer-copyright">© 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+    <footer>
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="meet-our-dogs.html">Meet Our Dogs</a>
+            <a href="careers.html">Careers</a>
+            <a href="advocacy.html">Advocacy</a>
+            <a href="contact.html">Contact</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
         </div>
+        <p class="disclaimer">
+            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
+        </p>
+        <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>
 
+    <script src="header.js"></script>
 </body>
 </html>

@@ -6,13 +6,11 @@
     <title>Contact Us | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Page-specific style for contact layout */
         .contact-layout {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -35,29 +33,25 @@
 </head>
 <body>
 
-    <!-- Dynamic Header -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
             <nav>
                 <ul id="nav-links">
-                    <li><a href="about-holistic.html">What is the HTDA?</a></li>
-                    <li><a href="gallery.html">Meet Our Dogs</a></li>
-                    <li><a href="verify.html">Verify License</a></li>
+                    <!-- Populated by header.js -->
                 </ul>
             </nav>
             <div class="nav-account" id="nav-account-links">
-                <!-- JS Fills This -->
+                <!-- Populated by header.js -->
             </div>
         </div>
     </header>
 
-    <!-- Page Content -->
     <main class="page-container">
         <h1>Contact Us</h1>
         <p class="section-intro">Have a question for the Association? Fill out the form below or contact our office directly.</p>
         
-        <div id="msg-box" class="status-msg"></div>
+        <div id="msg-box" class="status-msg" style="display: none;"></div>
 
         <div class="contact-layout">
             <!-- Left Side: Form -->
@@ -91,10 +85,12 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-links">
             <a href="about.html">About Us</a>
+            <a href="meet-our-dogs.html">Meet Our Dogs</a>
+            <a href="careers.html">Careers</a>
+            <a href="advocacy.html">Advocacy</a>
             <a href="contact.html">Contact</a>
             <a href="privacy-policy.html">Privacy Policy</a>
             <a href="terms.html">Terms & Conditions</a>
@@ -107,7 +103,6 @@
 
     <script src="header.js"></script>
     <script>
-        // Replaced the 'alert()' with a styled message box
         document.getElementById('contact-form').addEventListener('submit', (e) => {
             e.preventDefault(); 
             

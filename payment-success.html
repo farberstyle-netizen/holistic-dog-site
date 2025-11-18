@@ -10,15 +10,57 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     
+    <style>
+        .page-status-card {
+            max-width: 800px;
+            margin: 3rem auto;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 4px solid #2e7d32;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .page-status-card h1 {
+            color: var(--primary-maroon);
+            margin-bottom: 1.5rem;
+        }
+        .page-status-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+        .page-status-card a {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+        .cta-button {
+            display: inline-block;
+            margin-top: 1rem;
+        }
+    </style>
 </head>
 <body>
 
-    <header>...</header>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
+            <nav>
+                <ul id="nav-links">
+                    <!-- Populated by header.js -->
+                </ul>
+            </nav>
+            <div class="nav-account" id="nav-account-links">
+                <!-- Populated by header.js -->
+            </div>
+        </div>
+    </header>
 
     <main>
         <div class="page-status-card">
             <h1>Thank You! Payment Successful.</h1>
-            <p>Your payment of **$99.99** has been received. Your dog's license is now being processed and will be activated in the National Database.</p>
+            <p>Your payment of <strong>$99.99</strong> has been received. Your dog's license is now being processed and will be activated in the National Database.</p>
             
             <p>Your official embossed diploma will be shipped to the address on your account within 5-7 business days.</p>
             
@@ -28,7 +70,21 @@
         </div>
     </main>
 
-    <footer>...</footer>
+    <footer>
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="meet-our-dogs.html">Meet Our Dogs</a>
+            <a href="careers.html">Careers</a>
+            <a href="advocacy.html">Advocacy</a>
+            <a href="contact.html">Contact</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
+        </div>
+        <p class="disclaimer">
+            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
+        </p>
+        <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+    </footer>
 
     <script src="header.js"></script>
 </body>

@@ -6,21 +6,20 @@
     <title>Payment Canceled | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Page-specific styles for centered content */
         .status-page-container {
             max-width: 800px;
             margin: 3rem auto;
-            background: var(--bg-white);
+            background: var(--white);
             padding: 3rem;
             border-radius: 8px;
             text-align: center;
-            border-top: 4px solid var(--primary-maroon);
+            border-top: 4px solid #c62828;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         .status-page-container h1 {
             font-family: var(--font-header);
@@ -31,33 +30,30 @@
             font-size: 1.1rem;
             line-height: 1.7;
             margin-bottom: 2rem;
+            color: #555;
         }
-        .cta-button { /* Re-using cta-button style */
-            width: auto;
+        .cta-button {
+            display: inline-block;
             padding: 1rem 2rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- Dynamic Header -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
             <nav>
                 <ul id="nav-links">
-                    <li><a href="about-holistic.html">What is the HTDA?</a></li>
-                    <li><a href="gallery.html">Meet Our Dogs</a></li>
-                    <li><a href="verify.html">Verify License</a></li>
+                    <!-- Populated by header.js -->
                 </ul>
             </nav>
             <div class="nav-account" id="nav-account-links">
-                <!-- JS Fills This -->
+                <!-- Populated by header.js -->
             </div>
         </div>
     </header>
 
-    <!-- Page Content -->
     <main>
         <div class="status-page-container">
             <h1>Your Order Has Been Canceled</h1>
@@ -67,10 +63,12 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-links">
             <a href="about.html">About Us</a>
+            <a href="meet-our-dogs.html">Meet Our Dogs</a>
+            <a href="careers.html">Careers</a>
+            <a href="advocacy.html">Advocacy</a>
             <a href="contact.html">Contact</a>
             <a href="privacy-policy.html">Privacy Policy</a>
             <a href="terms.html">Terms & Conditions</a>
@@ -81,7 +79,6 @@
         <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>
 
-    <!-- Dynamic Header Script -->
     <script src="header.js"></script>
 </body>
 </html>

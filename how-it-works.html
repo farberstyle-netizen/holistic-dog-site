@@ -6,13 +6,11 @@
     <title>How It Works | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Page-specific styles for the steps */
         .steps-container {
             display: grid;
             grid-template-columns: 1fr;
@@ -23,44 +21,45 @@
             display: flex;
             align-items: flex-start;
             gap: 1.5rem;
-            background: var(--bg-white);
+            background: var(--white);
             padding: 1.5rem;
             border-radius: 8px;
             border-left: 4px solid var(--primary-maroon);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
         .step-number {
             font-family: var(--font-header);
             font-size: 2.5rem;
             color: var(--accent-gold);
             line-height: 1;
+            flex-shrink: 0;
         }
         .step-content h3 {
             font-family: var(--font-header);
             color: var(--primary-maroon);
             margin-bottom: 0.5rem;
         }
+        .step-content p {
+            line-height: 1.7;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Dynamic Header -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
             <nav>
                 <ul id="nav-links">
-                    <li><a href="about-holistic.html">What is the HTDA?</a></li>
-                    <li><a href="gallery.html">Meet Our Dogs</a></li>
-                    <li><a href="verify.html">Verify License</a></li>
+                    <!-- Populated by header.js -->
                 </ul>
             </nav>
             <div class="nav-account" id="nav-account-links">
-                <!-- JS Fills This -->
+                <!-- Populated by header.js -->
             </div>
         </div>
     </header>
 
-    <!-- Page Content (From your file) -->
     <main class="page-container">
         <h1>A Simple 4-Step Process</h1>
         <p class="section-intro">Follow these steps to get your companion officially recognized in our registry.</p>
@@ -101,21 +100,22 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-links">
             <a href="about.html">About Us</a>
+            <a href="meet-our-dogs.html">Meet Our Dogs</a>
+            <a href="careers.html">Careers</a>
+            <a href="advocacy.html">Advocacy</a>
             <a href="contact.html">Contact</a>
             <a href="privacy-policy.html">Privacy Policy</a>
             <a href="terms.html">Terms & Conditions</a>
         </div>
-        <p class.disclaimer">
+        <p class="disclaimer">
             <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
         </p>
         <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>
 
-    <!-- Dynamic Header Script -->
     <script src="header.js"></script>
 </body>
 </html>

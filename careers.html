@@ -3,75 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Careers - Holistic Therapy Dog Association</title>
+    <title>Careers | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header class="navbar">
-        <div class="navbar-container">
-            <a href="index.html" class="navbar-logo">
-                <img src="logo-header.jpg" alt="Holistic Therapy Dog Association">
-            </a>
-            
-            <nav class="navbar-menu">
-                <a href="about.html" class="nav-link">About Us</a>
-                <a href="diploma.html" class="nav-link">The Diploma</a>
-                <a href="meet-our-dogs.html" class="nav-link">Meet Our Dogs</a>
-                <a href="gallery.html" class="nav-link">Gallery</a>
-                <a href="contact.html" class="nav-link">Contact Us</a>
-                <a href="account.html" class="nav-link">Account</a>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
+            <nav>
+                <ul id="nav-links">
+                    <!-- Populated by header.js -->
+                </ul>
             </nav>
-            <a href="verify.html" class="nav-cta">Verify a License</a>
+            <div class="nav-account" id="nav-account-links">
+                <!-- Populated by header.js -->
+            </div>
         </div>
     </header>
 
-    <main>
-        <section class="page-header">
-            <div class="page-header-container">
-                <h1>Careers at the Association</h1>
+    <main class="page-container">
+        <h1>Careers at the Association</h1>
+        
+        <p class="section-intro">Search for specific roles or filter by location, department, or job type.</p>
+
+        <form class="contact-form" style="max-width: 700px; margin: 0 auto;">
+            <div class="form-group">
+                <input type="text" placeholder="Search by Location, Role, or Department..." style="width: 100%;">
             </div>
-        </section>
+            <button type="submit" class="btn-submit">Filter</button>
+        </form>
 
-        <section class="contact-section">
-            <div class="contact-container">
-                
-                <div class="verify-intro">
-                    <h2 class="section-title">Search and Filter Positions</h2>
-                    <p>Search for specific roles or filter by location, department, or job type.</p>
-                </div>
-
-                <form class="verify-form" style="max-width: 700px; margin: 0 auto;">
-                    <input type="text" placeholder="Search by Location, Role, or Department...">
-                    <button type="submit" class="hero-cta-button">Filter</button>
-                </form>
-
-                <div class="content-container" style="margin-top: 50px; text-align: center;">
-                    <h3 style="color: #5D2A2A; margin-top: 0;">No Positions Currently Open</h3>
-                    <p style="font-size: 1.1rem; color: #555;">We are not actively hiring at this time, but we are always looking for passionate people. Please check back soon for updates!</p>
-                </div>
-
-            </div>
-        </section>
-
+        <div style="background: var(--white); padding: 3rem; border-radius: 8px; margin-top: 3rem; text-align: center; border-top: 4px solid var(--accent-gold);">
+            <h3 style="color: var(--primary-maroon); margin-top: 0;">No Positions Currently Open</h3>
+            <p style="font-size: 1.1rem; color: #555;">We are not actively hiring at this time, but we are always looking for passionate people. Please check back soon for updates!</p>
+        </div>
     </main>
 
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-links-main">
-                <a href="how-it-works.html">How It Works</a>
-                <a href="diploma.html">The Diploma</a>
-            </div>
-            <div class="footer-links-legal">
-                <a href="terms.html">Terms and Conditions</a>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="why.html">Association Philosophy</a>
-                <a href="careers.html">Careers</a>
-            </div>
-            <p class="footer-copyright">© 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+    <footer>
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="meet-our-dogs.html">Meet Our Dogs</a>
+            <a href="careers.html">Careers</a>
+            <a href="advocacy.html">Advocacy</a>
+            <a href="contact.html">Contact</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
         </div>
+        <p class="disclaimer">
+            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
+        </p>
+        <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>
 
+    <script src="header.js"></script>
 </body>
 </html>

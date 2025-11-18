@@ -5,19 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verify a License | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
         <div class="nav-container">
-            <a href="index.html" class="navbar-logo">
-                <img src="logo-header.jpg" alt="Holistic Therapy Dog Association">
-            </a>
+            <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
             <nav>
                 <ul id="nav-links">
-                    </ul>
+                    <!-- Populated by header.js -->
+                </ul>
             </nav>
-            <div class="nav-account" id="nav-account-links"></div>
+            <div class="nav-account" id="nav-account-links">
+                <!-- Populated by header.js -->
+            </div>
         </div>
     </header>
 
@@ -46,7 +51,9 @@
             <a href="privacy-policy.html">Privacy Policy</a>
             <a href="terms.html">Terms & Conditions</a>
         </div>
-        <p class="disclaimer">The Holistic Therapy Dog certification is a commemorative title...</p>
+        <p class="disclaimer">
+            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
+        </p>
         <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>
 
@@ -65,26 +72,25 @@
             resultsContainer.innerHTML = '';
 
             try {
-                // Connects to the worker we built previously
                 const response = await fetch(`https://api-verify.farberstyle.workers.dev?q=${encodeURIComponent(term)}`);
                 const data = await response.json();
 
                 if (data.found) {
                     const isExpired = data.license_status === 'Expired';
-                    const color = isExpired ? '#c62828' : '#2e7d32'; // Red or Green
+                    const color = isExpired ? '#c62828' : '#2e7d32';
                     
                     resultsContainer.innerHTML = `
-                        <div class="dashboard-card" style="text-align:center; border-top: 4px solid ${color};">
-                            <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem;">${data.dog_name}</h3>
+                        <div style="background: var(--white); padding: 2rem; border-radius: 8px; text-align:center; border-top: 4px solid ${color}; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                            <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--primary-maroon);">${data.dog_name}</h3>
                             <h4 style="color: ${color}; font-weight: bold; font-size: 1.2rem;">LICENSE: ${data.license_status.toUpperCase()}</h4>
-                            <p style="margin-top: 1rem;">
+                            <p style="margin-top: 1rem; font-size: 1.1rem;">
                                 <strong>State:</strong> ${data.state_of_licensure}<br>
                                 <strong>Expires:</strong> ${data.expires_at}
                             </p>
                         </div>
                     `;
                 } else {
-                    resultsContainer.innerHTML = `<p style="text-align:center; color: #777;">No record found for "${term}".</p>`;
+                    resultsContainer.innerHTML = `<p style="text-align:center; color: #777; font-size: 1.1rem;">No record found for "${term}".</p>`;
                 }
             } catch (err) {
                 resultsContainer.innerHTML = `<p style="text-align:center; color: red;">Error connecting to database.</p>`;

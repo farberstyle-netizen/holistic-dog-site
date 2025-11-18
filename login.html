@@ -6,26 +6,76 @@
     <title>Login | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .login-container {
+            max-width: 500px;
+            margin: 3rem auto;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--primary-maroon);
+        }
+        .form-title {
+            text-align: center;
+            color: var(--primary-maroon);
+            margin-bottom: 2rem;
+        }
+        .error-box {
+            background: #ffebee;
+            color: #c62828;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #c62828;
+            display: none;
+        }
+        .form-footer-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .form-footer-link a {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+        .btn-login {
+            width: 100%;
+            background-color: var(--accent-gold);
+            color: var(--primary-maroon);
+            padding: 15px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-login:hover {
+            background-color: var(--primary-maroon);
+            color: var(--white);
+        }
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Dynamic Header -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
             <nav>
                 <ul id="nav-links">
-                    <li><a href="about-holistic.html">What is the HTDA?</a></li>
-                    <li><a href="gallery.html">Meet Our Dogs</a></li>
-                    <li><a href="verify.html">Verify License</a></li>
+                    <!-- Populated by header.js -->
                 </ul>
             </nav>
             <div class="nav-account" id="nav-account-links">
-                <!-- JS Fills This -->
+                <!-- Populated by header.js -->
             </div>
         </div>
     </header>
@@ -33,7 +83,6 @@
     <div class="login-container">
         <h1 class="form-title">Welcome Back</h1>
         
-        <!-- Error messages will appear here -->
         <div id="error-box" class="error-box"></div>
         
         <form id="loginForm">
@@ -49,14 +98,17 @@
         </form>
         
         <p class="form-footer-link">
-            Need an account? <a href="add-dog.html">Sign up here</a>
+            Need an account? <a href="add-dog.html">Sign up here</a><br>
+            <a href="forgot-password.html">Forgot your password?</a>
         </p>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-links">
             <a href="about.html">About Us</a>
+            <a href="meet-our-dogs.html">Meet Our Dogs</a>
+            <a href="careers.html">Careers</a>
+            <a href="advocacy.html">Advocacy</a>
             <a href="contact.html">Contact</a>
             <a href="privacy-policy.html">Privacy Policy</a>
             <a href="terms.html">Terms & Conditions</a>
@@ -69,7 +121,6 @@
 
     <script src="header.js"></script>
     <script>
-        // API URL for the login worker
         const API_URL = 'https://api-login.farberstyle.workers.dev';
 
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
@@ -94,4 +145,23 @@
                 const data = await response.json();
 
                 if (response.ok && data.token) {
-                    //
+                    // Save token and redirect to dashboard
+                    localStorage.setItem('session_token', data.token);
+                    window.location.href = 'dashboard.html';
+                } else {
+                    // Show error
+                    errorBox.textContent = data.message || 'Invalid email or password.';
+                    errorBox.style.display = 'block';
+                    btn.disabled = false;
+                    btn.innerText = "Login";
+                }
+            } catch (error) {
+                errorBox.textContent = 'Network error. Please try again.';
+                errorBox.style.display = 'block';
+                btn.disabled = false;
+                btn.innerText = "Login";
+            }
+        });
+    </script>
+</body>
+</html>

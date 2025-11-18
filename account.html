@@ -6,41 +6,37 @@
     <title>My Account | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Dynamic Header -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
             <nav>
                 <ul id="nav-links">
-                    <li><a href="about-holistic.html">What is the HTDA?</a></li>
-                    <li><a href="gallery.html">Meet Our Dogs</a></li>
-                    <li><a href="verify.html">Verify License</a></li>
+                    <!-- Populated by header.js -->
                 </ul>
             </nav>
             <div class="nav-account" id="nav-account-links">
-                <!-- JS Fills This -->
+                <!-- Populated by header.js -->
             </div>
         </div>
     </header>
 
     <!-- Loading Spinner -->
-    <div id="loader" class="loading-overlay">
+    <div id="loader" class="loading-overlay" style="display: none;">
         Loading Profile...
     </div>
 
     <!-- MAIN CONTENT -->
-    <div class="account-container">
+    <div class="account-container page-container">
         <h1>Account Management</h1>
         <p>Manage your personal information and shipping details.</p>
 
-        <div id="status-box" class="status-msg"></div>
+        <div id="status-box" class="status-msg" style="display: none;"></div>
 
         <form id="profile-form">
             
@@ -90,10 +86,12 @@
         </form>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-links">
             <a href="about.html">About Us</a>
+            <a href="meet-our-dogs.html">Meet Our Dogs</a>
+            <a href="careers.html">Careers</a>
+            <a href="advocacy.html">Advocacy</a>
             <a href="contact.html">Contact</a>
             <a href="privacy-policy.html">Privacy Policy</a>
             <a href="terms.html">Terms & Conditions</a>
@@ -104,10 +102,9 @@
         <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script src="header.js"></script>
     <script>
-        const API_URL = '/api/user'; // Points to your 'api-user' worker
+        const API_URL = '/api/user';
         const token = localStorage.getItem('session_token');
         const statusBox = document.getElementById('status-box');
         const loader = document.getElementById('loader');
@@ -115,9 +112,11 @@
         // 1. CHECK AUTH & FETCH DATA ON LOAD
         document.addEventListener('DOMContentLoaded', async () => {
             if (!token) {
-                window.location.href = 'login.html'; // Kick out if not logged in
+                window.location.href = 'login.html';
                 return;
             }
+
+            loader.style.display = 'block';
 
             try {
                 const response = await fetch(API_URL, {
@@ -126,7 +125,6 @@
                 });
 
                 if (response.status === 401) {
-                    // Token expired or invalid
                     localStorage.removeItem('session_token');
                     window.location.href = 'login.html';
                     return;
@@ -134,7 +132,6 @@
 
                 const data = await response.json();
                 
-                // Populate Fields
                 document.getElementById('email').value = data.email || '';
                 document.getElementById('firstName').value = data.firstName || '';
                 document.getElementById('lastName').value = data.lastName || '';
@@ -144,3 +141,61 @@
                 document.getElementById('zip').value = data.zip || '';
 
             } catch (err) {
+                console.error(err);
+                statusBox.textContent = 'Error loading profile data.';
+                statusBox.className = 'status-msg error';
+                statusBox.style.display = 'block';
+            } finally {
+                loader.style.display = 'none';
+            }
+        });
+
+        // 2. HANDLE FORM SUBMISSION
+        document.getElementById('profile-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            statusBox.style.display = 'none';
+
+            const formData = {
+                email: document.getElementById('email').value,
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                zip: document.getElementById('zip').value
+            };
+
+            const newPassword = document.getElementById('newPassword').value;
+            if (newPassword) {
+                formData.password = newPassword;
+            }
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Session-Token': token
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    statusBox.textContent = 'Changes saved successfully!';
+                    statusBox.className = 'status-msg success';
+                    statusBox.style.display = 'block';
+                    document.getElementById('newPassword').value = '';
+                    window.scrollTo(0, 0);
+                } else {
+                    throw new Error('Failed to save changes');
+                }
+            } catch (err) {
+                statusBox.textContent = 'Error saving changes. Please try again.';
+                statusBox.className = 'status-msg error';
+                statusBox.style.display = 'block';
+                window.scrollTo(0, 0);
+            }
+        });
+    </script>
+</body>
+</html>
