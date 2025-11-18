@@ -64,7 +64,87 @@
 
     <main class="page-container">
         <h1>Certification Quiz</h1>
-        <p class="section-intro">Before proceeding, please confirm the following statements. All three "Yes" answers are required to qualify.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certification Quiz | Holistic Therapy Dog Association</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .quiz-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-maroon);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .quiz-card h3 {
+            font-family: var(--font-header);
+            color: var(--primary-maroon);
+            margin-bottom: 0.5rem;
+        }
+        .quiz-card p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .quiz-options label {
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        input[type="radio"] {
+            width: auto;
+            cursor: pointer;
+        }
+        .welcome-message {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #2e7d32;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
+            <nav>
+                <ul id="nav-links">
+                    <!-- Populated by header.js -->
+                </ul>
+            </nav>
+            <div class="nav-account" id="nav-account-links">
+                <!-- Populated by header.js -->
+            </div>
+        </div>
+    </header>
+
+    <main class="page-container">
+        <h1>Certification Quiz</h1>
+        <p class="section-intro">Step 2 of 3: Before proceeding, please confirm the following statements.</p>
+
+        <!-- Welcome message for new signups -->
+        <div id="welcome-message" class="welcome-message" style="display: none;">
+            ✓ Account created successfully! Please complete the quiz below to continue.
+        </div>
 
         <form id="quiz-form">
             <!-- Question 1 -->
@@ -97,7 +177,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn-submit">See My Results & Proceed</button>
+            <button type="submit" class="btn-submit">Continue to Certification</button>
         </form>
     </main>
 
@@ -119,6 +199,15 @@
 
     <script src="header.js"></script>
     <script>
+        // Check if user just signed up
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('signup') === 'success') {
+                document.getElementById('welcome-message').style.display = 'block';
+            }
+        });
+
+        // Handle quiz submission
         document.getElementById('quiz-form').addEventListener('submit', (e) => {
             e.preventDefault();
             
