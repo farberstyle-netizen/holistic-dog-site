@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Holistic Therapy Dog Association</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Dynamic Header -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
+            <nav>
+                <ul id="nav-links">
+                    <li><a href="about-holistic.html">What is the HTDA?</a></li>
+                    <li><a href="gallery.html">Meet Our Dogs</a></li>
+                    <li><a href="verify.html">Verify License</a></li>
+                </ul>
+            </nav>
+            <div class="nav-account" id="nav-account-links">
+                <!-- JS Fills This -->
+            </div>
+        </div>
+    </header>
+
+    <div class="login-container">
+        <h1 class="form-title">Welcome Back</h1>
+        
+        <!-- Error messages will appear here -->
+        <div id="error-box" class="error-box"></div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" class="btn-login">Login</button>
+        </form>
+        
+        <p class="form-footer-link">
+            Need an account? <a href="add-dog.html">Sign up here</a>
+        </p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
+        </div>
+        <p class="disclaimer">
+            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
+        </p>
+        <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+    </footer>
+
+    <script src="header.js"></script>
+    <script>
+        // API URL for the login worker
+        const API_URL = 'https://api-login.farberstyle.workers.dev';
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const errorBox = document.getElementById('error-box');
+            const btn = document.querySelector('.btn-login');
+            
+            btn.disabled = true;
+            btn.innerText = "Verifying...";
+            errorBox.style.display = 'none';
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.token) {
+                    //

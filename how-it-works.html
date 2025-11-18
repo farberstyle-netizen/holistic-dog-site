@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works | Holistic Therapy Dog Association</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Page-specific styles for the steps */
+        .steps-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .step-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-maroon);
+        }
+        .step-number {
+            font-family: var(--font-header);
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            line-height: 1;
+        }
+        .step-content h3 {
+            font-family: var(--font-header);
+            color: var(--primary-maroon);
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dynamic Header -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
+            <nav>
+                <ul id="nav-links">
+                    <li><a href="about-holistic.html">What is the HTDA?</a></li>
+                    <li><a href="gallery.html">Meet Our Dogs</a></li>
+                    <li><a href="verify.html">Verify License</a></li>
+                </ul>
+            </nav>
+            <div class="nav-account" id="nav-account-links">
+                <!-- JS Fills This -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Content (From your file) -->
+    <main class="page-container">
+        <h1>A Simple 4-Step Process</h1>
+        <p class="section-intro">Follow these steps to get your companion officially recognized in our registry.</p>
+
+        <div class="steps-container">
+            <!-- Step 1 -->
+            <div class="step-card">
+                <div class="step-number">01.</div>
+                <div class="step-content">
+                    <h3 class="step-title">Create Your Account</h3>
+                    <p class="step-text">"Before purchasing, you must create a secure account. This is where you will manage your license, update your shipping address, and view your order history."</p>
+                </div>
+            </div>
+            <!-- Step 2 -->
+            <div class="step-card">
+                <div class="step-number">02.</div>
+                <div class="step-content">
+                    <h3 class="step-title">Submit Your Dog's Info</h3>
+                    <p class="step-text">"Enter your dog's name exactly as you wish it to appear on the diploma. You will also upload one (1) clear photo for the public registry."</p>
+                </div>
+            </div>
+            <!-- Step 3 -->
+            <div class="step-card">
+                <div class="step-number">03.</div>
+                <div class="step-content">
+                    <h3 class="step-title">Confirm & Pay</h3>
+                    <p class="step-text">"During checkout, you will be shown a final preview of the name for the diploma. Please confirm the exact spelling. You will then be redirected to Stripe for secure payment."</p>
+                </div>
+            </div>
+            <!-- Step 4 -->
+            <div class="step-card">
+                <div class="step-number">04.</div>
+                <div class="step-content">
+                    <h3 class="step-title">Receive Your Diploma & Join the Registry</h3>
+                    <p class="step-text">"Your official diploma is shipped, and your dog's license is now active in our National Database of Certified Holistic Therapy Dogs for two years."</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
+        </div>
+        <p class.disclaimer">
+            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
+        </p>
+        <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Dynamic Header Script -->
+    <script src="header.js"></script>
+</body>
+</html>

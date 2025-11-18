@@ -1,0 +1,142 @@
+/* style.css - The Unified Design System */
+
+:root {
+    --primary-color: #5D2A2A; /* Deep Maroon/Brown */
+    --accent-color: #B89A6A;  /* Muted Gold */
+    --bg-color: #fdfbf7;      /* Warm Off-White */
+    --text-color: #333;
+    --white: #ffffff;
+    --font-main: 'Lato', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- Header & Nav --- */
+header {
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 700;
+    transition: color 0.3s;
+}
+
+nav a:hover { color: var(--accent-color); }
+
+/* --- Typography & Page Structure --- */
+.page-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    flex: 1;
+}
+
+h1, h2, h3 { font-family: var(--font-serif); color: var(--primary-color); margin-bottom: 1rem; }
+h1 { font-size: 2.5rem; text-align: center; margin-bottom: 2rem; }
+.section-intro { font-size: 1.2rem; text-align: center; margin-bottom: 3rem; }
+
+/* --- Forms & Cards --- */
+.account-container, .checkout-container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: var(--white);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.form-group { margin-bottom: 1.5rem; }
+label { display: block; margin-bottom: 0.5rem; font-weight: 700; font-size: 0.9rem; }
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.btn-submit, .btn-save {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 700;
+    transition: background 0.3s;
+}
+
+.btn-submit:hover, .btn-save:hover { background-color: #4a2222; }
+
+/* --- Footer --- */
+footer {
+    background-color: var(--primary-color);
+    color: var(--white);
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: auto;
+}
+
+.footer-links { margin-bottom: 20px; }
+.footer-links a { color: #ebdcc1; margin: 0 15px; text-decoration: none; }
+.disclaimer { font-size: 0.85rem; opacity: 0.8; max-width: 800px; margin: 20px auto; }
+
+/* --- Profile/Card Utility --- */
+.profile-card {
+    display: flex;
+    gap: 20px;
+    background: var(--white);
+    padding: 20px;
+    border-left: 5px solid var(--accent-color);
+    margin-bottom: 20px;
+}
+.profile-img { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; }
+
+/* --- Admin & Legal Specific --- */
+.legal-entry { margin-bottom: 40px; }
+.status-msg { padding: 15px; margin-bottom: 20px; border-radius: 4px; display: none; }
+.status-msg.info { background: #e3f2fd; color: #0d47a1; }
+.status-msg.error { background: #ffebee; color: #c62828; }

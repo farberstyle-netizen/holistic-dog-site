@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet Our Dogs | Holistic Therapy Dog Association</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https.googleapis.com">
+    <link rel="preconnect" href="https.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Page-specific style for the feature dog */
+        .feature-dog-card {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--primary-maroon);
+            margin-top: 2rem;
+        }
+        .feature-dog-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 4px;
+            object-fit: cover;
+            border: 3px solid var(--accent-gold);
+            flex-shrink: 0; /* Prevents image from shrinking */
+        }
+        .feature-dog-content h3 {
+            font-family: var(--font-header);
+            color: var(--primary-maroon);
+            margin-bottom: 0.2rem;
+            font-size: 1.8rem;
+        }
+        .feature-dog-content h4 {
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+         .feature-dog-content p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+         }
+        
+        @media (max-width: 768px) {
+            .feature-dog-card { flex-direction: column; text-align: center; }
+            .feature-dog-img { width: 100%; height: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dynamic Header -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
+            <nav>
+                <ul id="nav-links">
+                    <li><a href="about-holistic.html">What is the HTDA?</a></li>
+                    <li><a href="gallery.html">Meet Our Dogs</a></li>
+                    <li><a href="verify.html">Verify License</a></li>
+                </ul>
+            </nav>
+            <div class="nav-account" id="nav-account-links">
+                <!-- JS Fills This -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="page-container
