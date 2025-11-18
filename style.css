@@ -76,6 +76,70 @@ h1, h2, h3 { font-family: var(--font-serif); color: var(--primary-color); margin
 h1 { font-size: 2.5rem; text-align: center; margin-bottom: 2rem; }
 .section-intro { font-size: 1.2rem; text-align: center; margin-bottom: 3rem; }
 
+/* --- New Section: Homepage Hero and Grid Layout --- */
+.hero {
+    background-color: var(--accent-color); /* Use gold for the hero background */
+    color: var(--primary-color);
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+.cta-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 15px 40px;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+.cta-button:hover {
+    background-color: #4a2222;
+}
+
+.trust-section {
+    padding: 60px 20px;
+    background-color: #f8f5f1; /* Light contrast background */
+    text-align: center;
+}
+
+.icons-grid {
+    display: grid;
+    /* Create three equal columns for the icons */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px;
+    max-width: 1000px;
+    margin: 30px auto 0;
+}
+
+.icon-card {
+    padding: 20px;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.icon-card img {
+    width: 80px; /* Standardize icon size */
+    height: 80px;
+    margin-bottom: 15px;
+}
+.icon-card h3 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+}
+/* --- End Homepage Layout --- */
+
+
 /* --- Forms & Cards --- */
 .account-container, .checkout-container {
     max-width: 600px;
