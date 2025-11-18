@@ -10,8 +10,6 @@ document.addEventListener("DOMContentLoaded", function() {
             <li><a href="meet-our-dogs.html">Meet Our Dogs</a></li>
             <li><a href="gallery.html">Gallery</a></li>
             <li><a href="verify.html">Verify License</a></li>
-            <li><a href="advocacy.html">Advocacy</a></li>
-            <li><a href="contact.html">Contact</a></li>
         `;
     }
 
