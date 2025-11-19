@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holistic Therapy Dog Association | Official Certification</title>
+    <title>Create Account | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,184 +11,69 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Hero Video Section */
-        .hero {
-            position: relative;
-            height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background-color: var(--primary-maroon); /* Fallback color */
+        .signup-container {
+            max-width: 700px;
+            margin: 3rem auto;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--primary-maroon);
         }
-        
-        /* Background Video */
-        .hero-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
-            z-index: 0;
-            object-fit: cover;
-        }
-        
-        /* Dark overlay for text readability */
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(93, 42, 42, 0.7); /* Semi-transparent maroon */
-            z-index: 1;
-        }
-        
-        /* Hero content on top of video */
-        .hero-content {
-            position: relative;
-            z-index: 2;
+        .form-title {
             text-align: center;
-            color: white;
-            max-width: 800px;
-            padding: 0 20px;
+            color: var(--primary-maroon);
+            margin-bottom: 1rem;
         }
-        
-        .hero-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--accent-gold);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .hero-content p {
-            font-size: 1.3rem;
+        .form-subtitle {
+            text-align: center;
+            color: #666;
             margin-bottom: 2rem;
-            line-height: 1.6;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
         }
-        
-        .cta-button {
-            display: inline-block;
+        .error-box {
+            background: #ffebee;
+            color: #c62828;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #c62828;
+            display: none;
+        }
+        .section-header {
+            color: var(--primary-maroon);
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-gold);
+        }
+        .form-footer-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .form-footer-link a {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+        .btn-signup {
+            width: 100%;
             background-color: var(--accent-gold);
             color: var(--primary-maroon);
-            padding: 15px 40px;
-            text-decoration: none;
-            font-weight: 700;
+            padding: 15px;
+            border: none;
             border-radius: 4px;
+            font-weight: 700;
             font-size: 1.1rem;
+            cursor: pointer;
             transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
-        
-        .cta-button:hover {
-            background-color: var(--white);
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        .btn-signup:hover {
+            background-color: var(--primary-maroon);
+            color: var(--white);
         }
-        
-        /* Trust Section */
-        .trust-section {
-            padding: 4rem 0;
-            background: var(--white);
-        }
-        
-        .trust-section h2 {
-            text-align: center;
-            color: var(--primary-maroon);
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-        }
-        
-        .icons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .icon-card {
-            text-align: center;
-            padding: 2rem;
-            background: var(--bg-offwhite);
-            border-radius: 8px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .icon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-        
-        .icon-card img {
-            width: 120px;
-            height: 120px;
-            margin-bottom: 1.5rem;
-        }
-        
-        .icon-card h3 {
-            color: var(--primary-maroon);
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-        
-        .icon-card p {
-            color: #555;
-            line-height: 1.7;
-        }
-        
-        /* Diploma Preview Section */
-        .diploma-preview {
-            padding: 4rem 0;
-            background: var(--bg-offwhite);
-        }
-        
-        .diploma-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-            text-align: center;
-        }
-        
-        .diploma-container h2 {
-            color: var(--primary-maroon);
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .video-placeholder {
-            background: var(--white);
-            height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            margin: 3rem 0;
-            border: 2px dashed var(--accent-gold);
-            color: var(--accent-gold);
-            font-size: 1.2rem;
-        }
-        
-        @media (max-width: 768px) {
-            .hero {
-                height: 500px;
-            }
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-            .hero-content p {
-                font-size: 1.1rem;
-            }
-            .icons-grid {
-                grid-template-columns: 1fr;
-            }
+        .btn-signup:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
     </style>
 </head>
@@ -208,63 +93,126 @@
         </div>
     </header>
 
-    <!-- HERO SECTION WITH VIDEO BACKGROUND -->
-    <section class="hero">
-        <!-- Background Video - Replace "diploma-hero-video.mp4" with your actual video file -->
-        <video autoplay muted loop playsinline class="hero-video">
-            <source src="diploma-hero-video.mp4" type="video/mp4">
-            <!-- Fallback for browsers that don't support video -->
-            Your browser does not support the video tag.
-        </video>
+    <div class="signup-container">
+        <h1 class="form-title">Create Your Account</h1>
+        <p class="form-subtitle">Step 1 of 3: Set up your account to begin the certification process.</p>
         
-        <!-- Dark overlay for text readability -->
-        <div class="hero-overlay"></div>
+        <div id="error-box" class="error-box"></div>
         
-        <!-- Hero Content -->
-        <div class="hero-content">
-            <h1>Honor Their Impact.</h1>
-            <p>More than a pet. A partner in holistic wellness.<br>Certify your dog with the official Holistic Therapy Dog Association.</p>
-            <a href="signup.html" class="cta-button">Start Certification</a>
-        </div>
-    </section>
-
-    <!-- OUR STANDARD OF EXCELLENCE SECTION -->
-    <section class="trust-section">
-        <h2>Our Standard of Excellence</h2>
-        <div class="icons-grid">
-            <div class="icon-card">
-                <img src="doctor.jpg" alt="Holistic Wellness Icon">
-                <h3>Holistic Focus</h3>
-                <p>Recognizing the profound therapeutic impact dogs have on mental and emotional well-being.</p>
-            </div>
-
-            <div class="icon-card">
-                <img src="judge.jpg" alt="Standard of Excellence Icon">
-                <h3>Verified Standards</h3>
-                <p>Every certification is reviewed to ensure it meets the ethical standards of the association.</p>
-            </div>
-
-            <div class="icon-card">
-                <img src="globe.jpg" alt="Global Registry Icon">
-                <h3>Universal Registry</h3>
-                <p>A publicly accessible, searchable database validating your dog's status anywhere in the world.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- DIPLOMA PREVIEW SECTION -->
-    <section class="diploma-preview">
-        <div class="diploma-container">
-            <h2>The Official Certification Package</h2>
-            <p class="section-intro">Beautifully pressed. Delivered to your door.</p>
+        <form id="signupForm">
+            <h3 class="section-header">Account Information</h3>
             
-            <div class="video-placeholder">
-                <p>[Spinning Diploma Video Placeholder]</p>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input type="text" id="first_name" name="first_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" id="last_name" name="last_name" required>
+                </div>
             </div>
-            
-            <a href="add-dog.html" class="cta-button" style="background-color: var(--primary-maroon); color: white;">Order Yours Today</a>
-        </div>
-    </section>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" minlength="8" required>
+                    <small style="color: #666;">Minimum 8 characters</small>
+                </div>
+                <div class="form-group">
+                    <label for="password_confirm">Confirm Password</label>
+                    <input type="password" id="password_confirm" name="password_confirm" minlength="8" required>
+                </div>
+            </div>
+
+            <h3 class="section-header">Shipping Address</h3>
+            <p style="color: #666; font-size: 0.95rem; margin-bottom: 1rem;">Your official diploma will be shipped to this address.</p>
+
+            <div class="form-group">
+                <label for="address">Street Address</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <select id="state" name="state" required>
+                        <option value="">Select State</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                        <option value="AZ">Arizona</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="CA">California</option>
+                        <option value="CO">Colorado</option>
+                        <option value="CT">Connecticut</option>
+                        <option value="DE">Delaware</option>
+                        <option value="FL">Florida</option>
+                        <option value="GA">Georgia</option>
+                        <option value="HI">Hawaii</option>
+                        <option value="ID">Idaho</option>
+                        <option value="IL">Illinois</option>
+                        <option value="IN">Indiana</option>
+                        <option value="IA">Iowa</option>
+                        <option value="KS">Kansas</option>
+                        <option value="KY">Kentucky</option>
+                        <option value="LA">Louisiana</option>
+                        <option value="ME">Maine</option>
+                        <option value="MD">Maryland</option>
+                        <option value="MA">Massachusetts</option>
+                        <option value="MI">Michigan</option>
+                        <option value="MN">Minnesota</option>
+                        <option value="MS">Mississippi</option>
+                        <option value="MO">Missouri</option>
+                        <option value="MT">Montana</option>
+                        <option value="NE">Nebraska</option>
+                        <option value="NV">Nevada</option>
+                        <option value="NH">New Hampshire</option>
+                        <option value="NJ">New Jersey</option>
+                        <option value="NM">New Mexico</option>
+                        <option value="NY">New York</option>
+                        <option value="NC">North Carolina</option>
+                        <option value="ND">North Dakota</option>
+                        <option value="OH">Ohio</option>
+                        <option value="OK">Oklahoma</option>
+                        <option value="OR">Oregon</option>
+                        <option value="PA">Pennsylvania</option>
+                        <option value="RI">Rhode Island</option>
+                        <option value="SC">South Carolina</option>
+                        <option value="SD">South Dakota</option>
+                        <option value="TN">Tennessee</option>
+                        <option value="TX">Texas</option>
+                        <option value="UT">Utah</option>
+                        <option value="VT">Vermont</option>
+                        <option value="VA">Virginia</option>
+                        <option value="WA">Washington</option>
+                        <option value="WV">West Virginia</option>
+                        <option value="WI">Wisconsin</option>
+                        <option value="WY">Wyoming</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="zip">ZIP Code</label>
+                <input type="text" id="zip" name="zip" pattern="[0-9]{5}" maxlength="5" required>
+            </div>
+
+            <button type="submit" class="btn-signup">Create Account & Continue</button>
+        </form>
+        
+        <p class="form-footer-link">
+            Already have an account? <a href="login.html">Login here</a>
+        </p>
+    </div>
 
     <footer>
         <div class="footer-links">
@@ -283,5 +231,66 @@
     </footer>
 
     <script src="header.js"></script>
+    <script>
+        const API_URL = 'https://api-signup.farberstyle.workers.dev';
+
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const errorBox = document.getElementById('error-box');
+            const btn = document.querySelector('.btn-signup');
+            
+            btn.disabled = true;
+            btn.innerText = "Creating Account...";
+            errorBox.style.display = 'none';
+
+            // Client-side validation
+            const password = document.getElementById('password').value;
+            const passwordConfirm = document.getElementById('password_confirm').value;
+
+            if (password !== passwordConfirm) {
+                errorBox.textContent = 'Passwords do not match.';
+                errorBox.style.display = 'block';
+                btn.disabled = false;
+                btn.innerText = "Create Account & Continue";
+                return;
+            }
+
+            if (password.length < 8) {
+                errorBox.textContent = 'Password must be at least 8 characters long.';
+                errorBox.style.display = 'block';
+                btn.disabled = false;
+                btn.innerText = "Create Account & Continue";
+                return;
+            }
+
+            try {
+                const formData = new FormData(document.getElementById('signupForm'));
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.token) {
+                    // Save token and redirect to quiz
+                    localStorage.setItem('session_token', data.token);
+                    window.location.href = 'quiz.html?signup=success';
+                } else {
+                    // Show error
+                    errorBox.textContent = data.message || 'An error occurred. Please try again.';
+                    errorBox.style.display = 'block';
+                    btn.disabled = false;
+                    btn.innerText = "Create Account & Continue";
+                }
+            } catch (error) {
+                errorBox.textContent = 'Network error. Please try again.';
+                errorBox.style.display = 'block';
+                btn.disabled = false;
+                btn.innerText = "Create Account & Continue";
+            }
+        });
+    </script>
 </body>
 </html>

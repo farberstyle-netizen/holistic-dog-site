@@ -3,72 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Take the Quiz | Holistic Therapy Dog Association</title>
-    <link rel="stylesheet" href="style.css">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    
-    <style>
-        .quiz-card {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            border-left: 4px solid var(--primary-maroon);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-        .quiz-card h3 {
-            font-family: var(--font-header);
-            color: var(--primary-maroon);
-            margin-bottom: 0.5rem;
-        }
-        .quiz-card p {
-            margin-bottom: 1rem;
-            color: #555;
-        }
-        .quiz-options {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-        .quiz-options label {
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-        }
-        input[type="radio"] {
-            width: auto;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="nav-container">
-            <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
-            <nav>
-                <ul id="nav-links">
-                    <!-- Populated by header.js -->
-                </ul>
-            </nav>
-            <div class="nav-account" id="nav-account-links">
-                <!-- Populated by header.js -->
-            </div>
-        </div>
-    </header>
-
-    <main class="page-container">
-        <h1>Certification Quiz</h1>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certification Quiz | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
     
@@ -199,7 +133,18 @@
 
     <script src="header.js"></script>
     <script>
-        // Check if user just signed up
+        // ============================================
+        // AUTHENTICATION CHECK
+        // ============================================
+        const token = localStorage.getItem('session_token');
+        if (!token) {
+            alert('Please create an account or log in to continue.');
+            window.location.href = 'signup.html';
+        }
+
+        // ============================================
+        // CHECK IF USER JUST SIGNED UP
+        // ============================================
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('signup') === 'success') {
@@ -207,7 +152,9 @@
             }
         });
 
-        // Handle quiz submission
+        // ============================================
+        // HANDLE QUIZ SUBMISSION
+        // ============================================
         document.getElementById('quiz-form').addEventListener('submit', (e) => {
             e.preventDefault();
             
@@ -224,7 +171,8 @@
                 // All answers are "yes" - proceed to certification
                 window.location.href = 'add-dog.html';
             } else {
-                alert('You must answer "Yes" to all three questions to qualify for this certification.');
+                // One or more answers are "no"
+                alert('To qualify for this certification, you must answer "Yes" to all three questions. If your dog has a history of aggression, we cannot proceed with certification at this time.');
             }
         });
     </script>
