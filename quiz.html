@@ -44,15 +44,6 @@
             width: auto;
             cursor: pointer;
         }
-        .welcome-message {
-            background: #e8f5e9;
-            color: #2e7d32;
-            padding: 1rem;
-            border-radius: 4px;
-            margin-bottom: 2rem;
-            border-left: 4px solid #2e7d32;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
@@ -73,15 +64,9 @@
 
     <main class="page-container">
         <h1>Certification Quiz</h1>
-        <p class="section-intro">Step 2 of 3: Before proceeding, please confirm the following statements.</p>
-
-        <!-- Welcome message for new signups -->
-        <div id="welcome-message" class="welcome-message" style="display: none;">
-            ✓ Account created successfully! Please complete the quiz below to continue.
-        </div>
+        <p class="section-intro">Step 1 of 3: Before proceeding, please confirm the following statements.</p>
 
         <form id="quiz-form">
-            <!-- Question 1 -->
             <div class="quiz-card">
                 <h3>Question 1: Temperament</h3>
                 <p>Is your dog free of any history of aggression towards humans or other animals?</p>
@@ -91,7 +76,6 @@
                 </div>
             </div>
 
-            <!-- Question 2 -->
             <div class="quiz-card">
                 <h3>Question 2: Understanding the Terms</h3>
                 <p>Do you understand that this is a commemorative title and NOT a Service Animal certification under the ADA?</p>
@@ -101,7 +85,6 @@
                 </div>
             </div>
 
-            <!-- Question 3 -->
             <div class="quiz-card">
                 <h3>Question 3: Formal Honor</h3>
                 <p>Do you believe this profound, commemorative bond deserves to be formally recognized with the Association's highest honor?</p>
@@ -111,7 +94,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn-submit">Continue to Certification</button>
+            <button type="submit" class="btn-submit">Continue to Create Account</button>
         </form>
     </main>
 
@@ -133,28 +116,6 @@
 
     <script src="header.js"></script>
     <script>
-        // ============================================
-        // AUTHENTICATION CHECK
-        // ============================================
-        const token = localStorage.getItem('session_token');
-        if (!token) {
-            alert('Please create an account or log in to continue.');
-            window.location.href = 'signup.html';
-        }
-
-        // ============================================
-        // CHECK IF USER JUST SIGNED UP
-        // ============================================
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('signup') === 'success') {
-                document.getElementById('welcome-message').style.display = 'block';
-            }
-        });
-
-        // ============================================
-        // HANDLE QUIZ SUBMISSION
-        // ============================================
         document.getElementById('quiz-form').addEventListener('submit', (e) => {
             e.preventDefault();
             
@@ -168,10 +129,8 @@
             }
 
             if (q1.value === 'yes' && q2.value === 'yes' && q3.value === 'yes') {
-                // All answers are "yes" - proceed to certification
-                window.location.href = 'add-dog.html';
+                window.location.href = 'signup.html?qualified=yes';
             } else {
-                // One or more answers are "no"
                 alert('To qualify for this certification, you must answer "Yes" to all three questions. If your dog has a history of aggression, we cannot proceed with certification at this time.');
             }
         });

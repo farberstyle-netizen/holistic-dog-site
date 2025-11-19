@@ -30,6 +30,16 @@
             color: #666;
             margin-bottom: 2rem;
         }
+        .qualified-badge {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #2e7d32;
+            text-align: center;
+            font-weight: 600;
+        }
         .error-box {
             background: #ffebee;
             color: #c62828;
@@ -95,7 +105,11 @@
 
     <div class="signup-container">
         <h1 class="form-title">Create Your Account</h1>
-        <p class="form-subtitle">Step 1 of 3: Set up your account to begin the certification process.</p>
+        <p class="form-subtitle">Step 2 of 3: Set up your account to continue the certification process.</p>
+        
+        <div id="qualified-badge" class="qualified-badge" style="display: none;">
+            ✅ Congratulations! You've qualified for certification. Create your account below to continue.
+        </div>
         
         <div id="error-box" class="error-box"></div>
         
@@ -232,6 +246,13 @@
 
     <script src="header.js"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('qualified') === 'yes') {
+                document.getElementById('qualified-badge').style.display = 'block';
+            }
+        });
+
         const API_URL = 'https://api-signup.farberstyle.workers.dev';
 
         document.getElementById('signupForm').addEventListener('submit', async (e) => {
@@ -243,7 +264,6 @@
             btn.innerText = "Creating Account...";
             errorBox.style.display = 'none';
 
-            // Client-side validation
             const password = document.getElementById('password').value;
             const passwordConfirm = document.getElementById('password_confirm').value;
 
@@ -274,11 +294,9 @@
                 const data = await response.json();
 
                 if (response.ok && data.token) {
-                    // Save token and redirect to quiz
                     localStorage.setItem('session_token', data.token);
-                    window.location.href = 'quiz.html?signup=success';
+                    window.location.href = 'add-dog.html';
                 } else {
-                    // Show error
                     errorBox.textContent = data.message || 'An error occurred. Please try again.';
                     errorBox.style.display = 'block';
                     btn.disabled = false;
