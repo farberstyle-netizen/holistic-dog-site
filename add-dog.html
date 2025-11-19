@@ -22,6 +22,22 @@
             color: #666;
             margin-top: 5px;
         }
+        .coupon-section {
+            background: #f0f8ff;
+            border: 2px dashed var(--accent-gold);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        .coupon-success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            border-left: 4px solid #2e7d32;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -42,14 +58,13 @@
 
     <main class="page-container">
         <h1>Final Step: Certify Your Dog</h1>
-        <p class="section-intro">Complete the form below to receive your official diploma and entry into the National Database.</p>
+        <p class="section-intro">Step 3 of 3: Complete the form below to receive your official diploma and entry into the National Database.</p>
 
         <div class="checkout-container">
             <div id="msg-box" class="status-msg" style="display: none;"></div>
 
             <form id="checkoutForm">
                 
-                <!-- DIPLOMA PREVIEW SECTION -->
                 <h2 style="color: var(--primary-maroon);">1. Diploma Details</h2>
                 <div class="form-group">
                     <label for="dog_name">Dog's Full Name (as it will appear on diploma)</label>
@@ -57,7 +72,6 @@
                     <small style="color: #666;">You can use nicknames in quotes, middle names, or just the dog's first name.</small>
                 </div>
 
-                <!-- Live Preview Box -->
                 <div style="background: #fff; border: 2px dashed var(--accent-gold); padding: 20px; text-align: center; margin-bottom: 20px; position: relative;">
                     <p style="font-size: 0.8rem; color: #999; text-transform: uppercase;">Diploma Preview</p>
                     <h2 id="preview-text" style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #333; margin: 10px 0;">[ Your Dog's Name ]</h2>
@@ -128,9 +142,20 @@
                     <img id="image-preview" class="image-preview" alt="Photo preview">
                 </div>
 
-                <!-- PAYMENT SECTION -->
-                <h2 style="color: var(--primary-maroon); margin-top: 30px;">2. Secure Payment</h2>
-                <p style="margin-bottom: 15px;">Total: <strong>$99.99</strong> (Valid for 2 Years)</p>
+                <h2 style="color: var(--primary-maroon); margin-top: 30px;">2. Payment</h2>
+                
+                <div class="coupon-section">
+                    <h3 style="color: var(--primary-maroon); margin-bottom: 0.5rem;">Have a Coupon Code?</h3>
+                    <p style="color: #666; font-size: 0.95rem; margin-bottom: 1rem;">Enter your beta tester or promotional code below.</p>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <input type="text" id="coupon_code" name="coupon_code" placeholder="Enter code (e.g. BETA2025)" style="text-transform: uppercase;">
+                    </div>
+                    <div id="coupon-success" class="coupon-success">
+                        ✅ Coupon applied! Your certification is FREE!
+                    </div>
+                </div>
+
+                <p id="price-display" style="margin-bottom: 15px;">Total: <strong>$99.99</strong> (Valid for 2 Years)</p>
                 
                 <div class="form-group">
                     <label>
@@ -144,7 +169,7 @@
                     </label>
                 </div>
 
-                <button type="submit" class="btn-submit" id="submitBtn">Proceed to Stripe Checkout ($99.99)</button>
+                <button type="submit" class="btn-submit" id="submitBtn">Proceed to Payment ($99.99)</button>
             </form>
         </div>
     </main>
@@ -203,8 +228,7 @@
                 return;
             }
 
-            // Validate file size (5MB max)
-            const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+            const maxSize = 5 * 1024 * 1024;
             if (file.size > maxSize) {
                 alert('Image file size must be less than 5MB. Please choose a smaller image.');
                 e.target.value = '';
@@ -213,7 +237,6 @@
                 return;
             }
 
-            // Validate file type
             const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
             if (!validTypes.includes(file.type)) {
                 alert('Please upload a valid image file (JPG, PNG, or WEBP).');
@@ -223,18 +246,24 @@
                 return;
             }
 
-            // Show file info
             const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
             fileInfo.textContent = `✓ ${file.name} (${fileSizeMB} MB)`;
             fileInfo.style.color = '#2e7d32';
 
-            // Show preview
             const reader = new FileReader();
             reader.onload = (event) => {
                 imagePreview.src = event.target.result;
                 imagePreview.style.display = 'block';
             };
             reader.readAsDataURL(file);
+        });
+
+        // ============================================
+        // COUPON CODE HANDLING
+        // ============================================
+        const couponInput = document.getElementById('coupon_code');
+        couponInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.toUpperCase();
         });
 
         // ============================================
@@ -251,11 +280,8 @@
 
             try {
                 const formData = new FormData(document.getElementById('checkoutForm'));
-                
-                // Add session token to form data
                 formData.append('session_token', token);
                 
-                // Cloudflare Worker URL for checkout
                 const response = await fetch('https://api-checkout.farberstyle.workers.dev', {
                     method: 'POST',
                     body: formData
@@ -263,9 +289,14 @@
                 
                 const data = await response.json();
                 
-                if (data.url) {
-                    // Redirect to Stripe
-                    window.location.href = data.url;
+                if (data.success && data.url) {
+                    if (data.free) {
+                        // Free with coupon - go straight to success
+                        window.location.href = data.url;
+                    } else {
+                        // Redirect to Stripe
+                        window.location.href = data.url;
+                    }
                 } else {
                     throw new Error(data.message || 'Payment initialization failed.');
                 }
@@ -276,7 +307,7 @@
                 msg.className = 'status-msg error';
                 msg.innerText = error.message || "Error connecting to payment processor. Please try again.";
                 btn.disabled = false;
-                btn.innerText = "Proceed to Stripe Checkout ($99.99)";
+                btn.innerText = "Proceed to Payment ($99.99)";
             }
         });
     </script>
