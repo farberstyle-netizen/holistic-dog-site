@@ -67,7 +67,7 @@
             font-weight: 600;
             text-transform: uppercase;
         }
-        .status-not-shipped {
+        .status-not_shipped {
             background: #fff3cd;
             color: #856404;
         }
@@ -156,7 +156,7 @@
 
     <header>
         <div class="nav-container">
-            <a href="admin.html" class="logo">HTDA Admin</a>
+            <a href="admin.html" class="logo">Holistic Therapy Dog<br>Association</a>
             <nav>
                 <ul id="nav-links">
                     <li><a href="admin.html">Dashboard</a></li>
@@ -171,7 +171,7 @@
     </header>
 
     <main class="page-container">
-        <h1>ðŸ“¦ Shipment Manager</h1>
+        <h1>📦 Shipment Manager</h1>
         <p class="section-intro">Manage diploma shipments and tracking numbers</p>
 
         <div class="shipment-filters">
@@ -203,7 +203,6 @@
         </div>
     </main>
 
-    <!-- Modal for adding tracking -->
     <div id="tracking-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -239,16 +238,13 @@
         </div>
     </div>
 
-    <!-- Modal for viewing shipment details -->
     <div id="details-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Shipment Details</h2>
                 <button class="close-btn" onclick="closeDetailsModal()">&times;</button>
             </div>
-            <div id="details-content">
-                <!-- Details populated by JavaScript -->
-            </div>
+            <div id="details-content"></div>
         </div>
     </div>
 
@@ -264,7 +260,6 @@
     </footer>
 
     <script>
-        // Auth check
         const token = localStorage.getItem('session_token');
         if (!token) {
             alert('Please log in as admin');
@@ -279,22 +274,32 @@
         let currentFilter = 'all';
         let allShipments = [];
 
-        // Load shipments from API (we'll create this endpoint)
         async function loadShipments() {
-            // Mock data for now - replace with actual API call
-            allShipments = [
-                {
-                    id: 1,
-                    license_id: '10000001',
-                    dog_name: 'ADDIE THE CADDIE',
-                    owner_name: 'John Doe',
-                    address: '123 Main St, Los Angeles, CA 90001',
-                    delivery_status: 'not_shipped',
-                    tracking_number: null,
-                    shipped_at: null
+            try {
+                const response = await fetch('https://api-admin-shipments.farberstyle.workers.dev');
+                const data = await response.json();
+                
+                if (data.success) {
+                    allShipments = data.shipments.map(s => ({
+                        id: s.id,
+                        license_id: s.license_id,
+                        dog_name: s.dog_name,
+                        owner_name: `${s.first_name} ${s.last_name}`,
+                        address: `${s.address}, ${s.city}, ${s.state} ${s.zip}`,
+                        delivery_status: s.delivery_status || 'not_shipped',
+                        tracking_number: s.tracking_number,
+                        shipped_at: s.shipped_at,
+                        paid_at: s.paid_at
+                    }));
+                    renderShipments();
+                } else {
+                    throw new Error(data.error);
                 }
-            ];
-            renderShipments();
+            } catch (error) {
+                console.error('Error loading shipments:', error);
+                document.getElementById('shipments-body').innerHTML = 
+                    '<tr><td colspan="7" style="text-align: center; padding: 2rem; color: red;">Error loading shipments. Please refresh.</td></tr>';
+            }
         }
 
         function renderShipments() {
@@ -375,13 +380,30 @@
             const trackingNumber = document.getElementById('tracking-number').value;
             const carrier = document.getElementById('carrier').value;
 
-            // TODO: Call API to update tracking
-            alert(`Tracking added: ${carrier} - ${trackingNumber}`);
-            closeModal();
-            loadShipments();
+            try {
+                const response = await fetch('https://api-admin-shipments.farberstyle.workers.dev', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        dog_id: dogId,
+                        tracking_number: trackingNumber,
+                        carrier: carrier
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    alert('Tracking updated successfully!');
+                    closeModal();
+                    loadShipments();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error updating tracking: ' + error.message);
+            }
         });
 
-        // Load on page load
         loadShipments();
     </script>
 </body>
