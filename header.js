@@ -20,11 +20,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (accountContainer) {
         if (token) {
-            // LOGGED IN: Show profile picture
+            // LOGGED IN: Show profile picture and logout button
             accountContainer.innerHTML = `
                 <a href="dashboard.html" title="My Dashboard">
                     <img src="${userAvatar}" alt="My Profile" class="user-pfp">
                 </a>
+                <button onclick="logout()" class="btn-login-header" style="cursor: pointer; border: none;">LOGOUT</button>
             `;
         } else {
             // LOGGED OUT: Show Login Button
@@ -34,3 +35,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
+
+// Logout function
+function logout() {
+    localStorage.removeItem('session_token');
+    window.location.href = 'index.html';
+}
