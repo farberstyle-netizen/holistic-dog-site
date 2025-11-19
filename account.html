@@ -9,6 +9,126 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .account-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .welcome-section {
+            border-bottom: 2px solid var(--accent-gold);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .welcome-section h1 {
+            color: var(--primary-maroon);
+            margin-bottom: 0.5rem;
+        }
+        .dog-card {
+            background: var(--bg-offwhite);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-maroon);
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        .dog-photo {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 3px solid var(--accent-gold);
+            flex-shrink: 0;
+        }
+        .dog-info {
+            flex: 1;
+        }
+        .dog-info h3 {
+            color: var(--primary-maroon);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+        .info-row {
+            display: flex;
+            margin-bottom: 0.75rem;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #666;
+            width: 150px;
+        }
+        .info-value {
+            color: #333;
+        }
+        .license-id {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            background: var(--primary-maroon);
+            padding: 8px 16px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .status-paid {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .no-dogs {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+        .btn-add-dog {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--primary-maroon);
+            padding: 12px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+        .btn-add-dog:hover {
+            background: var(--primary-maroon);
+            color: white;
+        }
+        .expires-warning {
+            background: #fff3cd;
+            border-left: 4px solid #f57c00;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+        @media (max-width: 768px) {
+            .dog-card {
+                flex-direction: column;
+            }
+            .dog-photo {
+                width: 100%;
+                height: 250px;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -26,65 +146,25 @@
         </div>
     </header>
 
-    <!-- Loading Spinner -->
-    <div id="loader" class="loading-overlay" style="display: none;">
-        Loading Profile...
-    </div>
+    <main class="page-container">
+        <div class="account-container">
+            <div class="welcome-section">
+                <h1>My Account</h1>
+                <p id="welcome-text">Loading your account...</p>
+            </div>
 
-    <!-- MAIN CONTENT -->
-    <div class="account-container page-container">
-        <h1>Account Management</h1>
-        <p>Manage your personal information and shipping details.</p>
-
-        <div id="status-box" class="status-msg" style="display: none;"></div>
-
-        <form id="profile-form">
-            
-            <h2 class="section-title">Contact Information</h2>
-            <div class="form-grid">
-                <div class="form-group full-width">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName" required>
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" required>
+            <div id="dogs-section">
+                <h2 style="color: var(--primary-maroon); margin-bottom: 1.5rem;">My Certified Dogs</h2>
+                <div id="dogs-list">
+                    <p style="text-align: center; padding: 2rem;">Loading your dogs...</p>
                 </div>
             </div>
 
-            <h2 class="section-title">Shipping Address</h2>
-            <div class="form-grid">
-                <div class="form-group full-width">
-                    <label for="address">Street Address</label>
-                    <input type="text" id="address" name="address" required>
-                </div>
-                <div class="form-group">
-                    <label for="city">City</label>
-                    <input type="text" id="city" name="city" required>
-                </div>
-                <div class="form-group">
-                    <label for="state">State</label>
-                    <input type="text" id="state" name="state" required>
-                </div>
-                <div class="form-group full-width">
-                    <label for="zip">Zip Code</label>
-                    <input type="text" id="zip" name="zip" required>
-                </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="add-dog.html" class="btn-add-dog">+ Certify Another Dog</a>
             </div>
-
-            <h2 class="section-title">Security</h2>
-            <div class="form-group full-width">
-                <label for="newPassword">New Password (Optional)</label>
-                <input type="password" id="newPassword" name="newPassword" placeholder="Leave blank to keep current password">
-            </div>
-
-            <button type="submit" class="btn-save">Save Changes</button>
-        </form>
-    </div>
+        </div>
+    </main>
 
     <footer>
         <div class="footer-links">
@@ -104,98 +184,115 @@
 
     <script src="header.js"></script>
     <script>
-        const API_URL = '/api/user';
+        // Auth check
         const token = localStorage.getItem('session_token');
-        const statusBox = document.getElementById('status-box');
-        const loader = document.getElementById('loader');
+        if (!token) {
+            alert('Please log in to view your account.');
+            window.location.href = 'login.html';
+        }
 
-        // 1. CHECK AUTH & FETCH DATA ON LOAD
-        document.addEventListener('DOMContentLoaded', async () => {
-            if (!token) {
+        const API_URL = 'https://api-account.farberstyle.workers.dev';
+
+        // Load account data
+        async function loadAccount() {
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ session_token: token })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    throw new Error(data.message || 'Failed to load account');
+                }
+
+                // Update welcome text
+                document.getElementById('welcome-text').textContent = 
+                    `Welcome back, ${data.user.first_name} ${data.user.last_name}!`;
+
+                // Display dogs
+                displayDogs(data.dogs);
+
+            } catch (error) {
+                console.error('Error loading account:', error);
+                alert('Error loading your account. Please try logging in again.');
+                localStorage.removeItem('session_token');
                 window.location.href = 'login.html';
+            }
+        }
+
+        function displayDogs(dogs) {
+            const dogsList = document.getElementById('dogs-list');
+
+            if (!dogs || dogs.length === 0) {
+                dogsList.innerHTML = `
+                    <div class="no-dogs">
+                        <p style="font-size: 1.2rem; margin-bottom: 1rem;">You haven't certified any dogs yet!</p>
+                        <a href="add-dog.html" class="btn-add-dog">Get Started</a>
+                    </div>
+                `;
                 return;
             }
 
-            loader.style.display = 'block';
+            dogsList.innerHTML = dogs.map(dog => {
+                const photoUrl = `https://photos.holistictherapydogassociation.com/${dog.photo_url}`;
+                const expiresDate = dog.expires_at ? new Date(dog.expires_at) : null;
+                const daysUntilExpiry = expiresDate ? Math.floor((expiresDate - new Date()) / (1000 * 60 * 60 * 24)) : null;
 
-            try {
-                const response = await fetch(API_URL, {
-                    method: 'GET',
-                    headers: { 'Session-Token': token }
-                });
+                return `
+                    <div class="dog-card">
+                        <img src="${photoUrl}" alt="${dog.dog_name}" class="dog-photo" onerror="this.src='placeholder-dog.jpg'">
+                        <div class="dog-info">
+                            <h3>${dog.dog_name}</h3>
+                            
+                            <div class="info-row">
+                                <span class="info-label">Status:</span>
+                                <span class="status-badge status-${dog.payment_status}">${dog.payment_status.toUpperCase()}</span>
+                            </div>
+                            
+                            ${dog.license_id ? `
+                                <div class="info-row">
+                                    <span class="info-label">License ID:</span>
+                                    <span class="license-id">${dog.license_id}</span>
+                                </div>
+                            ` : ''}
+                            
+                            <div class="info-row">
+                                <span class="info-label">State:</span>
+                                <span class="info-value">${dog.state_of_licensure}</span>
+                            </div>
+                            
+                            ${dog.expires_at ? `
+                                <div class="info-row">
+                                    <span class="info-label">Valid Until:</span>
+                                    <span class="info-value">${new Date(dog.expires_at).toLocaleDateString()}</span>
+                                </div>
+                            ` : ''}
+                            
+                            ${dog.paid_at ? `
+                                <div class="info-row">
+                                    <span class="info-label">Certified:</span>
+                                    <span class="info-value">${new Date(dog.paid_at).toLocaleDateString()}</span>
+                                </div>
+                            ` : ''}
 
-                if (response.status === 401) {
-                    localStorage.removeItem('session_token');
-                    window.location.href = 'login.html';
-                    return;
-                }
+                            ${daysUntilExpiry !== null && daysUntilExpiry < 90 ? `
+                                <div class="expires-warning">
+                                    ⚠️ Your certification expires in ${daysUntilExpiry} days. Consider renewing soon!
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
 
-                const data = await response.json();
-                
-                document.getElementById('email').value = data.email || '';
-                document.getElementById('firstName').value = data.firstName || '';
-                document.getElementById('lastName').value = data.lastName || '';
-                document.getElementById('address').value = data.address || '';
-                document.getElementById('city').value = data.city || '';
-                document.getElementById('state').value = data.state || '';
-                document.getElementById('zip').value = data.zip || '';
-
-            } catch (err) {
-                console.error(err);
-                statusBox.textContent = 'Error loading profile data.';
-                statusBox.className = 'status-msg error';
-                statusBox.style.display = 'block';
-            } finally {
-                loader.style.display = 'none';
-            }
-        });
-
-        // 2. HANDLE FORM SUBMISSION
-        document.getElementById('profile-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            statusBox.style.display = 'none';
-
-            const formData = {
-                email: document.getElementById('email').value,
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
-                address: document.getElementById('address').value,
-                city: document.getElementById('city').value,
-                state: document.getElementById('state').value,
-                zip: document.getElementById('zip').value
-            };
-
-            const newPassword = document.getElementById('newPassword').value;
-            if (newPassword) {
-                formData.password = newPassword;
-            }
-
-            try {
-                const response = await fetch(API_URL, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Session-Token': token
-                    },
-                    body: JSON.stringify(formData)
-                });
-
-                if (response.ok) {
-                    statusBox.textContent = 'Changes saved successfully!';
-                    statusBox.className = 'status-msg success';
-                    statusBox.style.display = 'block';
-                    document.getElementById('newPassword').value = '';
-                    window.scrollTo(0, 0);
-                } else {
-                    throw new Error('Failed to save changes');
-                }
-            } catch (err) {
-                statusBox.textContent = 'Error saving changes. Please try again.';
-                statusBox.className = 'status-msg error';
-                statusBox.style.display = 'block';
-                window.scrollTo(0, 0);
-            }
-        });
+        // Load account on page load
+        loadAccount();
     </script>
 </body>
 </html>

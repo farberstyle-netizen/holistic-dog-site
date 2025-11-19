@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Shipments | HTDA</title>
+    <title>Shipment Manager | HTDA Admin</title>
     <link rel="stylesheet" href="style.css">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,171 +11,144 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        .shipments-container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 20px;
-        }
-        .action-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
+        .shipment-filters {
+            background: var(--white);
             padding: 1.5rem;
-            background: var(--white);
             border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .action-buttons {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
         }
-        .export-btn {
-            background-color: #2e7d32;
-            color: white;
-            padding: 12px 30px;
-            border: none;
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--primary-maroon);
+            background: white;
+            color: var(--primary-maroon);
             border-radius: 4px;
-            font-weight: 700;
             cursor: pointer;
-            font-size: 1rem;
+            font-weight: 600;
             transition: all 0.3s;
         }
-        .export-btn:hover {
-            background-color: #1b5e20;
-            transform: scale(1.05);
-        }
-        .import-btn {
-            background-color: #1976d2;
+        .filter-btn.active {
+            background: var(--primary-maroon);
             color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 4px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s;
         }
-        .import-btn:hover {
-            background-color: #1565c0;
-            transform: scale(1.05);
-        }
-        .export-btn:disabled, .import-btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .upload-area {
-            display: none;
-            background: #f0f7ff;
-            border: 2px dashed #1976d2;
-            padding: 2rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        .upload-area.active {
-            display: block;
-        }
-        .upload-area input[type="file"] {
-            margin: 1rem 0;
-        }
-        .shipments-table {
+        .shipment-table {
             width: 100%;
-            background: var(--white);
+            background: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .shipments-table table {
+        .shipment-table table {
             width: 100%;
             border-collapse: collapse;
         }
-        .shipments-table th {
+        .shipment-table th {
             background: var(--primary-maroon);
             color: white;
             padding: 15px;
             text-align: left;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-transform: uppercase;
+            font-weight: 600;
         }
-        .shipments-table td {
+        .shipment-table td {
             padding: 15px;
             border-bottom: 1px solid #eee;
         }
-        .shipments-table tr:hover {
+        .shipment-table tr:hover {
             background: #f9f9f9;
         }
         .status-badge {
-            display: inline-block;
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
+            text-transform: uppercase;
         }
-        .status-pending {
-            background: #fff3e0;
-            color: #e65100;
+        .status-not-shipped {
+            background: #fff3cd;
+            color: #856404;
         }
         .status-shipped {
-            background: #e8f5e9;
-            color: #2e7d32;
+            background: #d4edda;
+            color: #155724;
         }
-        .loading {
-            text-align: center;
-            padding: 3rem;
-            color: #555;
+        .status-delivered {
+            background: #d1ecf1;
+            color: #0c5460;
         }
-        .empty-state {
-            text-align: center;
-            padding: 4rem;
-            color: #999;
+        .action-btns {
+            display: flex;
+            gap: 0.5rem;
         }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
         }
-        .stat-card {
-            background: var(--white);
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
+        .btn-ship {
+            background: var(--accent-gold);
             color: var(--primary-maroon);
         }
-        .stat-label {
-            color: #555;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            margin-top: 0.5rem;
+        .btn-ship:hover {
+            background: var(--primary-maroon);
+            color: white;
         }
-        .success-message {
-            background: #e8f5e9;
-            color: #2e7d32;
-            padding: 1rem;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-            border-left: 4px solid #2e7d32;
-            display: none;
+        .btn-view {
+            background: #e0e0e0;
+            color: #333;
         }
-        .error-message {
-            background: #ffebee;
-            color: #c62828;
-            padding: 1rem;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-            border-left: 4px solid #c62828;
+        .btn-view:hover {
+            background: #bdbdbd;
+        }
+        .modal {
             display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .modal-header h2 {
+            color: var(--primary-maroon);
+            margin: 0;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #999;
+        }
+        .close-btn:hover {
+            color: #333;
         }
     </style>
 </head>
@@ -183,108 +156,107 @@
 
     <header>
         <div class="nav-container">
-            <a href="index.html" class="logo">HTDA Admin</a>
+            <a href="admin.html" class="logo">HTDA Admin</a>
             <nav>
                 <ul id="nav-links">
                     <li><a href="admin.html">Dashboard</a></li>
-                    <li><a href="admin-shipments.html">Shipments</a></li>
                     <li><a href="index.html">View Live Site</a></li>
+                    <li><a href="verify.html">Verify Database</a></li>
                 </ul>
             </nav>
             <div class="nav-account">
-                <a href="index.html" style="font-weight:bold; color: var(--white);">Logout</a>
+                <a href="#" onclick="logout()" style="font-weight:bold; color: var(--white);">Logout</a>
             </div>
         </div>
     </header>
 
-    <main class="shipments-container">
-        <h1>Shipment Management</h1>
-        
-        <!-- Success/Error Messages -->
-        <div id="success-message" class="success-message"></div>
-        <div id="error-message" class="error-message"></div>
+    <main class="page-container">
+        <h1>📦 Shipment Manager</h1>
+        <p class="section-intro">Manage diploma shipments and tracking numbers</p>
 
-        <!-- Stats -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number" id="pending-count">0</div>
-                <div class="stat-label">Pending Shipments</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="shipped-count">0</div>
-                <div class="stat-label">Shipped Total</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="total-weight">0 lbs</div>
-                <div class="stat-label">Total Weight</div>
-            </div>
+        <div class="shipment-filters">
+            <button class="filter-btn active" onclick="filterShipments('all')">All Orders</button>
+            <button class="filter-btn" onclick="filterShipments('not_shipped')">Pending Shipment</button>
+            <button class="filter-btn" onclick="filterShipments('shipped')">Shipped</button>
+            <button class="filter-btn" onclick="filterShipments('delivered')">Delivered</button>
         </div>
 
-        <!-- Action Bar -->
-        <div class="action-bar">
-            <div>
-                <h3 style="margin: 0; color: var(--primary-maroon);">Pending Orders</h3>
-                <p style="margin: 0.5rem 0 0 0; color: #555;">Export → PirateShip → Import Tracking</p>
-            </div>
-            <div class="action-buttons">
-                <button class="export-btn" id="export-btn" onclick="exportToCSV()">
-                    📦 Export to PirateShip
-                </button>
-                <button class="import-btn" id="import-btn" onclick="toggleUpload()">
-                    📥 Import Tracking Numbers
-                </button>
-            </div>
-        </div>
-
-        <!-- Upload Area for Tracking CSV -->
-        <div class="upload-area" id="upload-area">
-            <h3 style="color: #1976d2; margin-top: 0;">Upload PirateShip CSV</h3>
-            <p>After creating labels in PirateShip, export the shipments CSV and upload it here.<br>
-            We'll automatically match tracking numbers and email your customers!</p>
-            
-            <input type="file" id="csv-file" accept=".csv" onchange="handleFileUpload(event)">
-            
-            <div style="margin-top: 1rem;">
-                <button class="import-btn" onclick="toggleUpload()">Cancel</button>
-            </div>
-        </div>
-
-        <!-- Loading State -->
-        <div id="loading" class="loading">
-            <p>Loading shipments...</p>
-        </div>
-
-        <!-- Empty State -->
-        <div id="empty-state" class="empty-state" style="display: none;">
-            <h3>No Pending Shipments</h3>
-            <p>All caught up! New orders will appear here.</p>
-        </div>
-
-        <!-- Shipments Table -->
-        <div class="shipments-table" id="shipments-table" style="display: none;">
+        <div class="shipment-table">
             <table>
                 <thead>
                     <tr>
-                        <th>Order ID</th>
+                        <th>License ID</th>
                         <th>Dog Name</th>
-                        <th>Customer</th>
+                        <th>Owner</th>
                         <th>Address</th>
-                        <th>State</th>
-                        <th>Order Date</th>
                         <th>Status</th>
                         <th>Tracking</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="shipments-body">
-                    <!-- Populated by JavaScript -->
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 2rem;">Loading shipments...</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </main>
 
+    <!-- Modal for adding tracking -->
+    <div id="tracking-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Tracking Number</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="tracking-form">
+                <input type="hidden" id="modal-dog-id">
+                <div class="form-group">
+                    <label>Dog Name</label>
+                    <input type="text" id="modal-dog-name" disabled style="background: #f5f5f5;">
+                </div>
+                <div class="form-group">
+                    <label>Owner</label>
+                    <input type="text" id="modal-owner-name" disabled style="background: #f5f5f5;">
+                </div>
+                <div class="form-group">
+                    <label for="tracking-number">Tracking Number *</label>
+                    <input type="text" id="tracking-number" name="tracking_number" required>
+                </div>
+                <div class="form-group">
+                    <label for="carrier">Carrier</label>
+                    <select id="carrier" name="carrier">
+                        <option value="USPS">USPS</option>
+                        <option value="UPS">UPS</option>
+                        <option value="FedEx">FedEx</option>
+                        <option value="DHL">DHL</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit" style="width: 100%; margin-top: 1rem;">Mark as Shipped</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for viewing shipment details -->
+    <div id="details-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Shipment Details</h2>
+                <button class="close-btn" onclick="closeDetailsModal()">&times;</button>
+            </div>
+            <div id="details-content">
+                <!-- Details populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-links">
             <a href="about.html">About Us</a>
+            <a href="meet-our-dogs.html">Meet Our Dogs</a>
+            <a href="contact.html">Contact</a>
             <a href="privacy-policy.html">Privacy Policy</a>
             <a href="terms.html">Terms & Conditions</a>
         </div>
@@ -292,161 +264,125 @@
     </footer>
 
     <script>
-        const API_URL = 'https://api-shipments.farberstyle.workers.dev';
+        // Auth check
+        const token = localStorage.getItem('session_token');
+        if (!token) {
+            alert('Please log in as admin');
+            window.location.href = 'login.html';
+        }
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            await loadShipments();
+        function logout() {
+            localStorage.removeItem('session_token');
+            window.location.href = 'index.html';
+        }
+
+        let currentFilter = 'all';
+        let allShipments = [];
+
+        // Load shipments from API (we'll create this endpoint)
+        async function loadShipments() {
+            // Mock data for now - replace with actual API call
+            allShipments = [
+                {
+                    id: 1,
+                    license_id: '10000001',
+                    dog_name: 'ADDIE THE CADDIE',
+                    owner_name: 'John Doe',
+                    address: '123 Main St, Los Angeles, CA 90001',
+                    delivery_status: 'not_shipped',
+                    tracking_number: null,
+                    shipped_at: null
+                }
+            ];
+            renderShipments();
+        }
+
+        function renderShipments() {
+            const tbody = document.getElementById('shipments-body');
+            const filtered = currentFilter === 'all' 
+                ? allShipments 
+                : allShipments.filter(s => s.delivery_status === currentFilter);
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 2rem;">No shipments found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(shipment => `
+                <tr>
+                    <td><strong>${shipment.license_id}</strong></td>
+                    <td>${shipment.dog_name}</td>
+                    <td>${shipment.owner_name}</td>
+                    <td>${shipment.address}</td>
+                    <td><span class="status-badge status-${shipment.delivery_status}">${formatStatus(shipment.delivery_status)}</span></td>
+                    <td>${shipment.tracking_number || '-'}</td>
+                    <td class="action-btns">
+                        ${shipment.delivery_status === 'not_shipped' 
+                            ? `<button class="btn-small btn-ship" onclick="openTrackingModal(${shipment.id})">Add Tracking</button>`
+                            : `<button class="btn-small btn-view" onclick="viewDetails(${shipment.id})">View Details</button>`
+                        }
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function formatStatus(status) {
+            return status.replace('_', ' ');
+        }
+
+        function filterShipments(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderShipments();
+        }
+
+        function openTrackingModal(dogId) {
+            const shipment = allShipments.find(s => s.id === dogId);
+            document.getElementById('modal-dog-id').value = dogId;
+            document.getElementById('modal-dog-name').value = shipment.dog_name;
+            document.getElementById('modal-owner-name').value = shipment.owner_name;
+            document.getElementById('tracking-modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('tracking-modal').classList.remove('active');
+            document.getElementById('tracking-form').reset();
+        }
+
+        function viewDetails(dogId) {
+            const shipment = allShipments.find(s => s.id === dogId);
+            const content = document.getElementById('details-content');
+            content.innerHTML = `
+                <p><strong>License ID:</strong> ${shipment.license_id}</p>
+                <p><strong>Dog Name:</strong> ${shipment.dog_name}</p>
+                <p><strong>Owner:</strong> ${shipment.owner_name}</p>
+                <p><strong>Address:</strong> ${shipment.address}</p>
+                <p><strong>Tracking:</strong> ${shipment.tracking_number}</p>
+                <p><strong>Shipped:</strong> ${shipment.shipped_at || 'Not yet'}</p>
+                <p><strong>Status:</strong> ${formatStatus(shipment.delivery_status)}</p>
+            `;
+            document.getElementById('details-modal').classList.add('active');
+        }
+
+        function closeDetailsModal() {
+            document.getElementById('details-modal').classList.remove('active');
+        }
+
+        document.getElementById('tracking-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const dogId = document.getElementById('modal-dog-id').value;
+            const trackingNumber = document.getElementById('tracking-number').value;
+            const carrier = document.getElementById('carrier').value;
+
+            // TODO: Call API to update tracking
+            alert(`Tracking added: ${carrier} - ${trackingNumber}`);
+            closeModal();
+            loadShipments();
         });
 
-        async function loadShipments() {
-            const loading = document.getElementById('loading');
-            const emptyState = document.getElementById('empty-state');
-            const table = document.getElementById('shipments-table');
-            const tbody = document.getElementById('shipments-body');
-
-            try {
-                const response = await fetch(`${API_URL}/list-all`);
-                const data = await response.json();
-
-                loading.style.display = 'none';
-
-                const pending = data.shipments.filter(s => s.shipping_status === 'pending');
-                const shipped = data.shipments.filter(s => s.shipping_status === 'shipped');
-
-                document.getElementById('pending-count').textContent = pending.length;
-                document.getElementById('shipped-count').textContent = shipped.length;
-                document.getElementById('total-weight').textContent = `${pending.length} lbs`;
-
-                if (data.shipments.length === 0) {
-                    emptyState.style.display = 'block';
-                    document.getElementById('export-btn').disabled = true;
-                    return;
-                }
-
-                table.style.display = 'block';
-                tbody.innerHTML = data.shipments.map(order => `
-                    <tr>
-                        <td><strong>#${order.order_id}</strong></td>
-                        <td>${order.dog_name}</td>
-                        <td>${order.first_name} ${order.last_name}<br><small>${order.email}</small></td>
-                        <td>${order.address}, ${order.city}</td>
-                        <td>${order.state}</td>
-                        <td>${new Date(order.order_date).toLocaleDateString()}</td>
-                        <td><span class="status-badge status-${order.shipping_status}">${order.shipping_status}</span></td>
-                        <td>${order.tracking_number || '-'}</td>
-                    </tr>
-                `).join('');
-
-            } catch (error) {
-                loading.innerHTML = '<p style="color: red;">Error loading shipments. Please try again.</p>';
-                console.error(error);
-            }
-        }
-
-        async function exportToCSV() {
-            const btn = document.getElementById('export-btn');
-            btn.disabled = true;
-            btn.textContent = 'Generating CSV...';
-
-            try {
-                const response = await fetch(`${API_URL}/export-csv`);
-                const blob = await response.blob();
-                
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `pirateship-orders-${new Date().toISOString().split('T')[0]}.csv`;
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-                document.body.removeChild(a);
-
-                btn.textContent = '✅ CSV Downloaded!';
-                setTimeout(() => {
-                    btn.textContent = '📦 Export to PirateShip';
-                    btn.disabled = false;
-                }, 3000);
-
-            } catch (error) {
-                btn.textContent = '❌ Error - Try Again';
-                btn.disabled = false;
-                console.error(error);
-            }
-        }
-
-        function toggleUpload() {
-            const uploadArea = document.getElementById('upload-area');
-            uploadArea.classList.toggle('active');
-        }
-
-        async function handleFileUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const successMsg = document.getElementById('success-message');
-            const errorMsg = document.getElementById('error-message');
-            
-            successMsg.style.display = 'none';
-            errorMsg.style.display = 'none';
-
-            try {
-                const text = await file.text();
-                const lines = text.split('\n');
-                const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-                
-                // Find column indexes
-                const orderIdIndex = headers.findIndex(h => h.toLowerCase().includes('order') || h.toLowerCase().includes('reference'));
-                const trackingIndex = headers.findIndex(h => h.toLowerCase().includes('tracking'));
-
-                if (orderIdIndex === -1 || trackingIndex === -1) {
-                    throw new Error('Could not find Order ID or Tracking Number columns in CSV');
-                }
-
-                // Parse tracking data
-                const trackingData = [];
-                for (let i = 1; i < lines.length; i++) {
-                    if (!lines[i].trim()) continue;
-                    
-                    const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
-                    const orderId = values[orderIdIndex].replace('HTDA-', '');
-                    const tracking = values[trackingIndex];
-                    
-                    if (orderId && tracking) {
-                        trackingData.push({ orderId, tracking });
-                    }
-                }
-
-                if (trackingData.length === 0) {
-                    throw new Error('No tracking data found in CSV');
-                }
-
-                // Send to worker
-                const response = await fetch(`${API_URL}/import-tracking`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ trackingData })
-                });
-
-                const result = await response.json();
-
-                if (response.ok) {
-                    successMsg.textContent = `✅ Success! ${result.updated} orders updated. ${result.emails_sent} tracking emails sent to customers.`;
-                    successMsg.style.display = 'block';
-                    toggleUpload();
-                    await loadShipments();
-                } else {
-                    throw new Error(result.error || 'Failed to import tracking numbers');
-                }
-
-            } catch (error) {
-                errorMsg.textContent = `❌ Error: ${error.message}`;
-                errorMsg.style.display = 'block';
-                console.error(error);
-            }
-
-            // Reset file input
-            event.target.value = '';
-        }
+        // Load on page load
+        loadShipments();
     </script>
 </body>
 </html>
