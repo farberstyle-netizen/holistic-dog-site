@@ -37,6 +37,19 @@
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
+        .dog-image-container {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+        .dog-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
         .dog-image-placeholder {
             background: var(--bg-offwhite);
             height: 400px;
@@ -46,7 +59,6 @@
             font-size: 1.5rem;
             color: var(--accent-gold);
             border-radius: 4px;
-            margin-bottom: 1rem;
             border: 2px solid var(--accent-gold);
         }
         .dog-content h3 {
@@ -103,67 +115,7 @@
                 </p>
                 
                 <div class="registry-grid">
-                    
-                    <div class="dog-card">
-                        <div class="dog-image-placeholder">[ Live Dog Photo ]</div>
-                        <div class="dog-content">
-                            <h3 class="dog-name">POPPY VALENTINE</h3>
-                            <h4 class="dog-status">LICENSE: ACTIVE</h4>
-                            <p class="dog-bio">License ID: 1012</p>
-                            <p class="dog-bio">Latest entry in the National Database.</p>
-                        </div>
-                    </div>
-
-                    <div class="dog-card">
-                        <div class="dog-image-placeholder">[ Live Dog Photo ]</div>
-                        <div class="dog-content">
-                            <h3 class="dog-name">PROFESSOR PAWS</h3>
-                            <h4 class="dog-status">LICENSE: ACTIVE</h4>
-                            <p class="dog-bio">License ID: 1011</p>
-                            <p class="dog-bio">Latest entry in the National Database.</p>
-                        </div>
-                    </div>
-
-                    <div class="dog-card">
-                        <div class="dog-image-placeholder">[ Live Dog Photo ]</div>
-                        <div class="dog-content">
-                            <h3 class="dog-name">DUKE SILVER</h3>
-                            <h4 class="dog-status">LICENSE: ACTIVE</h4>
-                            <p class="dog-bio">License ID: 1010</p>
-                            <p class="dog-bio">Latest entry in the National Database.</p>
-                        </div>
-                    </div>
-
-                    <div class="dog-card">
-                        <div class="dog-image-placeholder">[ Live Dog Photo ]</div>
-                        <div class="dog-content">
-                            <h3 class="dog-name">PICKLE MERCADO FRANCISCO</h3>
-                            <h4 class="dog-status">LICENSE: ACTIVE</h4>
-                            <p class="dog-bio">License ID: 1009</p>
-                            <p class="dog-bio">Latest entry in the National Database.</p>
-                        </div>
-                    </div>
-
-                    <div class="dog-card">
-                        <div class="dog-image-placeholder">[ Live Dog Photo ]</div>
-                        <div class="dog-content">
-                            <h3 class="dog-name">LILY LAFROMBOISE</h3>
-                            <h4 class="dog-status">LICENSE: ACTIVE</h4>
-                            <p class="dog-bio">License ID: 1008</p>
-                            <p class="dog-bio">Latest entry in the National Database.</p>
-                        </div>
-                    </div>
-
-                    <div class="dog-card">
-                        <div class="dog-image-placeholder">[ Live Dog Photo ]</div>
-                        <div class="dog-content">
-                            <h3 class="dog-name">JIMI CORBIN</h3>
-                            <h4 class="dog-status">LICENSE: ACTIVE</h4>
-                            <p class="dog-bio">License ID: 1007</p>
-                            <p class="dog-bio">Latest entry in the National Database.</p>
-                        </div>
-                    </div>
-                    
+                    <!-- Cards will be populated dynamically by gallery.js -->
                 </div>
             </div>
         </section>
@@ -186,5 +138,6 @@
     </footer>
 
     <script src="header.js"></script>
+    <script src="gallery.js"></script>
 </body>
 </html>
