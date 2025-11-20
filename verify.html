@@ -107,6 +107,14 @@
         .btn-decline:hover {
             background: #bdbdbd;
         }
+
+        .search-note {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -148,12 +156,24 @@
 
     <main class="page-container">
         <h1>Verify a Certification</h1>
-        <p class="section-intro">Enter a dog's name or certification ID to verify their status in our national registry.</p>
+        <p class="section-intro">Search our national registry using the dog's name or license number.</p>
         
         <form class="contact-form" id="verify-form" style="max-width: 600px; margin: auto; opacity: 0.3; pointer-events: none;">
+            <p class="search-note">Fill in at least one field below to search</p>
+            
             <div class="form-group">
-                <label for="search_term">Search by Dog's Name or ID</label>
-                <input type="text" id="search_term" name="search_term" placeholder="e.g. 97784245 or 'Buddy'" required>
+                <label for="first_name">Dog's First Name</label>
+                <input type="text" id="first_name" name="first_name" placeholder="e.g. Buddy">
+            </div>
+
+            <div class="form-group">
+                <label for="last_name">Dog's Last Name</label>
+                <input type="text" id="last_name" name="last_name" placeholder="e.g. Smith">
+            </div>
+
+            <div class="form-group">
+                <label for="license_number">License Number (Exact Match)</label>
+                <input type="text" id="license_number" name="license_number" placeholder="e.g. 97784245">
             </div>
             
             <!-- Turnstile Captcha -->
@@ -224,15 +244,31 @@
                 alert('Please complete the captcha verification.');
                 return;
             }
-            
-            const term = document.getElementById('search_term').value;
+
+            // Get search values
+            const firstName = document.getElementById('first_name').value.trim();
+            const lastName = document.getElementById('last_name').value.trim();
+            const licenseNumber = document.getElementById('license_number').value.trim();
+
+            // Validate at least one field
+            if (!firstName && !lastName && !licenseNumber) {
+                alert('Please enter at least one search field.');
+                return;
+            }
             
             searchBtn.disabled = true;
             searchBtn.innerText = "Searching...";
             resultsContainer.innerHTML = '';
 
             try {
-                const response = await fetch(`https://api-verify.farberstyle.workers.dev?q=${encodeURIComponent(term)}&cf_turnstile_token=${turnstileToken}`);
+                // Build query params
+                const params = new URLSearchParams();
+                if (firstName) params.append('first_name', firstName);
+                if (lastName) params.append('last_name', lastName);
+                if (licenseNumber) params.append('license_number', licenseNumber);
+                params.append('cf_turnstile_token', turnstileToken);
+
+                const response = await fetch(`https://api-verify.farberstyle.workers.dev?${params.toString()}`);
                 const data = await response.json();
 
                 if (data.found) {
@@ -244,13 +280,14 @@
                             <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--primary-maroon);">${data.dog_name}</h3>
                             <h4 style="color: ${color}; font-weight: bold; font-size: 1.2rem;">LICENSE: ${data.license_status.toUpperCase()}</h4>
                             <p style="margin-top: 1rem; font-size: 1.1rem;">
+                                <strong>License Number:</strong> ${data.license_id}<br>
                                 <strong>State:</strong> ${data.state_of_licensure}<br>
                                 <strong>Expires:</strong> ${data.expires_at}
                             </p>
                         </div>
                     `;
                 } else {
-                    resultsContainer.innerHTML = `<p style="text-align:center; color: #777; font-size: 1.1rem;">No record found for "${term}".</p>`;
+                    resultsContainer.innerHTML = `<p style="text-align:center; color: #777; font-size: 1.1rem;">No record found matching your search criteria.</p>`;
                 }
                 
                 // Reset captcha after search
