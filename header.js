@@ -19,7 +19,7 @@
   // Update logo to use gold seal image
   const logoElement = document.querySelector('.logo');
   if (logoElement) {
-    logoElement.innerHTML = '<img src="Gold_Seal.svg" alt="Holistic Therapy Dog Association">';
+    logoElement.innerHTML = '<img src="gold_seal.svg" alt="Holistic Therapy Dog Association">';
   }
 
   // Populate navigation
