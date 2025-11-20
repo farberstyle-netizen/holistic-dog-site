@@ -81,6 +81,8 @@
             transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
         }
         
         .cta-button:hover {
@@ -214,7 +216,7 @@
         <div class="hero-content">
             <h1>Honor Their Impact.</h1>
             <p>More than a pet. A partner in holistic wellness.<br>Certify your dog with the official Holistic Therapy Dog Association.</p>
-            <a href="quiz.html" class="cta-button">Start Certification</a>
+            <button onclick="startCertification()" class="cta-button">Start Certification</button>
         </div>
     </section>
 
@@ -250,7 +252,7 @@
                 <p>[Spinning Diploma Video Placeholder]</p>
             </div>
             
-            <a href="quiz.html" class="cta-button" style="background-color: var(--primary-maroon); color: white;">Order Yours Today</a>
+            <button onclick="startCertification()" class="cta-button" style="background-color: var(--primary-maroon); color: white;">Order Yours Today</button>
         </div>
     </section>
 
@@ -271,5 +273,19 @@
     </footer>
 
     <script src="header.js"></script>
+    <script>
+        // Smart redirect based on login status
+        function startCertification() {
+            const token = localStorage.getItem('session_token');
+            
+            if (token) {
+                // User is logged in - skip quiz/signup, go straight to certification
+                window.location.href = 'add-dog.html';
+            } else {
+                // User is not logged in - start normal flow
+                window.location.href = 'quiz.html';
+            }
+        }
+    </script>
 </body>
 </html>
