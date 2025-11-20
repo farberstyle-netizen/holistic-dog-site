@@ -9,12 +9,132 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Cloudflare Turnstile -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    
+    <style>
+        /* Disclaimer Modal */
+        .disclaimer-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .disclaimer-modal.active {
+            display: flex;
+        }
+        
+        .disclaimer-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border-top: 5px solid var(--accent-gold);
+        }
+        
+        .disclaimer-content h2 {
+            color: var(--primary-maroon);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-gold);
+            padding-bottom: 1rem;
+        }
+        
+        .disclaimer-content p {
+            margin-bottom: 1rem;
+            color: #555;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        
+        .disclaimer-content a {
+            color: var(--primary-maroon);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+        
+        .disclaimer-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+        
+        .btn-accept {
+            background: var(--accent-gold);
+            color: var(--primary-maroon);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-accept:hover {
+            background: var(--primary-maroon);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .btn-decline {
+            background: #e0e0e0;
+            color: #555;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-decline:hover {
+            background: #bdbdbd;
+        }
+    </style>
 </head>
 <body>
 
+    <!-- Disclaimer Modal -->
+    <div id="disclaimer-modal" class="disclaimer-modal active">
+        <div class="disclaimer-content">
+            <h2>⚖️ INFORMATION DISCLAIMER</h2>
+            <p>The information provided on and obtained from this site does not constitute the official record of the Holistic Therapy Dog Association. This information is provided as a service to the general public. Any user of this information is hereby advised that it is being provided "as is". The information provided may be subject to errors or omissions.</p>
+            
+            <p>Visitors to this site agree that the Association is not liable for errors or omissions or any of the information provided. Visitors further consent to access the record of certification and consent to the Association's monitoring of access to the records.</p>
+            
+            <p>Copyright and other proprietary rights may apply to information in a case file absent an express grant of additional rights by the holder of the copyright or other proprietary right. Use of such information is permissible only to the extent permitted by law or court order. Any use inconsistent with proprietary rights is prohibited.</p>
+            
+            <p>The Association or its agents may deny access to a member of the public for failure to comply with any of these conditions of use. Any person who willfully destroys or alters any registry record maintained in electronic form is subject to the penalties imposed by applicable law.</p>
+            
+            <p>Please read the Association's <a href="privacy-policy.html" target="_blank">Privacy Policy</a> for more details. To obtain an "official certified" record of certification, please contact the Association directly.</p>
+            
+            <div class="disclaimer-actions">
+                <button class="btn-accept" onclick="acceptDisclaimer()">I Accept & Agree</button>
+                <button class="btn-decline" onclick="declineDisclaimer()">Decline</button>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="nav-container">
-            <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
+            <a href="index.html" class="logo">Holistic Therapy Dog<br>Association</a>
             <nav>
                 <ul id="nav-links">
                     <!-- Populated by header.js -->
@@ -30,12 +150,18 @@
         <h1>Verify a Certification</h1>
         <p class="section-intro">Enter a dog's name or certification ID to verify their status in our national registry.</p>
         
-        <form class="contact-form" id="verify-form" style="max-width: 600px; margin: auto;">
+        <form class="contact-form" id="verify-form" style="max-width: 600px; margin: auto; opacity: 0.3; pointer-events: none;">
             <div class="form-group">
                 <label for="search_term">Search by Dog's Name or ID</label>
-                <input type="text" id="search_term" name="search_term" placeholder="e.g. 1001 or 'Buddy'" required>
+                <input type="text" id="search_term" name="search_term" placeholder="e.g. 97784245 or 'Buddy'" required>
             </div>
-            <button type="submit" class="btn-submit" id="searchBtn">Search Registry</button>
+            
+            <!-- Turnstile Captcha -->
+            <div class="form-group" style="display: flex; justify-content: center;">
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAACB627QsvVnDp-MP" data-callback="onTurnstileSuccess"></div>
+            </div>
+            
+            <button type="submit" class="btn-submit" id="searchBtn" disabled>Search Registry</button>
         </form>
 
         <div id="results-container" style="margin-top: 2rem;"></div>
@@ -59,12 +185,46 @@
 
     <script src="header.js"></script>
     <script>
+        let turnstileToken = null;
+        let disclaimerAccepted = false;
+
+        // Disclaimer acceptance
+        function acceptDisclaimer() {
+            disclaimerAccepted = true;
+            document.getElementById('disclaimer-modal').classList.remove('active');
+            const form = document.getElementById('verify-form');
+            form.style.opacity = '1';
+            form.style.pointerEvents = 'auto';
+        }
+
+        function declineDisclaimer() {
+            alert('You must accept the disclaimer to use the verification system.');
+            window.location.href = 'index.html';
+        }
+
+        // Enable submit button when captcha is completed
+        function onTurnstileSuccess(token) {
+            turnstileToken = token;
+            document.getElementById('searchBtn').disabled = false;
+        }
+
         const verifyForm = document.getElementById('verify-form');
         const resultsContainer = document.getElementById('results-container');
         const searchBtn = document.getElementById('searchBtn');
 
         verifyForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            if (!disclaimerAccepted) {
+                alert('Please accept the disclaimer first.');
+                return;
+            }
+            
+            if (!turnstileToken) {
+                alert('Please complete the captcha verification.');
+                return;
+            }
+            
             const term = document.getElementById('search_term').value;
             
             searchBtn.disabled = true;
@@ -72,7 +232,7 @@
             resultsContainer.innerHTML = '';
 
             try {
-                const response = await fetch(`https://api-verify.farberstyle.workers.dev?q=${encodeURIComponent(term)}`);
+                const response = await fetch(`https://api-verify.farberstyle.workers.dev?q=${encodeURIComponent(term)}&cf_turnstile_token=${turnstileToken}`);
                 const data = await response.json();
 
                 if (data.found) {
@@ -92,10 +252,15 @@
                 } else {
                     resultsContainer.innerHTML = `<p style="text-align:center; color: #777; font-size: 1.1rem;">No record found for "${term}".</p>`;
                 }
+                
+                // Reset captcha after search
+                turnstile.reset();
+                turnstileToken = null;
+                
             } catch (err) {
                 resultsContainer.innerHTML = `<p style="text-align:center; color: red;">Error connecting to database.</p>`;
             } finally {
-                searchBtn.disabled = false;
+                searchBtn.disabled = true; // Disabled until next captcha
                 searchBtn.innerText = "Search Registry";
             }
         });
