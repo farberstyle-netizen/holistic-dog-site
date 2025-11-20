@@ -571,4 +571,11 @@ body.menu-open {
     .profile-img {
         margin: 0 auto;
     }
+	body {
+  		background-image: url('watermark.svg');
+  		background-repeat: no-repeat;
+  		background-position: center center;
+  		background-size: contain; /* adjust to 'cover' or set specific size if desired */
+  		background-attachment: fixed;
+}
 }
