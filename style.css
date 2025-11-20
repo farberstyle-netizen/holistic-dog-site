@@ -27,32 +27,6 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    position: relative;
-}
-
-/* --- WATERMARK BACKGROUND --- */
-body::before {
-    content: '';
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60%;
-    max-width: 800px;
-    height: 60%;
-    background-image: url('Watermark.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    opacity: 0.03;
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* Ensure content is above watermark */
-header, main, footer {
-    position: relative;
-    z-index: 1;
 }
 
 /* --- HEADER & NAV --- */
@@ -492,11 +466,6 @@ body.menu-open {
 
 /* --- MOBILE --- */
 @media (max-width: 768px) {
-    body::before {
-        width: 80%;
-        opacity: 0.02;
-    }
-    
     .nav-container { 
         flex-wrap: wrap;
         position: relative;
