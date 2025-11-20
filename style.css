@@ -571,5 +571,12 @@ body.menu-open {
     .profile-img {
         margin: 0 auto;
     }
+}
+	.account-dropdown {
+  		display: none !important;
+}
+	.account-dropdown:hover {
+  		display: block !important;
+}
 
 }

@@ -22,6 +22,26 @@
     logoElement.innerHTML = '<img src="gold_seal.svg" alt="Holistic Therapy Dog Association">';
   }
 
+	// Fix header.js dropdown completely
+		if (dropdownContainer && dropdown) {
+ 		 dropdownContainer.addEventListener('mouseenter', () => {
+  		  dropdown.style.display = 'block';
+  });
+  
+  dropdown.addEventListener('mouseenter', () => {
+    dropdown.style.display = 'block';
+  });
+  
+  dropdownContainer.addEventListener('mouseleave', () => {
+    setTimeout(() => {
+      dropdown.style.display = 'none';
+    }, 100);
+  });
+  
+  dropdown.addEventListener('mouseleave', () => {
+    dropdown.style.display = 'none';
+  });
+
   // Populate navigation
   if (navLinks) {
     navLinks.innerHTML = baseLinks.map(link => {
