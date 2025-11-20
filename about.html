@@ -5,50 +5,189 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .about-hero {
+            background: linear-gradient(135deg, var(--primary-maroon) 0%, var(--primary-red) 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .about-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+        
+        .mission-section {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+        
+        .mission-section h2 {
+            color: var(--primary-maroon);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .value-card {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .value-card h3 {
+            color: var(--primary-maroon);
+            margin-bottom: 10px;
+        }
+        
+        .team-section {
+            margin: 60px 0;
+        }
+        
+        .team-section h2 {
+            text-align: center;
+            color: var(--primary-maroon);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .about-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .mission-section {
+                padding: 25px;
+            }
+        }
+    </style>
 </head>
 <body>
-
     <header>
         <div class="nav-container">
-            <a href="index.html" class="navbar-logo">
-                <img src="logo-header.jpg" alt="Holistic Therapy Dog Association">
-            </a>
+            <a href="index.html" class="logo">Holistic Therapy Dog<br>Association</a>
             <nav>
                 <ul id="nav-links">
-                    </ul>
+                    <!-- Populated by header.js -->
+                </ul>
             </nav>
-            <div class="nav-account" id="nav-account-links"></div>
+            <div class="nav-account" id="nav-account-links">
+                <!-- Populated by header.js -->
+            </div>
         </div>
     </header>
 
-    <main class="page-container">
-        <h1>About the Association</h1>
-        <p class="section-intro">Founded on the principle that the most profound healing comes from the intuitive bond shared between human and animal.</p>
-        
-        <div style="background: #fff; padding: 30px; border-left: 4px solid var(--accent-gold); margin-bottom: 40px;">
-            <h3 style="color: var(--primary-maroon); margin-top: 0;">Our Mission</h3>
-            <p style="font-size: 1.1rem; line-height: 1.8;">
-                "While traditional certifications focus on tasks and training, our singular mission is to provide the most formal, <strong>prestigious</strong> honor for the dogs whose very presence can heal the deepest, darkest wounds. We are the premier organization dedicated to commemorating these outstanding companions."
+    <main>
+        <div class="about-hero">
+            <h1>About the Holistic Therapy Dog Association</h1>
+            <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">
+                Celebrating the healing bond between humans and dogs since 2025
             </p>
         </div>
-        
-        <h2 class="section-title">Leadership Team</h2>
-        
-        <div class="profile-card">
-            <img src="christian.jpg" alt="Christian Farber" class="profile-img">
-            <div class="profile-content">
-                <h3>Christian Farber</h3>
-                <h4 style="color: var(--accent-gold); text-transform: uppercase; font-size: 0.9rem;">President</h4>
-                <p>As President, Christian provides the core vision for the Association. He has long been an advocate for supporting those in need, championing the power of holistic and emotional well-being to build stronger communities. He is dedicated to building a global registry that celebrates these outstanding animals and honors their unique ability to heal.</p>
-            </div>
-        </div>
 
-        <div class="profile-card">
-            <img src="bernard.jpg" alt="Dr. Bernard Gräber" class="profile-img">
-            <div class="profile-content">
-                <h3>Dr. Bernard Gräber</h3>
-                <h4 style="color: var(--accent-gold); text-transform: uppercase; font-size: 0.9rem;">Chairman of the Board of Trustees</h4>
-                <p>A distinguished Swiss-Canadian equine veterinarian, Dr. Gräber has spent decades studying the intuitive, non-verbal communication between animals and humans. He champions the core mission of honoring the animal's role as a healer and ensures the Association maintains its prestigious standards.</p>
+        <div class="about-content">
+            <div class="mission-section">
+                <h2>Our Mission</h2>
+                <p>
+                    The Holistic Therapy Dog Association exists to honor and celebrate the profound therapeutic impact 
+                    that dogs have on human well-being. We provide official recognition for dogs who bring comfort, 
+                    joy, and healing to their human companions through our commemorative certification program.
+                </p>
+                <p style="margin-top: 15px;">
+                    While our certifications are commemorative in nature and do not confer legal service animal status, 
+                    they serve as a meaningful tribute to the special dogs who make our lives better every day.
+                </p>
+            </div>
+
+            <h2 style="text-align: center; color: var(--primary-maroon); margin: 40px 0;">Our Core Values</h2>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🐾</div>
+                    <h3>Compassion</h3>
+                    <p>We believe in the healing power of the human-animal bond and its ability to transform lives.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🏆</div>
+                    <h3>Recognition</h3>
+                    <p>Every therapy dog deserves acknowledgment for the comfort and joy they bring to our lives.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">✨</div>
+                    <h3>Excellence</h3>
+                    <p>We maintain the highest standards in our certification process and customer service.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <h3>Community</h3>
+                    <p>We foster a supportive network of dog owners who understand the therapeutic value of their companions.</p>
+                </div>
+            </div>
+
+            <div class="mission-section">
+                <h2>What We Provide</h2>
+                <ul style="line-height: 1.8; margin-left: 20px;">
+                    <li>Official commemorative certification diplomas suitable for framing</li>
+                    <li>Entry into our National Therapy Dog Database</li>
+                    <li>Public gallery showcasing certified therapy dogs</li>
+                    <li>Two-year certification validity with renewal options</li>
+                    <li>Professional customer support and expedited shipping</li>
+                </ul>
+            </div>
+
+            <div class="mission-section">
+                <h2>Important Disclaimer</h2>
+                <p style="font-style: italic;">
+                    The Holistic Therapy Dog Association provides commemorative certifications that celebrate 
+                    the therapeutic value of dogs. Our certifications are not legally recognized service animal 
+                    registrations and do not confer any legal rights or access privileges under the Americans 
+                    with Disabilities Act (ADA) or any other legislation. They are intended as meaningful 
+                    keepsakes to honor your dog's positive impact on your life.
+                </p>
+            </div>
+
+            <div class="team-section">
+                <h2>Join Our Community</h2>
+                <p style="text-align: center; max-width: 600px; margin: 0 auto 30px;">
+                    Whether your dog provides emotional support, brings joy to your daily life, or simply makes 
+                    the world a better place with their presence, we invite you to celebrate their contribution 
+                    with an official Holistic Therapy Dog certification.
+                </p>
+                <div style="text-align: center;">
+                    <a href="quiz.html" class="btn-submit" style="display: inline-block;">Get Started Today</a>
+                </div>
             </div>
         </div>
     </main>
@@ -63,7 +202,9 @@
             <a href="privacy-policy.html">Privacy Policy</a>
             <a href="terms.html">Terms & Conditions</a>
         </div>
-        <p class="disclaimer">The Holistic Therapy Dog certification is a commemorative title...</p>
+        <p class="disclaimer">
+            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
+        </p>
         <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>
 

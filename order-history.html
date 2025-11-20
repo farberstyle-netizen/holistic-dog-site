@@ -1,0 +1,49 @@
+<!-- order-history.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order History | HTDA</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="nav-container"><a href="index.html" class="logo">HTDA</a><nav><ul id="nav-links"></ul></nav><div class="nav-account" id="nav-account-links"></div></div></header>
+<main class="page-container">
+<h1>Order History</h1>
+<div id="orders-container"></div>
+</main>
+<footer><p>&copy; 2025 HTDA</p></footer>
+<script src="header.js"></script>
+<script>
+async function loadOrders() {
+  const token = localStorage.getItem('session_token');
+  if (!token) { window.location.href = 'login.html'; return; }
+  try {
+    const res = await fetch('https://api-orders.farberstyle.workers.dev/user-orders', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await res.json();
+    const container = document.getElementById('orders-container');
+    if (data.orders?.length) {
+      container.innerHTML = data.orders.map(o => `
+        <div class="dashboard-card">
+          <h3>Order #${o.license_id}</h3>
+          <p><strong>Dog:</strong> ${o.dog_name}</p>
+          <p><strong>Date:</strong> ${new Date(o.paid_at).toLocaleDateString()}</p>
+          <p><strong>Status:</strong> ${o.shipment_status || 'Processing'}</p>
+          ${o.tracking_number ? `<p><strong>Tracking:</strong> ${o.tracking_number}</p>` : ''}
+          <a href="diploma.html?id=${o.license_id}" class="cta-button">View Diploma</a>
+        </div>
+      `).join('');
+    } else {
+      container.innerHTML = '<p>No orders found.</p>';
+    }
+  } catch (err) {
+    document.getElementById('orders-container').innerHTML = '<p>Error loading orders.</p>';
+  }
+}
+loadOrders();
+</script>
+</body>
+</html>
