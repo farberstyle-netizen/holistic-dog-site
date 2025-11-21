@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    
     <style>
         .registry-section {
             padding: 3rem 0;
@@ -26,7 +24,7 @@
             margin-top: 2rem;
         }
         .dog-card {
-            background: var(--white);
+            background: white;
             border-radius: 8px;
             padding: 1.5rem;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
@@ -51,7 +49,7 @@
             border-radius: 4px;
         }
         .dog-image-placeholder {
-            background: var(--bg-offwhite);
+            background: #f5f5f5;
             height: 400px;
             display: flex;
             align-items: center;
@@ -62,7 +60,7 @@
             border: 2px solid var(--accent-gold);
         }
         .dog-content h3 {
-            font-family: var(--font-header);
+            font-family: 'Playfair Display', serif;
             color: var(--primary-maroon);
             margin-bottom: 0.3rem;
             font-size: 1.3rem;
@@ -77,7 +75,6 @@
         .dog-content p {
             line-height: 1.7;
             color: #555;
-            font-style: normal;
         }
         @media (max-width: 768px) {
             .registry-grid {
@@ -87,18 +84,13 @@
     </style>
 </head>
 <body>
-
     <header>
         <div class="nav-container">
-            <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
+            <a href="index.html" class="logo">Holistic Therapy Dog<br>Association</a>
             <nav>
-                <ul id="nav-links">
-                    <!-- Populated by header.js -->
-                </ul>
+                <ul id="nav-links"></ul>
             </nav>
-            <div class="nav-account" id="nav-account-links">
-                <!-- Populated by header.js -->
-            </div>
+            <div class="nav-account" id="nav-account-links"></div>
         </div>
     </header>
 
@@ -109,14 +101,12 @@
 
         <section class="registry-section">
             <div class="registry-container">
-                <h2 class="section-title" style="text-align: center; color: var(--primary-maroon);">Showcase of Certified Companions</h2>
+                <h2 style="text-align: center; color: var(--primary-maroon);">Showcase of Certified Companions</h2>
                 <p style="text-align: center; max-width: 700px; margin: 0 auto 40px auto; color: #555; font-size: 1.1rem;">
                     This is a live feed of the newest members to our National Database. To feature your dog, simply complete the certification and upload their photo during checkout!
                 </p>
                 
-                <div class="registry-grid">
-                    <!-- Cards will be populated dynamically by gallery.js -->
-                </div>
+                <div class="registry-grid"></div>
             </div>
         </section>
     </main>
@@ -124,15 +114,14 @@
     <footer>
         <div class="footer-links">
             <a href="about.html">About Us</a>
-            <a href="meet-our-dogs.html">Meet Our Dogs</a>
-            <a href="careers.html">Careers</a>
-            <a href="advocacy.html">Advocacy</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="verify.html">Verify License</a>
             <a href="contact.html">Contact</a>
-            <a href="privacy-policy.html">Privacy Policy</a>
-            <a href="terms.html">Terms & Conditions</a>
+            <a href="privacy-policy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
         </div>
         <p class="disclaimer">
-            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
+            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is commemorative and does not confer legal rights under the ADA.
         </p>
         <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>

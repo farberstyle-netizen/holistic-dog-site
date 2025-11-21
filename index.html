@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Holistic Therapy Dog Association | Official Certification</title>
     <link rel="stylesheet" href="style.css">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    
     <style>
-        /* Hero Video Section */
         .hero {
             position: relative;
             height: 600px;
@@ -19,7 +16,7 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background-color: var(--primary-maroon);
+            background: linear-gradient(135deg, var(--dark-maroon) 0%, var(--primary-maroon) 100%);
         }
         
         .hero-video {
@@ -69,31 +66,9 @@
             text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
         }
         
-        .cta-button {
-            display: inline-block;
-            background-color: var(--accent-gold);
-            color: var(--primary-maroon);
-            padding: 15px 40px;
-            text-decoration: none;
-            font-weight: 700;
-            border-radius: 4px;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .cta-button:hover {
-            background-color: var(--white);
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        }
-        
         .trust-section {
             padding: 4rem 0;
-            background: var(--white);
+            background: white;
         }
         
         .trust-section h2 {
@@ -144,7 +119,7 @@
         
         .diploma-preview {
             padding: 4rem 0;
-            background: var(--bg-offwhite);
+            background: #f5f5f5;
         }
         
         .diploma-container {
@@ -161,7 +136,7 @@
         }
         
         .video-placeholder {
-            background: var(--white);
+            background: white;
             height: 400px;
             display: flex;
             align-items: center;
@@ -190,25 +165,19 @@
     </style>
 </head>
 <body>
-
     <header>
         <div class="nav-container">
-            <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
+            <a href="index.html" class="logo">Holistic Therapy Dog<br>Association</a>
             <nav>
-                <ul id="nav-links">
-                    <!-- Populated by header.js -->
-                </ul>
+                <ul id="nav-links"></ul>
             </nav>
-            <div class="nav-account" id="nav-account-links">
-                <!-- Populated by header.js -->
-            </div>
+            <div class="nav-account" id="nav-account-links"></div>
         </div>
     </header>
 
     <section class="hero">
         <video autoplay muted loop playsinline class="hero-video">
             <source src="diploma-hero-video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
         </video>
         
         <div class="hero-overlay"></div>
@@ -259,30 +228,26 @@
     <footer>
         <div class="footer-links">
             <a href="about.html">About Us</a>
-            <a href="meet-our-dogs.html">Meet Our Dogs</a>
-            <a href="careers.html">Careers</a>
-            <a href="advocacy.html">Advocacy</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="verify.html">Verify License</a>
             <a href="contact.html">Contact</a>
-            <a href="privacy-policy.html">Privacy Policy</a>
-            <a href="terms.html">Terms & Conditions</a>
+            <a href="privacy-policy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
         </div>
         <p class="disclaimer">
-            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
+            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is commemorative and does not confer legal rights under the ADA.
         </p>
         <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>
 
     <script src="header.js"></script>
     <script>
-        // Smart redirect based on login status
         function startCertification() {
             const token = localStorage.getItem('session_token');
             
             if (token) {
-                // User is logged in - skip quiz/signup, go straight to certification
                 window.location.href = 'add-dog.html';
             } else {
-                // User is not logged in - start normal flow
                 window.location.href = 'quiz.html';
             }
         }
