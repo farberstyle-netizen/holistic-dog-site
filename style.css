@@ -33,7 +33,7 @@ body {
 header {
     background: linear-gradient(135deg, var(--dark-maroon) 0%, var(--primary-maroon) 100%);
     border-bottom: 3px solid var(--accent-gold);
-    padding: 1rem 0;
+    padding: 0.75rem 0;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -46,7 +46,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 2rem;
+    gap: 0.5rem;
 }
 
 /* Logo Image Styling */
@@ -55,10 +55,11 @@ header {
     align-items: center;
     text-decoration: none;
     transition: transform 0.3s;
+    flex-shrink: 0;
 }
 
 .logo img {
-    height: 50px;
+    height: 70px;
     width: auto;
 }
 
@@ -70,7 +71,7 @@ header {
 nav ul {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 0;
     margin: 0;
     padding: 0;
 }
@@ -94,11 +95,12 @@ nav a:hover {
 .nav-verify-prominent {
     background-color: var(--accent-gold) !important;
     color: var(--primary-maroon) !important;
-    padding: 10px 24px !important;
-    border-radius: 6px !important;
+    padding: 8px 16px !important;
+    border-radius: 4px !important;
     font-weight: 700 !important;
     transition: all 0.3s !important;
-    font-size: 0.9rem !important;
+    font-size: 0.8rem !important;
+    white-space: nowrap !important;
 }
 
 .nav-verify-prominent:hover {
@@ -107,12 +109,30 @@ nav a:hover {
     box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
 }
 
+/* Header nav links next to login */
+.nav-link-header {
+    color: var(--white) !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-right: 1.5rem !important;
+    transition: color 0.3s !important;
+    white-space: nowrap !important;
+}
+
+.nav-link-header:hover {
+    color: var(--accent-gold) !important;
+}
+
 /* --- TOP RIGHT ACCOUNT AREA (PFP/LOGIN) --- */
 .nav-account {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     margin-left: auto;
+    flex-shrink: 0;
 }
 
 .btn-login-header {
@@ -152,6 +172,7 @@ nav a:hover {
     margin: 40px auto;
     padding: 0 20px;
     flex: 1;
+    width: 100%;
 }
 
 h1, h2, h3 { 
@@ -330,31 +351,57 @@ footer {
     color: var(--white);
     text-align: center;
     padding: 40px 20px;
-    margin-top: 40px;
+    margin-top: auto;
     border-top: 4px solid var(--accent-gold);
 }
 
+footer p {
+    margin: 10px 0;
+    font-size: 0.95rem;
+}
+
+.footer-seal {
+    text-align: center;
+    margin: 30px 0 20px 0;
+}
+
+.footer-seal img {
+    width: 120px;
+    height: 120px;
+    transition: transform 0.3s ease;
+}
+
+.footer-seal img:hover {
+    transform: scale(1.05);
+}
+
 .footer-links { 
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }
 
 .footer-links a { 
-    color: var(--accent-gold); 
-    margin: 0 15px; 
-    text-decoration: none; 
-    font-weight: 600; 
+    color: var(--accent-gold);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.3s;
 }
 
 .footer-links a:hover { 
-    text-decoration: underline; 
-    color: var(--white); 
+    text-decoration: underline;
+    color: var(--white);
 }
 
 .disclaimer { 
-    font-size: 0.85rem; 
-    opacity: 0.8; 
-    max-width: 800px; 
-    margin: 20px auto; 
+    font-size: 0.85rem;
+    opacity: 0.85;
+    max-width: 800px;
+    margin: 20px auto 0;
+    line-height: 1.5;
 }
 
 /* --- ACCOUNT DROPDOWN --- */
@@ -472,7 +519,7 @@ body.menu-open {
     }
     
     .logo img {
-        height: 40px;
+        height: 50px;
     }
     
     .logo {
@@ -488,6 +535,7 @@ body.menu-open {
     .nav-account {
         order: 3;
         margin-left: 0;
+        gap: 10px;
     }
     
     nav {
@@ -540,6 +588,10 @@ body.menu-open {
         box-shadow: none !important;
     }
     
+    .nav-link-header {
+        display: none;
+    }
+    
     .user-pfp {
         width: 36px;
         height: 36px;
@@ -571,12 +623,21 @@ body.menu-open {
     .profile-img {
         margin: 0 auto;
     }
-}
-	.account-dropdown {
-  		display: none !important;
-}
-	.account-dropdown:hover {
-  		display: block !important;
-}
-
+    
+    .footer-seal img {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .footer-links {
+        gap: 10px;
+    }
+    
+    .footer-links a {
+        font-size: 0.85rem;
+    }
+    
+    .disclaimer {
+        font-size: 0.8rem;
+    }
 }

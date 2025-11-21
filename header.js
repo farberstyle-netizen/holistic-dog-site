@@ -19,22 +19,26 @@
   // Update logo to use header image
   const logoElement = document.querySelector('.logo');
   if (logoElement) {
-    logoElement.innerHTML = '<img src="logo-header.png" alt="Holistic Therapy Dog Association" style="height: 50px;">';
+    logoElement.innerHTML = '<img src="logo-header.png" alt="Holistic Therapy Dog Association" style="height: 70px;">';
   }
 
-  // Populate navigation
+  // Split navigation - verify button next to logo, rest next to login
+  const verifyLink = baseLinks.find(link => link.prominent);
+  const regularLinks = baseLinks.filter(link => !link.prominent && link.text !== 'Home');
+  
   if (navLinks) {
-    navLinks.innerHTML = baseLinks.map(link => {
-      const className = link.prominent ? ' class="nav-verify-prominent"' : '';
-      return `<li><a href="${link.href}"${className}>${link.text}</a></li>`;
-    }).join('');
+    navLinks.innerHTML = verifyLink ? `<li><a href="${verifyLink.href}" class="nav-verify-prominent">${verifyLink.text}</a></li>` : '';
   }
 
-  // Populate account area based on login state
+  // Populate account area with nav links and login/profile
   if (navAccount) {
+    let linksHTML = regularLinks.map(link => {
+      return `<a href="${link.href}" class="nav-link-header">${link.text}</a>`;
+    }).join('');
+    
     if (sessionToken) {
-      // User is logged in - show profile picture with dropdown
-      navAccount.innerHTML = `
+      // User is logged in - show nav links + profile picture with dropdown
+      navAccount.innerHTML = linksHTML + `
         <div class="account-dropdown-container">
           <img src="https://via.placeholder.com/40" alt="Profile" class="user-pfp" id="user-pfp">
           <div class="account-dropdown" id="account-dropdown">
@@ -80,10 +84,8 @@
       }
 
     } else {
-      // User is not logged in - show login button
-      navAccount.innerHTML = `
-        <a href="login.html" class="btn-login-header">Login</a>
-      `;
+      // User is not logged in - show nav links + login button
+      navAccount.innerHTML = linksHTML + `<a href="login.html" class="btn-login-header">LOGIN</a>`;
     }
   }
 
@@ -128,4 +130,30 @@
     localStorage.removeItem('session_token');
     window.location.href = 'index.html';
   };
+
+  // Auto-inject footer on every page
+  document.addEventListener('DOMContentLoaded', function() {
+    if (!document.querySelector('footer')) {
+      const footer = document.createElement('footer');
+      footer.innerHTML = `
+        <div class="footer-seal">
+          <img src="gold_seal.svg" alt="Holistic Therapy Dog Association Seal">
+        </div>
+        <div class="footer-links">
+          <a href="about.html">About Us</a>
+          <a href="meet-our-dogs.html">Meet Our Dogs</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="verify.html">Verify License</a>
+          <a href="contact.html">Contact</a>
+          <a href="privacy-policy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+        <p class="disclaimer">
+          <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is commemorative and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
+        </p>
+        <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+      `;
+      document.body.appendChild(footer);
+    }
+  });
 })();
