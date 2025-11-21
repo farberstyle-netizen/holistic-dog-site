@@ -1,4 +1,3 @@
-// header.js - Complete file with HTDA text logo
 document.addEventListener('DOMContentLoaded', function() {
   const navLinks = document.getElementById('nav-links');
   const navAccount = document.getElementById('nav-account-links');
@@ -67,20 +66,3 @@ function logout() {
   localStorage.removeItem('session_token');
   window.location.href = 'index.html';
 }
-
-const footer = document.createElement('footer');
-footer.innerHTML = `
-  <div class="footer-links">
-    <a href="about.html">About Us</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="verify.html">Verify License</a>
-    <a href="contact.html">Contact</a>
-    <a href="privacy-policy.html">Privacy</a>
-    <a href="terms.html">Terms</a>
-  </div>
-  <p class="disclaimer">
-    <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is commemorative and does not confer legal rights under the ADA.
-  </p>
-  <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
-`;
-document.body.appendChild(footer);
