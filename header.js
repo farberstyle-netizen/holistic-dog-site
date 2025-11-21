@@ -1,5 +1,5 @@
 /**
- * HEADER.JS - Dynamic Navigation with Gold Seal Logo
+ * HEADER.JS - Dynamic Navigation
  */
 
 (function() {
@@ -16,31 +16,11 @@
     { text: 'Verify License', href: 'verify.html', prominent: true }
   ];
 
-  // Update logo to use gold seal image
+  // Update logo to use header image
   const logoElement = document.querySelector('.logo');
   if (logoElement) {
-    logoElement.innerHTML = '<img src="gold_seal.svg" alt="Holistic Therapy Dog Association">';
+    logoElement.innerHTML = '<img src="logo-header.png" alt="Holistic Therapy Dog Association" style="height: 50px;">';
   }
-
-	// Fix header.js dropdown completely
-		if (dropdownContainer && dropdown) {
- 		 dropdownContainer.addEventListener('mouseenter', () => {
-  		  dropdown.style.display = 'block';
-  });
-  
-  dropdown.addEventListener('mouseenter', () => {
-    dropdown.style.display = 'block';
-  });
-  
-  dropdownContainer.addEventListener('mouseleave', () => {
-    setTimeout(() => {
-      dropdown.style.display = 'none';
-    }, 100);
-  });
-  
-  dropdown.addEventListener('mouseleave', () => {
-    dropdown.style.display = 'none';
-  });
 
   // Populate navigation
   if (navLinks) {
