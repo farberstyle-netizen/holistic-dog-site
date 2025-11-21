@@ -5,251 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | HTDA</title>
     <link rel="stylesheet" href="style.css">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    
-    <style>
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-        .stat-card {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-left: 4px solid var(--primary-maroon);
-        }
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--primary-maroon);
-        }
-        .stat-label {
-            color: #666;
-            font-size: 1.1rem;
-            margin-top: 0.5rem;
-        }
-        .admin-actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        .action-card {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: transform 0.3s;
-            cursor: pointer;
-        }
-        .action-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-        }
-        .action-card h3 {
-            color: var(--primary-maroon);
-            margin-bottom: 1rem;
-        }
-        .action-card a {
-            display: inline-block;
-            background: var(--accent-gold);
-            color: var(--primary-maroon);
-            padding: 10px 20px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 700;
-            margin-top: 1rem;
-        }
-        .action-card a:hover {
-            background: var(--primary-maroon);
-            color: white;
-        }
-        .recent-orders {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-top: 2rem;
-        }
-        .order-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-        .order-table th {
-            background: var(--primary-maroon);
-            color: white;
-            padding: 12px;
-            text-align: left;
-        }
-        .order-table td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-        }
-        .status-paid {
-            color: #2e7d32;
-            font-weight: 600;
-        }
-        .status-pending {
-            color: #f57c00;
-            font-weight: 600;
-        }
-    </style>
 </head>
 <body>
-
     <header>
         <div class="nav-container">
-            <a href="admin.html" class="logo">HTDA Admin</a>
+            <a href="index.html" class="logo">Holistic Therapy Dog<br>Association</a>
             <nav>
-                <ul id="nav-links">
-                    <li><a href="index.html">View Live Site</a></li>
-                    <li><a href="verify.html">Verify Database</a></li>
-                    <li><a href="admin-shipments.html">Manage Shipments</a></li>
-                </ul>
+                <ul id="nav-links"></ul>
             </nav>
-            <div class="nav-account">
-                <a href="#" onclick="logout()" style="font-weight:bold; color: var(--white);">Logout</a>
-            </div>
+            <div class="nav-account" id="nav-account-links"></div>
         </div>
     </header>
 
     <main class="page-container">
-        <h1>Admin Control Panel</h1>
+        <h1>Admin Dashboard</h1>
         
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number" id="total-dogs">0</div>
-                <div class="stat-label">Total Certifications</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0;">
+            <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-left: 4px solid var(--primary-maroon);">
+                <div style="font-size: 3rem; font-weight: 700; color: var(--primary-maroon);">9</div>
+                <div style="color: #666; font-size: 1.1rem;">Total Certifications</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number" id="paid-dogs">0</div>
-                <div class="stat-label">Paid & Active</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="pending-dogs">0</div>
-                <div class="stat-label">Pending Payment</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="total-users">0</div>
-                <div class="stat-label">Total Users</div>
+            <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-left: 4px solid var(--accent-gold);">
+                <div style="font-size: 3rem; font-weight: 700; color: var(--accent-gold);">9</div>
+                <div style="color: #666; font-size: 1.1rem;">Active Dogs</div>
             </div>
         </div>
 
-        <div class="admin-actions">
-            <div class="action-card">
-                <h3>📦 Manage Shipments</h3>
-                <p>View pending shipments and update tracking numbers</p>
-                <a href="admin-shipments.html">Go to Shipments</a>
-            </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem;">
+            <a href="admin-shipments.html" style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-decoration: none; text-align: center; transition: transform 0.3s;">
+                <h3 style="color: var(--primary-maroon); margin-bottom: 1rem;">📦 Manage Shipments</h3>
+                <p style="color: #666;">Track and update diploma shipments</p>
+            </a>
             
-            <div class="action-card">
-                <h3>🔍 Search Users</h3>
-                <p>Find users by email or license ID</p>
-                <a href="#" onclick="showSearchModal()">Search Now</a>
-            </div>
+            <a href="admin-messages.html" style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-decoration: none; text-align: center; transition: transform 0.3s;">
+                <h3 style="color: var(--primary-maroon); margin-bottom: 1rem;">✉️ Contact Messages</h3>
+                <p style="color: #666;">View and respond to inquiries</p>
+            </a>
             
-            <div class="action-card">
-                <h3>🎟️ Manage Coupons</h3>
-                <p>View and create coupon codes</p>
-                <a href="#" onclick="showCouponModal()">Manage Coupons</a>
-            </div>
-            
-            <div class="action-card">
-                <h3>✅ Verify Database</h3>
-                <p>Public verification lookup tool</p>
-                <a href="verify.html">Open Verify</a>
-            </div>
-        </div>
-
-        <div class="recent-orders">
-            <h2 style="color: var(--primary-maroon);">Recent Orders</h2>
-            <table class="order-table" id="orders-table">
-                <thead>
-                    <tr>
-                        <th>License ID</th>
-                        <th>Dog Name</th>
-                        <th>Owner</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="orders-body">
-                    <tr>
-                        <td colspan="6" style="text-align: center; padding: 2rem;">Loading...</td>
-                    </tr>
-                </tbody>
-            </table>
+            <a href="verify.html" style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-decoration: none; text-align: center; transition: transform 0.3s;">
+                <h3 style="color: var(--primary-maroon); margin-bottom: 1rem;">✅ Verify Database</h3>
+                <p style="color: #666;">Public license verification</p>
+            </a>
         </div>
     </main>
 
     <footer>
         <div class="footer-links">
             <a href="about.html">About Us</a>
-            <a href="meet-our-dogs.html">Meet Our Dogs</a>
-            <a href="careers.html">Careers</a>
-            <a href="advocacy.html">Advocacy</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="verify.html">Verify License</a>
             <a href="contact.html">Contact</a>
-            <a href="privacy-policy.html">Privacy Policy</a>
-            <a href="terms.html">Terms & Conditions</a>
+            <a href="privacy-policy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
         </div>
         <p class="disclaimer">
-            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
+            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is commemorative and does not confer legal rights under the ADA.
         </p>
         <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>
 
+    <script src="header.js"></script>
     <script>
-        // Check admin authentication
         const token = localStorage.getItem('session_token');
         if (!token) {
-            alert('Please log in as admin');
+            alert('Please log in');
             window.location.href = 'login.html';
         }
-
-        // Logout function
-        function logout() {
-            localStorage.removeItem('session_token');
-            window.location.href = 'index.html';
-        }
-
-        // Load dashboard stats (we'll need an admin API endpoint for this)
-        async function loadStats() {
-            // For now, show placeholder - we'll create API endpoint next
-            document.getElementById('total-dogs').textContent = '9';
-            document.getElementById('paid-dogs').textContent = '9';
-            document.getElementById('pending-dogs').textContent = '0';
-            document.getElementById('total-users').textContent = '10';
-        }
-
-        // Load recent orders
-        async function loadOrders() {
-            const tbody = document.getElementById('orders-body');
-            tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem;">Orders will load here once API endpoint is ready</td></tr>';
-        }
-
-        function showSearchModal() {
-            const email = prompt('Enter email or license ID to search:');
-            if (email) {
-                alert('Search functionality coming soon! Searching for: ' + email);
-            }
-        }
-
-        function showCouponModal() {
-            alert('Coupon management interface coming soon!');
-        }
-
-        // Load data on page load
-        loadStats();
-        loadOrders();
     </script>
 </body>
 </html>
