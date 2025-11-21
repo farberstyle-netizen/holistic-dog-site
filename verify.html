@@ -5,16 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verify a License | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Cloudflare Turnstile -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    
     <style>
-        /* Disclaimer Modal */
         .disclaimer-modal {
             display: none;
             position: fixed;
@@ -118,8 +113,6 @@
     </style>
 </head>
 <body>
-
-    <!-- Disclaimer Modal -->
     <div id="disclaimer-modal" class="disclaimer-modal active">
         <div class="disclaimer-content">
             <h2>⚖️ INFORMATION DISCLAIMER</h2>
@@ -144,13 +137,9 @@
         <div class="nav-container">
             <a href="index.html" class="logo">Holistic Therapy Dog<br>Association</a>
             <nav>
-                <ul id="nav-links">
-                    <!-- Populated by header.js -->
-                </ul>
+                <ul id="nav-links"></ul>
             </nav>
-            <div class="nav-account" id="nav-account-links">
-                <!-- Populated by header.js -->
-            </div>
+            <div class="nav-account" id="nav-account-links"></div>
         </div>
     </header>
 
@@ -158,7 +147,7 @@
         <h1>Verify a Certification</h1>
         <p class="section-intro">Search our national registry using the dog's name or license number.</p>
         
-        <form class="contact-form" id="verify-form" style="max-width: 600px; margin: auto; opacity: 0.3; pointer-events: none;">
+        <form id="verify-form" style="max-width: 600px; margin: auto; opacity: 0.3; pointer-events: none;">
             <p class="search-note">Fill in at least one field below to search</p>
             
             <div class="form-group">
@@ -176,12 +165,11 @@
                 <input type="text" id="license_number" name="license_number" placeholder="e.g. 97784245">
             </div>
             
-            <!-- Turnstile Captcha -->
             <div class="form-group" style="display: flex; justify-content: center;">
                 <div class="cf-turnstile" data-sitekey="0x4AAAAAACB627QsvVnDp-MP" data-callback="onTurnstileSuccess"></div>
             </div>
             
-            <button type="submit" class="btn-submit" id="searchBtn" disabled>Search Registry</button>
+            <button type="submit" class="cta-button" id="searchBtn" disabled style="width: 100%;">Search Registry</button>
         </form>
 
         <div id="results-container" style="margin-top: 2rem;"></div>
@@ -190,15 +178,14 @@
     <footer>
         <div class="footer-links">
             <a href="about.html">About Us</a>
-            <a href="meet-our-dogs.html">Meet Our Dogs</a>
-            <a href="careers.html">Careers</a>
-            <a href="advocacy.html">Advocacy</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="verify.html">Verify License</a>
             <a href="contact.html">Contact</a>
-            <a href="privacy-policy.html">Privacy Policy</a>
-            <a href="terms.html">Terms & Conditions</a>
+            <a href="privacy-policy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
         </div>
         <p class="disclaimer">
-            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
+            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is commemorative and does not confer legal rights under the ADA.
         </p>
         <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>
@@ -208,7 +195,6 @@
         let turnstileToken = null;
         let disclaimerAccepted = false;
 
-        // Disclaimer acceptance
         function acceptDisclaimer() {
             disclaimerAccepted = true;
             document.getElementById('disclaimer-modal').classList.remove('active');
@@ -222,7 +208,6 @@
             window.location.href = 'index.html';
         }
 
-        // Enable submit button when captcha is completed
         function onTurnstileSuccess(token) {
             turnstileToken = token;
             document.getElementById('searchBtn').disabled = false;
@@ -245,12 +230,10 @@
                 return;
             }
 
-            // Get search values
             const firstName = document.getElementById('first_name').value.trim();
             const lastName = document.getElementById('last_name').value.trim();
             const licenseNumber = document.getElementById('license_number').value.trim();
 
-            // Validate at least one field
             if (!firstName && !lastName && !licenseNumber) {
                 alert('Please enter at least one search field.');
                 return;
@@ -261,7 +244,6 @@
             resultsContainer.innerHTML = '';
 
             try {
-                // Build query params
                 const params = new URLSearchParams();
                 if (firstName) params.append('first_name', firstName);
                 if (lastName) params.append('last_name', lastName);
@@ -276,7 +258,7 @@
                     const color = isExpired ? '#c62828' : '#2e7d32';
                     
                     resultsContainer.innerHTML = `
-                        <div style="background: var(--white); padding: 2rem; border-radius: 8px; text-align:center; border-top: 4px solid ${color}; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                        <div style="background: white; padding: 2rem; border-radius: 8px; text-align:center; border-top: 4px solid ${color}; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
                             <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--primary-maroon);">${data.dog_name}</h3>
                             <h4 style="color: ${color}; font-weight: bold; font-size: 1.2rem;">LICENSE: ${data.license_status.toUpperCase()}</h4>
                             <p style="margin-top: 1rem; font-size: 1.1rem;">
@@ -290,14 +272,13 @@
                     resultsContainer.innerHTML = `<p style="text-align:center; color: #777; font-size: 1.1rem;">No record found matching your search criteria.</p>`;
                 }
                 
-                // Reset captcha after search
                 turnstile.reset();
                 turnstileToken = null;
                 
             } catch (err) {
                 resultsContainer.innerHTML = `<p style="text-align:center; color: red;">Error connecting to database.</p>`;
             } finally {
-                searchBtn.disabled = true; // Disabled until next captcha
+                searchBtn.disabled = true;
                 searchBtn.innerText = "Search Registry";
             }
         });

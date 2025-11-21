@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account | Holistic Therapy Dog Association</title>
+    <title>Create Account | HTDA</title>
     <link rel="stylesheet" href="style.css">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    
     <style>
         .signup-container {
             max-width: 700px;
             margin: 3rem auto;
-            background: var(--white);
+            background: white;
             padding: 3rem;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -65,41 +63,26 @@
             color: var(--accent-gold);
             font-weight: 600;
         }
-        .btn-signup {
-            width: 100%;
-            background-color: var(--accent-gold);
-            color: var(--primary-maroon);
-            padding: 15px;
-            border: none;
-            border-radius: 4px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s;
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
         }
-        .btn-signup:hover {
-            background-color: var(--primary-maroon);
-            color: var(--white);
-        }
-        .btn-signup:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-
     <header>
         <div class="nav-container">
-            <a href="index.html" class="logo">Holistic Therapy Dog Association</a>
+            <a href="index.html" class="logo">Holistic Therapy Dog<br>Association</a>
             <nav>
-                <ul id="nav-links">
-                    <!-- Populated by header.js -->
-                </ul>
+                <ul id="nav-links"></ul>
             </nav>
-            <div class="nav-account" id="nav-account-links">
-                <!-- Populated by header.js -->
-            </div>
+            <div class="nav-account" id="nav-account-links"></div>
         </div>
     </header>
 
@@ -220,7 +203,7 @@
                 <input type="text" id="zip" name="zip" pattern="[0-9]{5}" maxlength="5" required>
             </div>
 
-            <button type="submit" class="btn-signup">Create Account & Continue</button>
+            <button type="submit" class="cta-button" style="width: 100%; padding: 15px;">Create Account & Continue</button>
         </form>
         
         <p class="form-footer-link">
@@ -231,15 +214,14 @@
     <footer>
         <div class="footer-links">
             <a href="about.html">About Us</a>
-            <a href="meet-our-dogs.html">Meet Our Dogs</a>
-            <a href="careers.html">Careers</a>
-            <a href="advocacy.html">Advocacy</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="verify.html">Verify License</a>
             <a href="contact.html">Contact</a>
-            <a href="privacy-policy.html">Privacy Policy</a>
-            <a href="terms.html">Terms & Conditions</a>
+            <a href="privacy-policy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
         </div>
         <p class="disclaimer">
-            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is a commemorative title and does not confer legal rights under the ADA for Service Animals. This is not a Service Animal registry.
+            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is commemorative and does not confer legal rights under the ADA.
         </p>
         <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>
@@ -258,10 +240,10 @@
         document.getElementById('signupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const errorBox = document.getElementById('error-box');
-            const btn = document.querySelector('.btn-signup');
+            const btn = e.target.querySelector('button[type="submit"]');
             
             btn.disabled = true;
-            btn.innerText = "Creating Account...";
+            btn.textContent = "Creating Account...";
             errorBox.style.display = 'none';
 
             const password = document.getElementById('password').value;
@@ -271,7 +253,7 @@
                 errorBox.textContent = 'Passwords do not match.';
                 errorBox.style.display = 'block';
                 btn.disabled = false;
-                btn.innerText = "Create Account & Continue";
+                btn.textContent = "Create Account & Continue";
                 return;
             }
 
@@ -279,7 +261,7 @@
                 errorBox.textContent = 'Password must be at least 8 characters long.';
                 errorBox.style.display = 'block';
                 btn.disabled = false;
-                btn.innerText = "Create Account & Continue";
+                btn.textContent = "Create Account & Continue";
                 return;
             }
 
@@ -300,13 +282,13 @@
                     errorBox.textContent = data.message || 'An error occurred. Please try again.';
                     errorBox.style.display = 'block';
                     btn.disabled = false;
-                    btn.innerText = "Create Account & Continue";
+                    btn.textContent = "Create Account & Continue";
                 }
             } catch (error) {
                 errorBox.textContent = 'Network error. Please try again.';
                 errorBox.style.display = 'block';
                 btn.disabled = false;
-                btn.innerText = "Create Account & Continue";
+                btn.textContent = "Create Account & Continue";
             }
         });
     </script>
