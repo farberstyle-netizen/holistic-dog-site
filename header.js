@@ -1,4 +1,4 @@
-// header.js - Complete file
+// header.js - Complete file with HTDA text logo
 document.addEventListener('DOMContentLoaded', function() {
   const navLinks = document.getElementById('nav-links');
   const navAccount = document.getElementById('nav-account-links');
@@ -61,11 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
       navAccount.innerHTML = `<a href="login.html" class="cta-button">LOGIN</a>`;
     }
   }
-
-  const logo = document.querySelector('.logo');
-  if (logo && !logo.querySelector('img')) {
-    logo.innerHTML = '<img src="gold_seal.svg" alt="HTDA" style="height: 50px;">';
-  }
 });
 
 function logout() {
@@ -75,9 +70,6 @@ function logout() {
 
 const footer = document.createElement('footer');
 footer.innerHTML = `
-  <div class="footer-seal">
-    <img src="gold_seal.svg" alt="Holistic Therapy Dog Association Seal">
-  </div>
   <div class="footer-links">
     <a href="about.html">About Us</a>
     <a href="gallery.html">Gallery</a>

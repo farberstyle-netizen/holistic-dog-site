@@ -1,4 +1,4 @@
-/* style.css - Complete file */
+/* style.css - Complete file - Clean version */
 :root {
   --primary-maroon: #B22234;
   --dark-maroon: #8B1A2B;
@@ -47,14 +47,12 @@ header {
 }
 
 .logo {
+  color: white;
   text-decoration: none;
-  display: flex;
-  align-items: center;
-}
-
-.logo img {
-  height: 50px;
-  width: auto;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 nav ul {
@@ -230,15 +228,6 @@ footer {
   text-align: center;
 }
 
-.footer-seal {
-  margin-bottom: 2rem;
-}
-
-.footer-seal img {
-  width: 120px;
-  height: 120px;
-}
-
 .footer-links {
   display: flex;
   justify-content: center;
@@ -274,11 +263,6 @@ footer {
     flex-direction: column;
     gap: 1rem;
     width: 100%;
-  }
-  
-  .footer-seal img {
-    width: 80px;
-    height: 80px;
   }
   
   .footer-links {
