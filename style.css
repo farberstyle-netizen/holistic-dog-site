@@ -74,6 +74,23 @@ nav a:hover {
   color: var(--accent-gold);
 }
 
+/* Prominent Verify License button */
+.nav-verify-prominent {
+  background: var(--accent-gold) !important;
+  color: white !important;
+  padding: 10px 24px !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(218, 165, 32, 0.3) !important;
+  transition: all 0.3s !important;
+}
+
+.nav-verify-prominent:hover {
+  background: #c89d1f !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(218, 165, 32, 0.4) !important;
+}
+
 .nav-account {
   display: flex;
   align-items: center;

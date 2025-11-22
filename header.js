@@ -3,15 +3,19 @@ document.addEventListener('DOMContentLoaded', function() {
   const navAccount = document.getElementById('nav-account-links');
   const token = localStorage.getItem('session_token');
 
+  // COMPLETE navigation with Verify License button
   const publicLinks = [
+    { href: 'how-it-works.html', text: 'How It Works' },
     { href: 'about.html', text: 'About Us' },
     { href: 'meet-our-dogs.html', text: 'Meet Our Dogs' },
-    { href: 'gallery.html', text: 'Gallery' }
+    { href: 'gallery.html', text: 'Gallery' },
+    { href: 'why.html', text: 'Why the HTDA' },
+    { href: 'verify.html', text: 'Verify License', class: 'nav-verify-prominent' }
   ];
 
   if (navLinks) {
     navLinks.innerHTML = publicLinks.map(link => 
-      `<li><a href="${link.href}">${link.text}</a></li>`
+      `<li><a href="${link.href}" ${link.class ? `class="${link.class}"` : ''}>${link.text}</a></li>`
     ).join('');
   }
 
