@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Shipments | HTDA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Holistic Therapy Dog<br>Association</a>
+            <nav>
+                <ul id="nav-links"></ul>
+            </nav>
+            <div class="nav-account" id="nav-account-links"></div>
+        </div>
+    </header>
+
+    <main class="page-container wide">
+        <h1>Shipment Manager</h1>
+        <div style="text-align: right; margin-bottom: 1rem;">
+            <button onclick="exportToCSV()" class="cta-button" style="background: #0071e3; color: white;">Export for PirateShip</button>
+        </div>
+        <div id="shipments-list" style="background:white; padding:2rem; border-radius:8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">Loading orders...</div>
+    </main>
+
+    <footer></footer>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+    <script>
+        async function load() {
+            const token = localStorage.getItem('session_token');
+            // In production, this would call api-admin.js/shipments
+            document.getElementById('shipments-list').innerHTML = '<p>No pending shipments.</p>';
+        }
+        function exportToCSV() {
+            let csvContent = "data:text/csv;charset=utf-8,Name,Address,City,State,Zip\n";
+            csvContent += "John Doe,123 Main St,New York,NY,10001\n"; 
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "htda_shipments.csv");
+            document.body.appendChild(link);
+            link.click();
+        }
+        load();
+    </script>
+</body>
+</html>

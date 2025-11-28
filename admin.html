@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | HTDA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Holistic Therapy Dog<br>Association</a>
+            <nav>
+                <ul id="nav-links"></ul>
+            </nav>
+            <div class="nav-account" id="nav-account-links"></div>
+        </div>
+    </header>
+
+    <main class="page-container">
+        <h1>Admin Dashboard</h1>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0;">
+            <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-left: 4px solid var(--primary-maroon);">
+                <div id="total-certs" style="font-size: 3rem; font-weight: 700; color: var(--primary-maroon);">9</div>
+                <div style="color: #666; font-size: 1.1rem;">Total Certifications</div>
+            </div>
+            <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-left: 4px solid var(--accent-gold);">
+                <div id="active-dogs" style="font-size: 3rem; font-weight: 700; color: var(--accent-gold);">9</div>
+                <div style="color: #666; font-size: 1.1rem;">Active Dogs</div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem;">
+            <a href="admin-shipments.html" style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-decoration: none; text-align: center; transition: transform 0.3s;">
+                <h3 style="color: var(--primary-maroon); margin-bottom: 1rem;">📦 Manage Shipments</h3>
+                <p style="color: #666;">Track and update diploma shipments</p>
+            </a>
+            
+            <a href="admin-messages.html" style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-decoration: none; text-align: center; transition: transform 0.3s;">
+                <h3 style="color: var(--primary-maroon); margin-bottom: 1rem;">✉️ Contact Messages</h3>
+                <p style="color: #666;">View and respond to inquiries</p>
+            </a>
+            
+            <a href="verify.html" style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-decoration: none; text-align: center; transition: transform 0.3s;">
+                <h3 style="color: var(--primary-maroon); margin-bottom: 1rem;">✅ Verify Database</h3>
+                <p style="color: #666;">Public license verification</p>
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="verify.html">Verify License</a>
+            <a href="contact.html">Contact</a>
+            <a href="privacy-policy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+        </div>
+        <p class="disclaimer">
+            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is commemorative and does not confer legal rights under the ADA.
+        </p>
+        <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+    </footer>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+    <script>
+        const token = localStorage.getItem('session_token');
+        if (!token) {
+            alert('Please log in');
+            window.location.href = 'login.html';
+        }
+
+        // Fetch real stats from database
+        async function loadStats() {
+            try {
+                const response = await fetch('https://api-admin.farberstyle.workers.dev/stats', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await response.json();
+                
+                console.log('Admin stats:', data); // DEBUG
+                
+                if (data.success) {
+                    document.getElementById('total-certs').textContent = data.total_certifications || 0;
+                    document.getElementById('active-dogs').textContent = data.active_dogs || 0;
+                } else {
+                    console.warn('Failed to load admin stats');
+                }
+            } catch (error) {
+                console.error('Error loading admin stats:', error);
+                // Keep showing the default values if API fails
+            }
+        }
+
+        loadStats();
+    </script>
+</body>
+</html>

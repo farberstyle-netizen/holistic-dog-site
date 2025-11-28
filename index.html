@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holistic Therapy Dog Association | Official Certification</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .hero {
+            position: relative;
+            height: 700px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .hero-carousel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-carousel img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            animation: heroFade 24s infinite;
+        }
+
+        .hero-carousel img:nth-child(1) { animation-delay: 0s; }
+        .hero-carousel img:nth-child(2) { animation-delay: 4s; }
+        .hero-carousel img:nth-child(3) { animation-delay: 8s; }
+        .hero-carousel img:nth-child(4) { animation-delay: 12s; }
+        .hero-carousel img:nth-child(5) { animation-delay: 16s; }
+        .hero-carousel img:nth-child(6) { animation-delay: 20s; }
+
+        @keyframes heroFade {
+            0% { opacity: 0; }
+            4% { opacity: 1; }
+            16.67% { opacity: 1; }
+            20.67% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(75, 0, 0, 0.7) 0%,
+                rgba(75, 0, 0, 0.5) 50%,
+                rgba(75, 0, 0, 0.7) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin: 0 0 1rem 0;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            color: white;
+        }
+
+        .hero p {
+            color: white;
+            font-size: 1.4rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero .cta-button {
+            font-size: 1.2rem;
+            padding: 18px 48px;
+            background: var(--accent-gold);
+            box-shadow: 0 4px 20px rgba(184, 154, 106, 0.5);
+            animation: subtle-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes subtle-pulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(184, 154, 106, 0.5); }
+            50% { box-shadow: 0 8px 30px rgba(184, 154, 106, 0.7); }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 600px;
+                margin-top: 70px;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Holistic Therapy Dog<br>Association</a>
+            <nav>
+                <ul id="nav-links"></ul>
+            </nav>
+            <div class="nav-account" id="nav-account-links"></div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-carousel">
+            <img src="diploma-hero-01.jpg" alt="Holistic Therapy Dog Certificate">
+            <img src="diploma-hero-02.jpg" alt="Holistic Therapy Dog Certificate">
+            <img src="diploma-hero-03.jpg" alt="Holistic Therapy Dog Certificate">
+            <img src="diploma-hero-04.jpg" alt="Holistic Therapy Dog Certificate">
+            <img src="diploma-hero-05.jpg" alt="Holistic Therapy Dog Certificate">
+            <img src="diploma-hero-06.jpg" alt="Holistic Therapy Dog Certificate">
+        </div>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <h1>Where Loyalty Meets Legacy</h1>
+            <p>Certify their Dedication and Devotion</p>
+            <button onclick="startCertification()" class="cta-button">Start HERE</button>
+        </div>
+    </section>
+
+    <section class="trust-section">
+        <h2>Committed to Excellence</h2>
+        <div class="icons-grid">
+            <div class="icon-card">
+                <img src="doctor.png" alt="Holistic Wellness Icon">
+                <h3>Holistic Focus</h3>
+                <p>Honoring the therapeutic bond between dogs and humans—recognizing their profound impact on emotional, mental, and spiritual well-being.</p>
+            </div>
+
+            <div class="icon-card">
+                <img src="judge.png" alt="Trust and Integrity Icon">
+                <h3>Trusted</h3>
+                <p>Every certification is reviewed with integrity to ensure it reflects the genuine bond between you and your dog.</p>
+            </div>
+
+            <div class="icon-card">
+                <img src="globe.png" alt="World-Class Standards Icon">
+                <h3>World-Class Standards</h3>
+                <p>A globally accessible database validating your dog's certification—maintaining excellence and credibility worldwide.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="diploma-preview">
+        <div class="diploma-container">
+            <h2 style="font-family: 'Playfair Display', serif;">The Official Certification Package</h2>
+            <p class="section-intro">Beautifully pressed. Delivered to your door.</p>
+            
+            <div style="max-width: 900px; margin: 2rem auto;">
+                <img src="hero2.png" alt="Official HTDA Diploma" style="width: 100%; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.2);">
+            </div>
+            
+            <a href="diploma.html" class="cta-button" style="background-color: var(--primary-maroon); color: white;">View Package Details</a>
+        </div>
+    </section>
+
+    <footer></footer>
+
+    <div id="choiceModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <h3>Welcome Back!</h3>
+            <p>Would you like to certify another dog, or view your current account?</p>
+            <div class="modal-actions">
+                <button onclick="goToQuiz()" class="modal-btn btn-primary">YES, I want to certify another dog</button>
+                <button onclick="goToDashboard()" class="modal-btn btn-secondary">NO, take me to my account</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+    <script>
+        const modal = document.getElementById('choiceModal');
+        function startCertification() {
+            const token = localStorage.getItem('session_token');
+            if (token) {
+                modal.style.display = 'flex';
+            } else {
+                window.location.href = 'quiz.html';
+            }
+        }
+
+        function closeModal() { modal.style.display = 'none'; }
+        function goToQuiz() { window.location.href = 'quiz.html'; }
+        function goToDashboard() { window.location.href = 'dashboard.html'; }
+        window.onclick = function(event) { if (event.target == modal) modal.style.display = "none"; }
+    </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certification Quiz | Holistic Therapy Dog Association</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Holistic Therapy Dog<br>Association</a>
+            <nav>
+                <ul id="nav-links"></ul>
+            </nav>
+            <div class="nav-account" id="nav-account-links"></div>
+        </div>
+    </header>
+    
+    <main class="page-container">
+        <h1>Is Your Dog Ready?</h1>
+        <p class="section-intro">This isn't a test—it's a celebration of your dog's natural gifts. Answer these simple questions to confirm eligibility.</p>
+        
+        <div id="quiz-container" style="background: white; padding: 3rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); max-width: 700px; margin: 0 auto;">
+            <div class="question-box" style="text-align: center;">
+                <h3 style="font-size: 1.5rem; color: var(--primary-maroon); margin-bottom: 2rem;">Does your dog bring comfort and joy to you or others?</h3>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button onclick="nextQ()" class="cta-button">Yes, Absolutely</button>
+                    <button onclick="fail()" class="cta-button" style="background: #ddd; color: #555;">No</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer></footer>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+    <script>
+        let q = 0;
+        function nextQ() {
+            q++;
+            const container = document.getElementById('quiz-container');
+            if (q === 1) {
+                container.innerHTML = `
+                    <div class="question-box" style="text-align: center;">
+                        <h3 style="font-size: 1.5rem; color: var(--primary-maroon); margin-bottom: 2rem;">Is your dog generally calm and friendly in public spaces?</h3>
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                            <button onclick="nextQ()" class="cta-button">Yes, They Are</button>
+                            <button onclick="fail()" class="cta-button" style="background: #ddd; color: #555;">No</button>
+                        </div>
+                    </div>`;
+            } else if (q === 2) {
+                container.innerHTML = `
+                    <div class="question-box" style="text-align: center;">
+                        <h3 style="font-size: 1.5rem; color: var(--primary-maroon); margin-bottom: 2rem;">Do you believe in the healing power of the human-animal bond?</h3>
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                            <button onclick="finish()" class="cta-button">Yes, I Do</button>
+                            <button onclick="fail()" class="cta-button" style="background: #ddd; color: #555;">No</button>
+                        </div>
+                    </div>`;
+            }
+        }
+        function finish() { window.location.href = 'signup.html?qualified=yes'; }
+        function fail() { alert("The HTDA requires these baseline traits."); window.location.href = 'index.html'; }
+    </script>
+</body>
+</html>

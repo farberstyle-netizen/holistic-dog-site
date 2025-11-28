@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certification Package | Holistic Therapy Dog Association</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .product-hero {
+            max-width: 1000px;
+            margin: 2rem auto 3rem;
+        }
+        
+        .product-hero img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
+        }
+        
+        .product-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto 4rem;
+        }
+        
+        .product-details img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .product-text h2 {
+            text-align: left;
+            margin-top: 0;
+        }
+        
+        .product-text p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+        
+        .features-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #555;
+        }
+        
+        .features-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .product-details {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .product-text h2 {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Holistic Therapy Dog<br>Association</a>
+            <nav>
+                <ul id="nav-links"></ul>
+            </nav>
+            <div class="nav-account" id="nav-account-links"></div>
+        </div>
+    </header>
+
+    <main class="page-container wide">
+        <h1>The Official Certification Package</h1>
+        <p class="section-intro">Beautifully pressed. Delivered to your door.</p>
+        
+        <div class="product-hero">
+            <img src="hero2.png" alt="Official HTDA Diploma in Display Frame">
+        </div>
+        
+        <div class="product-details">
+            <div class="product-text">
+                <h2>A Tangible Legacy</h2>
+                <p>Your certification includes a premium, embossed diploma suitable for framing. It serves as a physical testament to the bond you share with your dog.</p>
+                
+                <ul class="features-list">
+                    <li>Premium heavyweight parchment paper</li>
+                    <li>Gold foil embossed seal</li>
+                    <li>Personalized with your dog's name</li>
+                    <li>Official certification date</li>
+                    <li>Dual signature authentication</li>
+                    <li>Protective envelope included</li>
+                </ul>
+                
+                <a href="quiz.html" class="cta-button">Start Your Application</a>
+            </div>
+            <div>
+                <img src="diploma1.jpg" alt="Diploma Detail - Close Up">
+            </div>
+        </div>
+        
+        <div class="product-details" style="margin-top: 2rem;">
+            <div>
+                <img src="diploma2.jpg" alt="Diploma Detail - Seal and Signatures">
+            </div>
+            <div class="product-text">
+                <h2>Crafted with Care</h2>
+                <p>Each certificate is individually printed on archival-quality materials designed to last a lifetime. The official HTDA seal and signatures are applied with precision, creating a document worthy of display.</p>
+                <p>Frame it in your home, office, or therapy practice as a proud symbol of your dog's recognized contribution to emotional wellness.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer></footer>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+</body>
+</html>
