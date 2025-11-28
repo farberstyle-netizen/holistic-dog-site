@@ -9,37 +9,30 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Two-screen hero container */
+        /* Hero wrapper */
         .hero-wrapper {
-            height: 200vh;
             margin-top: 80px;
             position: relative;
         }
 
-        /* First screen - carousel 1 with text overlay */
-        .hero-screen-1 {
+        /* Each parallax section - viewport height, but image scrolls through */
+        .parallax-section {
             position: relative;
-            height: 100vh;
+            height: 150vh; /* How long you scroll through this section */
             overflow: hidden;
         }
 
-        /* Second screen - carousel 2 */
-        .hero-screen-2 {
-            position: relative;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* Carousel container */
-        .hero-carousel {
+        /* The carousel container - will be translated via JS */
+        .parallax-carousel {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 200%; /* Image is 2x taller than section - gives scroll room */
+            will-change: transform;
         }
 
-        .hero-carousel img {
+        .parallax-carousel img {
             position: absolute;
             top: 0;
             left: 0;
@@ -50,87 +43,97 @@
             animation: heroFade 12s infinite;
         }
 
-        /* Carousel 1 timing (3 images, 4s each) */
-        .carousel-1 img:nth-child(1) { animation-delay: 0s; }
-        .carousel-1 img:nth-child(2) { animation-delay: 4s; }
-        .carousel-1 img:nth-child(3) { animation-delay: 8s; }
-
-        /* Carousel 2 timing (3 images, 4s each) */
-        .carousel-2 img:nth-child(1) { animation-delay: 0s; }
-        .carousel-2 img:nth-child(2) { animation-delay: 4s; }
-        .carousel-2 img:nth-child(3) { animation-delay: 8s; }
-
+        /* Lower opacity - 0.4 at peak visibility */
         @keyframes heroFade {
             0% { opacity: 0; }
-            5% { opacity: 1; }
-            33.33% { opacity: 1; }
+            5% { opacity: 0.4; }
+            33.33% { opacity: 0.4; }
             38.33% { opacity: 0; }
             100% { opacity: 0; }
         }
 
-        /* Dark overlay for both screens */
-        .hero-overlay {
+        /* Carousel timing */
+        .parallax-carousel img:nth-child(1) { animation-delay: 0s; }
+        .parallax-carousel img:nth-child(2) { animation-delay: 4s; }
+        .parallax-carousel img:nth-child(3) { animation-delay: 8s; }
+
+        /* Maroon overlay */
+        .parallax-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
+            height: 200%;
+            background: rgba(75, 0, 0, 0.35);
             z-index: 1;
+        }
+
+        /* Sticky wrapper - keeps text box centered on screen while scrolling */
+        .sticky-wrapper {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            pointer-events: none;
         }
 
         /* Floating text box */
         .hero-content-box {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 2;
-            background: rgba(75, 0, 0, 0.85);
+            background: rgba(75, 0, 0, 0.92);
             padding: 3rem 4rem;
             border-radius: 12px;
             text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-            max-width: 600px;
-            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            max-width: 520px;
+            width: 85%;
+            pointer-events: auto;
         }
 
         .hero-content-box h1 {
             font-family: var(--font-heading);
-            font-size: clamp(2rem, 4vw, 3rem);
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
             margin: 0 0 1rem 0;
             color: white;
-            text-shadow: none;
         }
 
         .hero-content-box p {
             color: rgba(255, 255, 255, 0.9);
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            margin-bottom: 1.8rem;
             line-height: 1.6;
         }
 
         .hero-content-box .cta-button {
-            font-size: 1.1rem;
-            padding: 16px 40px;
+            font-size: 1.05rem;
+            padding: 14px 36px;
         }
 
         /* Scroll indicator */
         .scroll-indicator {
-            position: absolute;
+            position: fixed;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 2;
+            z-index: 100;
             color: white;
             text-align: center;
             animation: bounce 2s infinite;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-indicator.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
         .scroll-indicator svg {
-            width: 30px;
-            height: 30px;
-            opacity: 0.8;
+            width: 32px;
+            height: 32px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
         }
 
         @keyframes bounce {
@@ -142,14 +145,18 @@
             .hero-wrapper {
                 margin-top: 70px;
             }
+            .parallax-section {
+                height: 120vh;
+            }
             .hero-content-box {
-                padding: 2rem;
+                padding: 2rem 1.5rem;
+                width: 90%;
             }
             .hero-content-box h1 {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
             }
             .hero-content-box p {
-                font-size: 1rem;
+                font-size: 0.95rem;
             }
         }
     </style>
@@ -166,37 +173,41 @@
     </header>
 
     <div class="hero-wrapper">
-        <!-- First Screen: Carousel 1 + Text -->
-        <section class="hero-screen-1">
-            <div class="hero-carousel carousel-1">
+        <!-- First Parallax Section -->
+        <section class="parallax-section" data-parallax="1">
+            <div class="parallax-carousel" id="carousel1">
                 <img src="diploma-hero-01.jpg" alt="Holistic Therapy Dog Certificate">
                 <img src="diploma-hero-02.jpg" alt="Holistic Therapy Dog Certificate">
                 <img src="diploma-hero-03.jpg" alt="Holistic Therapy Dog Certificate">
+                <div class="parallax-overlay"></div>
             </div>
-            <div class="hero-overlay"></div>
             
-            <div class="hero-content-box">
-                <h1>Where Loyalty Meets Legacy</h1>
-                <p>Certify their Dedication and Devotion</p>
-                <button onclick="startCertification()" class="cta-button">Start HERE</button>
-            </div>
-
-            <div class="scroll-indicator">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
-                </svg>
+            <!-- Sticky text box -->
+            <div class="sticky-wrapper">
+                <div class="hero-content-box">
+                    <h1>Where Loyalty Meets Legacy</h1>
+                    <p>Certify their Dedication and Devotion</p>
+                    <button onclick="startCertification()" class="cta-button">Start HERE</button>
+                </div>
             </div>
         </section>
 
-        <!-- Second Screen: Carousel 2 -->
-        <section class="hero-screen-2">
-            <div class="hero-carousel carousel-2">
+        <!-- Second Parallax Section -->
+        <section class="parallax-section" data-parallax="2">
+            <div class="parallax-carousel" id="carousel2">
                 <img src="diploma-hero-04.jpg" alt="Holistic Therapy Dog Certificate">
                 <img src="diploma-hero-05.jpg" alt="Holistic Therapy Dog Certificate">
                 <img src="diploma-hero-06.jpg" alt="Holistic Therapy Dog Certificate">
+                <div class="parallax-overlay"></div>
             </div>
-            <div class="hero-overlay"></div>
         </section>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator" id="scrollIndicator">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+        </svg>
     </div>
 
     <section class="trust-section">
@@ -252,6 +263,44 @@
     <script src="header.js"></script>
     <script src="footer.js"></script>
     <script>
+        // Parallax scroll effect
+        const sections = document.querySelectorAll('.parallax-section');
+        const scrollIndicator = document.getElementById('scrollIndicator');
+        const heroWrapper = document.querySelector('.hero-wrapper');
+        
+        function updateParallax() {
+            const scrollY = window.scrollY;
+            const headerOffset = 80;
+            
+            sections.forEach((section, index) => {
+                const carousel = section.querySelector('.parallax-carousel');
+                const sectionTop = section.offsetTop - headerOffset;
+                const sectionHeight = section.offsetHeight;
+                const scrollInSection = scrollY - sectionTop;
+                
+                // Calculate how far through this section we've scrolled (0 to 1)
+                const progress = Math.max(0, Math.min(1, scrollInSection / sectionHeight));
+                
+                // Move the carousel up as we scroll (since image is 200% height, max translate is -50%)
+                const translateY = progress * -50;
+                
+                carousel.style.transform = `translateY(${translateY}%)`;
+            });
+            
+            // Hide scroll indicator after scrolling past hero
+            const heroBottom = heroWrapper.offsetTop + heroWrapper.offsetHeight;
+            if (scrollY > heroBottom - window.innerHeight) {
+                scrollIndicator.classList.add('hidden');
+            } else {
+                scrollIndicator.classList.remove('hidden');
+            }
+        }
+        
+        window.addEventListener('scroll', updateParallax);
+        window.addEventListener('resize', updateParallax);
+        updateParallax();
+
+        // Modal functions
         const modal = document.getElementById('choiceModal');
         function startCertification() {
             const token = localStorage.getItem('session_token');
