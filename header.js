@@ -1,6 +1,6 @@
 /**
  * HEADER.JS - Minimal Institutional Header
- * Wordmark + Verify License + Login/Account
+ * Logo (two lines) + Verify License + Login/Account
  */
 
 (function() {
@@ -8,16 +8,16 @@
   const navAccount = document.getElementById('nav-account-links');
   const sessionToken = localStorage.getItem('session_token');
 
-  // Update logo to text wordmark
+  // Update logo to two-line wordmark
   const logoElement = document.querySelector('.logo');
   if (logoElement) {
-    logoElement.innerHTML = 'Holistic Therapy Dog Association';
+    logoElement.innerHTML = 'Holistic Therapy<br>Dog Association';
   }
 
-  // Minimal navigation - just Verify License
+  // Navigation - Verify License button
   if (navLinks) {
     navLinks.innerHTML = `
-      <li><a href="verify.html" class="nav-verify-btn">Verify a License</a></li>
+      <li><a href="verify.html" class="nav-btn nav-btn-gold">Verify a License</a></li>
     `;
   }
 
@@ -27,12 +27,12 @@
       // User is logged in - show account dropdown
       navAccount.innerHTML = `
         <div class="account-dropdown-container">
-          <button class="account-trigger" aria-label="Account menu">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <button class="nav-btn nav-btn-gold account-trigger" aria-label="Account menu">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
-            <span>Account</span>
+            Account
           </button>
           <div class="account-dropdown" id="account-dropdown">
             <a href="dashboard.html" class="dropdown-item">Dashboard</a>
@@ -68,7 +68,7 @@
     } else {
       // Not logged in - show login button
       navAccount.innerHTML = `
-        <a href="login.html" class="nav-login-btn">Login</a>
+        <a href="login.html" class="nav-btn nav-btn-gold">Login</a>
       `;
     }
   }
