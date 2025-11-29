@@ -15,71 +15,67 @@
             max-width: 100vw;
         }
 
-        /* Hero wrapper */
+        /* Hero wrapper - tall enough for all 6 images */
         .hero-wrapper {
             margin-top: 80px;
             position: relative;
+            height: 500vh; /* 6 images, ~83vh scroll per image */
         }
 
-        /* Each parallax section - viewport height, but image scrolls through */
-        .parallax-section {
-            position: relative;
-            height: 150vh; /* How long you scroll through this section */
-            overflow: hidden;
-            max-width: 100vw;
-        }
-
-        /* The carousel container - will be translated via JS */
-        .parallax-carousel {
-            position: absolute;
-            top: 0;
+        /* Fixed viewport for images */
+        .hero-viewport {
+            position: fixed;
+            top: 80px;
             left: 0;
             width: 100vw;
-            max-width: 100%;
-            height: 200%; /* Image is 2x taller than section - gives scroll room */
-            will-change: transform;
+            height: calc(100vh - 80px);
             overflow: hidden;
+            z-index: 1;
         }
 
-        .parallax-carousel img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            max-width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center top;
-            opacity: 0;
-            animation: heroFade 12s infinite;
+        .hero-viewport.hidden {
+            display: none;
         }
 
-        /* Lower opacity - 0.4 at peak visibility */
-        @keyframes heroFade {
-            0% { opacity: 0; }
-            5% { opacity: 0.4; }
-            33.33% { opacity: 0.4; }
-            38.33% { opacity: 0; }
-            100% { opacity: 0; }
-        }
-
-        /* Carousel timing */
-        .parallax-carousel img:nth-child(1) { animation-delay: 0s; }
-        .parallax-carousel img:nth-child(2) { animation-delay: 4s; }
-        .parallax-carousel img:nth-child(3) { animation-delay: 8s; }
-
-        /* Maroon overlay */
-        .parallax-overlay {
+        /* Each image layer */
+        .hero-slide {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 200%;
-            background: rgba(75, 0, 0, 0.35);
-            z-index: 1;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.6s ease;
         }
 
-        /* FIXED text box - stays centered on screen throughout entire hero */
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .hero-slide.active {
+            opacity: 0.5;
+        }
+
+        /* Dark overlay that increases during transitions */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(75, 0, 0, 0.3);
+            z-index: 2;
+            transition: background 0.3s ease;
+        }
+
+        .hero-overlay.darkening {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        /* FIXED text box */
         .fixed-hero-content {
             position: fixed;
             top: 50%;
@@ -157,12 +153,43 @@
             50% { transform: translateX(-50%) translateY(10px); }
         }
 
+        /* Progress dots */
+        .scroll-progress {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .scroll-progress.hidden {
+            display: none;
+        }
+
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: var(--accent-gold);
+            transform: scale(1.3);
+        }
+
         @media (max-width: 768px) {
             .hero-wrapper {
                 margin-top: 70px;
+                height: 400vh;
             }
-            .parallax-section {
-                height: 120vh;
+            .hero-viewport {
+                top: 70px;
+                height: calc(100vh - 70px);
             }
             .hero-content-box {
                 padding: 2rem 1.5rem;
@@ -173,6 +200,9 @@
             }
             .hero-content-box p {
                 font-size: 0.95rem;
+            }
+            .scroll-progress {
+                right: 10px;
             }
         }
     </style>
@@ -189,34 +219,49 @@
     </header>
 
     <div class="hero-wrapper">
-        <!-- First Parallax Section -->
-        <section class="parallax-section" data-parallax="1">
-            <div class="parallax-carousel" id="carousel1">
-                <img src="diploma-hero-01.jpg" alt="Holistic Therapy Dog Certificate">
-                <img src="diploma-hero-02.jpg" alt="Holistic Therapy Dog Certificate">
-                <img src="diploma-hero-03.jpg" alt="Holistic Therapy Dog Certificate">
-                <div class="parallax-overlay"></div>
-            </div>
-        </section>
-
-        <!-- Second Parallax Section -->
-        <section class="parallax-section" data-parallax="2">
-            <div class="parallax-carousel" id="carousel2">
-                <img src="diploma-hero-04.jpg" alt="Holistic Therapy Dog Certificate">
-                <img src="diploma-hero-05.jpg" alt="Holistic Therapy Dog Certificate">
-                <img src="diploma-hero-06.jpg" alt="Holistic Therapy Dog Certificate">
-                <div class="parallax-overlay"></div>
-            </div>
-        </section>
+        <!-- This div just creates scroll height -->
     </div>
 
-    <!-- FIXED text box - outside hero sections, stays centered throughout scroll -->
+    <!-- Fixed viewport with all 6 images -->
+    <div class="hero-viewport" id="heroViewport">
+        <div class="hero-slide active" data-slide="0">
+            <img src="diploma-hero-01.jpg" alt="Holistic Therapy Dog Certificate">
+        </div>
+        <div class="hero-slide" data-slide="1">
+            <img src="diploma-hero-02.jpg" alt="Holistic Therapy Dog Certificate">
+        </div>
+        <div class="hero-slide" data-slide="2">
+            <img src="diploma-hero-03.jpg" alt="Holistic Therapy Dog Certificate">
+        </div>
+        <div class="hero-slide" data-slide="3">
+            <img src="diploma-hero-04.jpg" alt="Holistic Therapy Dog Certificate">
+        </div>
+        <div class="hero-slide" data-slide="4">
+            <img src="diploma-hero-05.jpg" alt="Holistic Therapy Dog Certificate">
+        </div>
+        <div class="hero-slide" data-slide="5">
+            <img src="diploma-hero-06.jpg" alt="Holistic Therapy Dog Certificate">
+        </div>
+        <div class="hero-overlay" id="heroOverlay"></div>
+    </div>
+
+    <!-- FIXED text box -->
     <div class="fixed-hero-content" id="fixedHeroContent">
         <div class="hero-content-box">
             <h1>Where Loyalty Meets Legacy</h1>
             <p>Certify their Dedication and Devotion</p>
             <button onclick="startCertification()" class="cta-button">Start HERE</button>
         </div>
+    </div>
+
+    <!-- Progress dots -->
+    <div class="scroll-progress" id="scrollProgress">
+        <div class="progress-dot active" data-dot="0"></div>
+        <div class="progress-dot" data-dot="1"></div>
+        <div class="progress-dot" data-dot="2"></div>
+        <div class="progress-dot" data-dot="3"></div>
+        <div class="progress-dot" data-dot="4"></div>
+        <div class="progress-dot" data-dot="5"></div>
     </div>
 
     <!-- Scroll indicator -->
@@ -279,52 +324,99 @@
     <script src="header.js"></script>
     <script src="footer.js"></script>
     <script>
-        // Parallax scroll effect
-        const sections = document.querySelectorAll('.parallax-section');
-        const scrollIndicator = document.getElementById('scrollIndicator');
+        // Scroll-controlled carousel
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.progress-dot');
         const heroWrapper = document.querySelector('.hero-wrapper');
+        const heroViewport = document.getElementById('heroViewport');
+        const heroOverlay = document.getElementById('heroOverlay');
         const fixedHeroContent = document.getElementById('fixedHeroContent');
+        const scrollIndicator = document.getElementById('scrollIndicator');
+        const scrollProgress = document.getElementById('scrollProgress');
         
-        function updateParallax() {
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+        
+        function updateCarousel() {
             const scrollY = window.scrollY;
-            const headerOffset = 80;
+            const heroTop = heroWrapper.offsetTop - 80; // Account for header
+            const heroHeight = heroWrapper.offsetHeight;
+            const heroBottom = heroTop + heroHeight;
             
-            sections.forEach((section, index) => {
-                const carousel = section.querySelector('.parallax-carousel');
-                const sectionTop = section.offsetTop - headerOffset;
-                const sectionHeight = section.offsetHeight;
-                const scrollInSection = scrollY - sectionTop;
-                
-                // Calculate how far through this section we've scrolled (0 to 1)
-                const progress = Math.max(0, Math.min(1, scrollInSection / sectionHeight));
-                
-                // Move the carousel up as we scroll (since image is 200% height, max translate is -50%)
-                const translateY = progress * -50;
-                
-                carousel.style.transform = `translateY(${translateY}%)`;
+            // Calculate progress through the hero section (0 to 1)
+            const scrollInHero = scrollY - heroTop;
+            const progress = Math.max(0, Math.min(1, scrollInHero / heroHeight));
+            
+            // Determine which slide should be active (0-5)
+            const slideProgress = progress * totalSlides;
+            const newSlide = Math.min(Math.floor(slideProgress), totalSlides - 1);
+            
+            // Calculate transition progress within current slide (0 to 1)
+            const transitionProgress = slideProgress - newSlide;
+            
+            // Update slides
+            slides.forEach((slide, index) => {
+                if (index === newSlide) {
+                    slide.classList.add('active');
+                    // Fade out as we approach next slide
+                    if (transitionProgress > 0.7 && index < totalSlides - 1) {
+                        const fadeOut = (transitionProgress - 0.7) / 0.3; // 0 to 1 in last 30%
+                        slide.style.opacity = 0.5 * (1 - fadeOut * 0.5);
+                    } else {
+                        slide.style.opacity = 0.5;
+                    }
+                } else if (index === newSlide + 1 && transitionProgress > 0.7) {
+                    // Next slide fading in
+                    slide.classList.add('active');
+                    const fadeIn = (transitionProgress - 0.7) / 0.3;
+                    slide.style.opacity = 0.5 * fadeIn;
+                } else {
+                    slide.classList.remove('active');
+                    slide.style.opacity = 0;
+                }
             });
             
-            // Show/hide fixed text box - visible only while in hero sections
-            const heroTop = heroWrapper.offsetTop;
-            const heroBottom = heroWrapper.offsetTop + heroWrapper.offsetHeight;
-            
-            if (scrollY >= heroTop - 100 && scrollY < heroBottom - window.innerHeight * 0.8) {
-                fixedHeroContent.classList.remove('hidden');
+            // Darken overlay during transitions
+            if (transitionProgress > 0.7 && transitionProgress < 1 && newSlide < totalSlides - 1) {
+                heroOverlay.classList.add('darkening');
             } else {
-                fixedHeroContent.classList.add('hidden');
+                heroOverlay.classList.remove('darkening');
             }
             
-            // Hide scroll indicator after scrolling past hero
-            if (scrollY > heroBottom - window.innerHeight) {
+            // Update progress dots
+            dots.forEach((dot, index) => {
+                if (index === newSlide) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+            
+            currentSlide = newSlide;
+            
+            // Show/hide hero elements based on scroll position
+            if (scrollY < heroTop || scrollY > heroBottom - window.innerHeight * 0.3) {
+                heroViewport.classList.add('hidden');
+                fixedHeroContent.classList.add('hidden');
+                scrollProgress.classList.add('hidden');
                 scrollIndicator.classList.add('hidden');
             } else {
-                scrollIndicator.classList.remove('hidden');
+                heroViewport.classList.remove('hidden');
+                fixedHeroContent.classList.remove('hidden');
+                scrollProgress.classList.remove('hidden');
+                
+                // Hide scroll indicator after first few scrolls
+                if (scrollY > heroTop + window.innerHeight * 0.5) {
+                    scrollIndicator.classList.add('hidden');
+                } else {
+                    scrollIndicator.classList.remove('hidden');
+                }
             }
         }
         
-        window.addEventListener('scroll', updateParallax);
-        window.addEventListener('resize', updateParallax);
-        updateParallax();
+        window.addEventListener('scroll', updateCarousel);
+        window.addEventListener('resize', updateCarousel);
+        updateCarousel();
 
         // Modal functions
         const modal = document.getElementById('choiceModal');
