@@ -1,6 +1,6 @@
 /**
  * FOOTER.JS - Institutional Footer with Seal
- * Comprehensive links + Gold seal + Copyright
+ * Two column groups with seal in center + Copyright
  */
 
 (function() {
@@ -9,38 +9,39 @@
   if (footer) {
     footer.innerHTML = `
       <div class="footer-container">
-        <div class="footer-columns">
-          <div class="footer-column">
-            <h4>Organization</h4>
-            <ul>
-              <li><a href="about.html">About Us</a></li>
-              <li><a href="how-it-works.html">How It Works</a></li>
-              <li><a href="meet-our-dogs.html">Meet Our Dogs</a></li>
-              <li><a href="gallery.html">Gallery</a></li>
-              <li><a href="careers.html">Careers</a></li>
-            </ul>
+        <div class="footer-main">
+          <div class="footer-left-columns">
+            <div class="footer-column">
+              <h4>Organization</h4>
+              <ul>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="careers.html">Careers</a></li>
+              </ul>
+            </div>
+            
+            <div class="footer-column">
+              <h4>Resources</h4>
+              <ul>
+                <li><a href="verify.html">Verify License</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="advocacy.html">Advocacy</a></li>
+              </ul>
+            </div>
           </div>
           
-          <div class="footer-column">
-            <h4>Resources</h4>
-            <ul>
-              <li><a href="verify.html">Verify License</a></li>
-              <li><a href="contact.html">Contact</a></li>
-              <li><a href="advocacy.html">Advocacy</a></li>
-            </ul>
+          <div class="footer-seal-center">
+            <img src="gold-seal.png" alt="Holistic Therapy Dog Association Seal" />
           </div>
           
-          <div class="footer-column">
-            <h4>Legal</h4>
-            <ul>
-              <li><a href="privacy-policy.html">Privacy Policy</a></li>
-              <li><a href="terms.html">Terms & Conditions</a></li>
-            </ul>
+          <div class="footer-right-columns">
+            <div class="footer-column">
+              <h4>Legal</h4>
+              <ul>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="terms.html">Terms & Conditions</a></li>
+              </ul>
+            </div>
           </div>
-        </div>
-        
-        <div class="footer-seal">
-          <img src="gold-seal.png" alt="Holistic Therapy Dog Association Seal" />
         </div>
         
         <div class="footer-disclaimer">

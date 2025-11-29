@@ -14,9 +14,12 @@
     logoElement.innerHTML = 'Holistic Therapy<br>Dog Association';
   }
 
-  // Navigation - Verify License button
+  // Navigation - Main links + Verify License button
   if (navLinks) {
     navLinks.innerHTML = `
+      <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+      <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+      <li><a href="meet-our-dogs.html" class="nav-link">Meet Our Dogs</a></li>
       <li><a href="verify.html" class="nav-btn nav-btn-gold">Verify a License</a></li>
     `;
   }

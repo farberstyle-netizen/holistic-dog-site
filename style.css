@@ -394,8 +394,8 @@ header {
 }
 
 .icon-card img {
-  width: 150px;
-  height: 150px;
+  width: 225px;
+  height: 225px;
   margin-bottom: 1.5rem;
 }
 
@@ -642,12 +642,12 @@ footer a:hover {
 /* ========== NEW HEADER STYLES ========== */
 .logo {
   font-family: 'Playfair Display', serif;
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1.2;
   white-space: nowrap;
-  max-width: 180px;
+  max-width: 220px;
 }
 
 /* Nav buttons - pill shaped gold */
@@ -677,6 +677,21 @@ footer a:hover {
   box-shadow: 0 4px 15px rgba(184, 134, 11, 0.4);
   text-decoration: none;
   color: var(--dark-maroon);
+}
+
+/* Plain text nav links */
+.nav-link {
+  color: var(--white) !important;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 8px 12px;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--accent-gold) !important;
+  background: transparent !important;
+  text-decoration: none;
 }
 
 .nav-verify-btn {
@@ -799,6 +814,41 @@ footer {
   padding: 4rem 2rem 2rem;
 }
 
+/* New layout: columns - seal - columns */
+.footer-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.footer-left-columns,
+.footer-right-columns {
+  display: flex;
+  gap: 3rem;
+}
+
+.footer-seal-center {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+}
+
+.footer-seal-center img {
+  width: 180px;
+  height: auto;
+  opacity: 0.95;
+  transition: opacity 0.3s ease;
+}
+
+.footer-seal-center img:hover {
+  opacity: 1;
+}
+
+/* Legacy 3-column layout (fallback) */
 .footer-columns {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -881,6 +931,27 @@ footer {
 
 /* Footer responsive */
 @media (max-width: 768px) {
+  .footer-main {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .footer-left-columns,
+  .footer-right-columns {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .footer-seal-center {
+    order: -1;
+    padding: 0 0 2rem;
+  }
+  
+  .footer-seal-center img {
+    width: 140px;
+  }
+  
   .footer-columns {
     grid-template-columns: 1fr;
     gap: 2rem;
