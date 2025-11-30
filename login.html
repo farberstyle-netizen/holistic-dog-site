@@ -43,22 +43,27 @@
         .btn-login {
             width: 100%;
             background-color: var(--accent-gold);
-            color: var(--primary-maroon);
-            padding: 15px;
-            border: none;
-            border-radius: 4px;
-            font-weight: 700;
+            color: var(--dark-maroon);
+            padding: 15px 32px;
+            border: 2px solid var(--accent-gold);
+            border-radius: 50px;
+            font-weight: 600;
             font-size: 1.1rem;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.02em;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
         .btn-login:hover {
-            background-color: var(--primary-maroon);
-            color: white;
+            background-color: #9A7209;
+            border-color: #9A7209;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(184, 134, 11, 0.4);
         }
         .btn-login:disabled {
             opacity: 0.6;
             cursor: not-allowed;
+            transform: none;
         }
     </style>
 </head>

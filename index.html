@@ -15,100 +15,72 @@
             max-width: 100vw;
         }
 
-        /* Hero wrapper - tall enough for all 6 images */
-        .hero-wrapper {
-            margin-top: 80px;
+        /* ===== VIDEO HERO SECTION ===== */
+        .video-hero {
             position: relative;
-            height: 500vh; /* 6 images, ~83vh scroll per image */
+            height: 100vh;
+            margin-top: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
-        /* Fixed viewport for images */
-        .hero-viewport {
-            position: fixed;
-            top: 80px;
+        /* Video background */
+        .hero-video-container {
+            position: absolute;
+            top: 0;
             left: 0;
-            width: 100vw;
-            height: calc(100vh - 80px);
-            overflow: hidden;
+            width: 100%;
+            height: 100%;
             z-index: 1;
         }
 
-        .hero-viewport.hidden {
-            display: none;
-        }
-
-        /* Each image layer */
-        .hero-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.6s ease;
-        }
-
-        .hero-slide img {
+        .hero-video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center;
+            opacity: 0.5; /* Lowered opacity */
         }
 
-        .hero-slide.active {
-            opacity: 0.5;
-        }
-
-        /* Dark overlay that increases during transitions */
-        .hero-overlay {
+        /* Dark overlay for text readability */
+        .hero-video-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(75, 0, 0, 0.3);
+            background: linear-gradient(
+                to bottom,
+                rgba(75, 0, 0, 0.4) 0%,
+                rgba(50, 0, 0, 0.5) 50%,
+                rgba(30, 0, 0, 0.6) 100%
+            );
             z-index: 2;
-            transition: background 0.3s ease;
         }
 
-        .hero-overlay.darkening {
-            background: rgba(0, 0, 0, 0.7);
+        /* Floating content box */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
         }
 
-        /* FIXED text box */
-        .fixed-hero-content {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 100;
-            pointer-events: none;
-            opacity: 1;
-            transition: opacity 0.3s ease;
-        }
-
-        .fixed-hero-content.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* Floating text box */
         .hero-content-box {
             background: rgba(75, 0, 0, 0.92);
             padding: 3rem 4rem;
             border-radius: 12px;
-            text-align: center;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             max-width: 520px;
             width: 85vw;
-            pointer-events: auto;
         }
 
         .hero-content-box h1 {
-            font-family: var(--font-heading);
+            font-family: 'Playfair Display', serif;
             font-size: clamp(1.8rem, 4vw, 2.6rem);
             margin: 0 0 1rem 0;
             color: white;
+            letter-spacing: 0.02em;
         }
 
         .hero-content-box p {
@@ -125,7 +97,7 @@
 
         /* Scroll indicator */
         .scroll-indicator {
-            position: fixed;
+            position: absolute;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
@@ -133,13 +105,7 @@
             color: white;
             text-align: center;
             animation: bounce 2s infinite;
-            opacity: 0.9;
-            transition: opacity 0.3s ease;
-        }
-
-        .scroll-indicator.hidden {
-            opacity: 0;
-            pointer-events: none;
+            opacity: 0.8;
         }
 
         .scroll-indicator svg {
@@ -153,42 +119,10 @@
             50% { transform: translateX(-50%) translateY(10px); }
         }
 
-        /* Progress dots */
-        .scroll-progress {
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .scroll-progress.hidden {
-            display: none;
-        }
-
-        .progress-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            transition: all 0.3s ease;
-        }
-
-        .progress-dot.active {
-            background: var(--accent-gold);
-            transform: scale(1.3);
-        }
-
+        /* Mobile adjustments */
         @media (max-width: 768px) {
-            .hero-wrapper {
+            .video-hero {
                 margin-top: 70px;
-                height: 400vh;
-            }
-            .hero-viewport {
-                top: 70px;
                 height: calc(100vh - 70px);
             }
             .hero-content-box {
@@ -196,13 +130,10 @@
                 width: 90vw;
             }
             .hero-content-box h1 {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
             }
             .hero-content-box p {
-                font-size: 0.95rem;
-            }
-            .scroll-progress {
-                right: 10px;
+                font-size: 1rem;
             }
         }
     </style>
@@ -218,59 +149,34 @@
         </div>
     </header>
 
-    <div class="hero-wrapper">
-        <!-- This div just creates scroll height -->
-    </div>
+    <!-- ===== VIDEO HERO ===== -->
+    <section class="video-hero">
+        <!-- Video background -->
+        <div class="hero-video-container">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="hero1-blur.mp4" type="video/mp4">
+            </video>
+            <div class="hero-video-overlay"></div>
+        </div>
 
-    <!-- Fixed viewport with all 6 images -->
-    <div class="hero-viewport" id="heroViewport">
-        <div class="hero-slide active" data-slide="0">
-            <img src="diploma-hero-01.jpg" alt="Holistic Therapy Dog Certificate">
+        <!-- Floating content -->
+        <div class="hero-content">
+            <div class="hero-content-box">
+                <h1>Where Loyalty Meets Legacy</h1>
+                <p>Certify their Dedication and Devotion</p>
+                <button onclick="startCertification()" class="cta-button">Start HERE</button>
+            </div>
         </div>
-        <div class="hero-slide" data-slide="1">
-            <img src="diploma-hero-02.jpg" alt="Holistic Therapy Dog Certificate">
-        </div>
-        <div class="hero-slide" data-slide="2">
-            <img src="diploma-hero-03.jpg" alt="Holistic Therapy Dog Certificate">
-        </div>
-        <div class="hero-slide" data-slide="3">
-            <img src="diploma-hero-04.jpg" alt="Holistic Therapy Dog Certificate">
-        </div>
-        <div class="hero-slide" data-slide="4">
-            <img src="diploma-hero-05.jpg" alt="Holistic Therapy Dog Certificate">
-        </div>
-        <div class="hero-slide" data-slide="5">
-            <img src="diploma-hero-06.jpg" alt="Holistic Therapy Dog Certificate">
-        </div>
-        <div class="hero-overlay" id="heroOverlay"></div>
-    </div>
 
-    <!-- FIXED text box -->
-    <div class="fixed-hero-content" id="fixedHeroContent">
-        <div class="hero-content-box">
-            <h1>Where Loyalty Meets Legacy</h1>
-            <p>Certify their Dedication and Devotion</p>
-            <button onclick="startCertification()" class="cta-button">Start HERE</button>
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+            </svg>
         </div>
-    </div>
+    </section>
 
-    <!-- Progress dots -->
-    <div class="scroll-progress" id="scrollProgress">
-        <div class="progress-dot active" data-dot="0"></div>
-        <div class="progress-dot" data-dot="1"></div>
-        <div class="progress-dot" data-dot="2"></div>
-        <div class="progress-dot" data-dot="3"></div>
-        <div class="progress-dot" data-dot="4"></div>
-        <div class="progress-dot" data-dot="5"></div>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="scroll-indicator" id="scrollIndicator">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
-        </svg>
-    </div>
-
+    <!-- ===== TRUST SECTION ===== -->
     <section class="trust-section">
         <h2>Committed to Excellence</h2>
         <div class="icons-grid">
@@ -294,6 +200,7 @@
         </div>
     </section>
 
+    <!-- ===== DIPLOMA PREVIEW ===== -->
     <section class="diploma-preview">
         <div class="diploma-container">
             <h2>Learn How to Certify Your Dog</h2>
@@ -309,6 +216,7 @@
 
     <footer></footer>
 
+    <!-- Choice Modal for logged-in users -->
     <div id="choiceModal" class="modal-overlay">
         <div class="modal-content">
             <button class="close-modal" onclick="closeModal()">&times;</button>
@@ -324,115 +232,46 @@
     <script src="header.js"></script>
     <script src="footer.js"></script>
     <script>
-        // Scroll-controlled carousel
-        const slides = document.querySelectorAll('.hero-slide');
-        const dots = document.querySelectorAll('.progress-dot');
-        const heroWrapper = document.querySelector('.hero-wrapper');
-        const heroViewport = document.getElementById('heroViewport');
-        const heroOverlay = document.getElementById('heroOverlay');
-        const fixedHeroContent = document.getElementById('fixedHeroContent');
-        const scrollIndicator = document.getElementById('scrollIndicator');
-        const scrollProgress = document.getElementById('scrollProgress');
-        
-        const totalSlides = slides.length;
-        let currentSlide = 0;
-        
-        function updateCarousel() {
-            const scrollY = window.scrollY;
-            const heroTop = heroWrapper.offsetTop - 80; // Account for header
-            const heroHeight = heroWrapper.offsetHeight;
-            const heroBottom = heroTop + heroHeight;
-            
-            // Calculate progress through the hero section (0 to 1)
-            const scrollInHero = scrollY - heroTop;
-            const progress = Math.max(0, Math.min(1, scrollInHero / heroHeight));
-            
-            // Determine which slide should be active (0-5)
-            const slideProgress = progress * totalSlides;
-            const newSlide = Math.min(Math.floor(slideProgress), totalSlides - 1);
-            
-            // Calculate transition progress within current slide (0 to 1)
-            const transitionProgress = slideProgress - newSlide;
-            
-            // Update slides
-            slides.forEach((slide, index) => {
-                if (index === newSlide) {
-                    slide.classList.add('active');
-                    // Fade out as we approach next slide
-                    if (transitionProgress > 0.7 && index < totalSlides - 1) {
-                        const fadeOut = (transitionProgress - 0.7) / 0.3; // 0 to 1 in last 30%
-                        slide.style.opacity = 0.5 * (1 - fadeOut * 0.5);
-                    } else {
-                        slide.style.opacity = 0.5;
-                    }
-                } else if (index === newSlide + 1 && transitionProgress > 0.7) {
-                    // Next slide fading in
-                    slide.classList.add('active');
-                    const fadeIn = (transitionProgress - 0.7) / 0.3;
-                    slide.style.opacity = 0.5 * fadeIn;
-                } else {
-                    slide.classList.remove('active');
-                    slide.style.opacity = 0;
-                }
-            });
-            
-            // Darken overlay during transitions
-            if (transitionProgress > 0.7 && transitionProgress < 1 && newSlide < totalSlides - 1) {
-                heroOverlay.classList.add('darkening');
-            } else {
-                heroOverlay.classList.remove('darkening');
-            }
-            
-            // Update progress dots
-            dots.forEach((dot, index) => {
-                if (index === newSlide) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-            
-            currentSlide = newSlide;
-            
-            // Show/hide hero elements based on scroll position
-            if (scrollY < heroTop || scrollY > heroBottom - window.innerHeight * 0.3) {
-                heroViewport.classList.add('hidden');
-                fixedHeroContent.classList.add('hidden');
-                scrollProgress.classList.add('hidden');
-                scrollIndicator.classList.add('hidden');
-            } else {
-                heroViewport.classList.remove('hidden');
-                fixedHeroContent.classList.remove('hidden');
-                scrollProgress.classList.remove('hidden');
-                
-                // Hide scroll indicator after first few scrolls
-                if (scrollY > heroTop + window.innerHeight * 0.5) {
-                    scrollIndicator.classList.add('hidden');
-                } else {
-                    scrollIndicator.classList.remove('hidden');
-                }
-            }
-        }
-        
-        window.addEventListener('scroll', updateCarousel);
-        window.addEventListener('resize', updateCarousel);
-        updateCarousel();
-
-        // Modal functions
-        const modal = document.getElementById('choiceModal');
+        // Check if user is logged in when clicking Start HERE
         function startCertification() {
             const token = localStorage.getItem('session_token');
             if (token) {
-                modal.style.display = 'flex';
+                // User is logged in - show choice modal
+                document.getElementById('choiceModal').style.display = 'flex';
             } else {
+                // Not logged in - go to quiz
                 window.location.href = 'quiz.html';
             }
         }
 
-        function closeModal() { modal.style.display = 'none'; }
-        function goToQuiz() { window.location.href = 'quiz.html'; }
-        function goToDashboard() { window.location.href = 'dashboard.html'; }
-        window.onclick = function(event) { if (event.target == modal) modal.style.display = "none"; }
+        function closeModal() {
+            document.getElementById('choiceModal').style.display = 'none';
+        }
+
+        function goToQuiz() {
+            closeModal();
+            window.location.href = 'quiz.html';
+        }
+
+        function goToDashboard() {
+            closeModal();
+            window.location.href = 'dashboard.html';
+        }
+
+        // Close modal on outside click
+        document.getElementById('choiceModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Hide scroll indicator on scroll
+        window.addEventListener('scroll', function() {
+            const indicator = document.querySelector('.scroll-indicator');
+            if (window.scrollY > 100) {
+                indicator.style.opacity = '0';
+            } else {
+                indicator.style.opacity = '0.8';
+            }
+        });
     </script>
 </body>
 </html>

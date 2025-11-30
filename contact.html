@@ -157,7 +157,7 @@
                         <textarea id="message" name="message" required></textarea>
                     </div>
 
-                    <button type="submit" class="btn">Send Message</button>
+                    <button type="submit" class="cta-button">Send Message</button>
                 </form>
             </div>
         </div>
@@ -170,7 +170,7 @@
     <script>
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const btn = this.querySelector('.btn');
+            const btn = this.querySelector('.cta-button');
             btn.textContent = 'Sending...';
             btn.disabled = true;
             

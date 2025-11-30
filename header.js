@@ -51,27 +51,42 @@
       const dropdown = document.getElementById('account-dropdown');
       
       if (dropdownContainer && dropdown) {
+        // Hover behavior for desktop
         dropdownContainer.addEventListener('mouseenter', () => {
           dropdown.classList.add('show');
         });
         
         dropdownContainer.addEventListener('mouseleave', () => {
-          dropdown.classList.remove('show');
+          // Small delay to prevent accidental close
+          setTimeout(() => {
+            if (!dropdownContainer.matches(':hover')) {
+              dropdown.classList.remove('show');
+            }
+          }, 100);
         });
 
+        // Click behavior (for mobile and accessibility)
         const trigger = dropdownContainer.querySelector('.account-trigger');
         if (trigger) {
           trigger.addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             dropdown.classList.toggle('show');
           });
         }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!dropdownContainer.contains(e.target)) {
+            dropdown.classList.remove('show');
+          }
+        });
       }
 
     } else {
-      // Not logged in - show login button
+      // Not logged in - show login button (outlined style)
       navAccount.innerHTML = `
-        <a href="login.html" class="nav-btn nav-btn-gold">Login</a>
+        <a href="login.html" class="nav-btn nav-btn-outline">Login</a>
       `;
     }
   }

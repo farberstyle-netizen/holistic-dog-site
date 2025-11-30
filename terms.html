@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        main.page-container {
+            padding-top: 120px; /* Ensure header clearance */
+        }
         .legal-content {
             background: white;
             padding: 3rem;
@@ -45,7 +48,8 @@
         </div>
     </header>
 
-    <main class="page-container legal-content">
+    <main class="page-container">
+        <div class="legal-content">
         <h1>Terms and Conditions</h1>
         <p class="section-intro">By accessing this website and purchasing a certification, you agree to be bound by these Terms and Conditions.</p>
 
@@ -68,6 +72,7 @@
         
         <h3>5. Governing Law</h3>
         <p>These terms shall be governed and construed in accordance with the laws of New York, United States, without regard to its conflict of law provisions.</p>
+        </div>
     </main>
 
     <footer></footer>

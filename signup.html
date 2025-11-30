@@ -229,6 +229,12 @@
     <script src="header.js"></script>
     <script src="footer.js"></script>
     <script>
+        // If user is already logged in, redirect to add-dog
+        const existingToken = localStorage.getItem('session_token');
+        if (existingToken) {
+            window.location.href = 'add-dog.html';
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('qualified') === 'yes') {

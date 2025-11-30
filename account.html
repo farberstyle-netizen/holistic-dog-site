@@ -8,7 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
         .account-tabs { display: flex; gap: 1rem; margin: 2rem 0; border-bottom: 2px solid #ddd; flex-wrap: wrap; }
-        .tab-button { padding: 1rem 2rem; background: none; border: none; cursor: pointer; font-size: 1rem; font-weight: 600; color: #666; border-bottom: 3px solid transparent; transition: all 0.3s; }
+        .tab-button { padding: 1rem 2rem; background: none; border: none; cursor: pointer; font-size: 1rem; font-weight: 600; font-family: 'Playfair Display', serif; letter-spacing: 0.02em; color: #666; border-bottom: 3px solid transparent; transition: all 0.3s; }
+        .tab-button:hover { color: var(--primary-maroon); }
         .tab-button.active { color: var(--primary-maroon); border-bottom-color: var(--primary-maroon); }
         .tab-content { display: none; }
         .tab-content.active { display: block; }

@@ -29,7 +29,7 @@
                 <h3 style="font-size: 1.5rem; color: var(--primary-maroon); margin-bottom: 2rem;">Does your dog bring comfort and joy to you or others?</h3>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                     <button onclick="nextQ()" class="cta-button">Yes, Absolutely</button>
-                    <button onclick="fail()" class="cta-button" style="background: #ddd; color: #555;">No</button>
+                    <button onclick="fail()" class="cta-button-outline">No</button>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                         <h3 style="font-size: 1.5rem; color: var(--primary-maroon); margin-bottom: 2rem;">Is your dog generally calm and friendly in public spaces?</h3>
                         <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                             <button onclick="nextQ()" class="cta-button">Yes, They Are</button>
-                            <button onclick="fail()" class="cta-button" style="background: #ddd; color: #555;">No</button>
+                            <button onclick="fail()" class="cta-button-outline">No</button>
                         </div>
                     </div>`;
             } else if (q === 2) {
@@ -59,12 +59,20 @@
                         <h3 style="font-size: 1.5rem; color: var(--primary-maroon); margin-bottom: 2rem;">Do you believe in the healing power of the human-animal bond?</h3>
                         <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                             <button onclick="finish()" class="cta-button">Yes, I Do</button>
-                            <button onclick="fail()" class="cta-button" style="background: #ddd; color: #555;">No</button>
+                            <button onclick="fail()" class="cta-button-outline">No</button>
                         </div>
                     </div>`;
             }
         }
-        function finish() { window.location.href = 'signup.html?qualified=yes'; }
+        function finish() {
+            // If user is already logged in, go directly to add-dog
+            const token = localStorage.getItem('session_token');
+            if (token) {
+                window.location.href = 'add-dog.html';
+            } else {
+                window.location.href = 'signup.html?qualified=yes';
+            }
+        }
         function fail() { alert("The HTDA requires these baseline traits."); window.location.href = 'index.html'; }
     </script>
 </body>
