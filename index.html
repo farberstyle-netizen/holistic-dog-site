@@ -34,13 +34,26 @@
             width: 100%;
             height: 100%;
             z-index: 1;
+            background: #000; /* Black base for fade effect */
         }
 
         .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.5; /* Lowered opacity */
+            opacity: 0; /* Start hidden */
+            transition: opacity 0.75s ease-in-out;
+        }
+
+        .hero-video.active {
+            opacity: 0.5; /* Lowered opacity when active */
+        }
+
+        .hero-video.fade-out {
+            opacity: 0;
         }
 
         /* Dark overlay for text readability */
@@ -151,10 +164,13 @@
 
     <!-- ===== VIDEO HERO ===== -->
     <section class="video-hero">
-        <!-- Video background -->
+        <!-- Video background with two videos -->
         <div class="hero-video-container">
-            <video class="hero-video" autoplay muted loop playsinline>
+            <video class="hero-video active" id="heroVideo1" autoplay muted loop playsinline>
                 <source src="hero1-blur.mp4" type="video/mp4">
+            </video>
+            <video class="hero-video" id="heroVideo2" autoplay muted loop playsinline>
+                <source src="hero2-blur.mp4" type="video/mp4">
             </video>
             <div class="hero-video-overlay"></div>
         </div>
@@ -272,6 +288,36 @@
                 indicator.style.opacity = '0.8';
             }
         });
+
+        // ===== VIDEO CYCLING WITH FADE TO BLACK =====
+        const video1 = document.getElementById('heroVideo1');
+        const video2 = document.getElementById('heroVideo2');
+        const videos = [video1, video2];
+        let currentVideoIndex = 0;
+        const VIDEO_DURATION = 5000; // 5 seconds per video
+        const FADE_DURATION = 750;   // 0.75 second fade
+
+        function cycleVideos() {
+            const currentVideo = videos[currentVideoIndex];
+            const nextVideoIndex = (currentVideoIndex + 1) % videos.length;
+            const nextVideo = videos[nextVideoIndex];
+
+            // Fade out current video (goes to black due to container background)
+            currentVideo.classList.remove('active');
+            currentVideo.classList.add('fade-out');
+
+            // After fade out completes, fade in next video
+            setTimeout(() => {
+                currentVideo.classList.remove('fade-out');
+                nextVideo.classList.add('active');
+                currentVideoIndex = nextVideoIndex;
+            }, FADE_DURATION);
+        }
+
+        // Start cycling after first video plays
+        setTimeout(() => {
+            setInterval(cycleVideos, VIDEO_DURATION);
+        }, VIDEO_DURATION);
     </script>
 </body>
 </html>
