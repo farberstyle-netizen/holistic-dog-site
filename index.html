@@ -159,25 +159,37 @@
 
     <!-- ===== VIDEO HERO ===== -->
     <section class="video-hero">
-        <!-- Video background with 6 videos (order: 0, 1, 2, 4, 3, 5) -->
+        <!-- Video background: alternating forward/reverse for continuous rotation -->
         <div class="hero-video-container">
             <video class="hero-video active" id="heroVideo0" muted playsinline>
-                <source src="hero0-blur.mp4" type="video/mp4">
-            </video>
-            <video class="hero-video" id="heroVideo1" muted playsinline>
                 <source src="hero1-blur.mp4" type="video/mp4">
             </video>
+            <video class="hero-video" id="heroVideo1" muted playsinline>
+                <source src="hero2-blur-rev.mp4" type="video/mp4">
+            </video>
             <video class="hero-video" id="heroVideo2" muted playsinline>
-                <source src="hero2-blur.mp4" type="video/mp4">
-            </video>
-            <video class="hero-video" id="heroVideo3" muted playsinline>
-                <source src="hero4-blur.mp4" type="video/mp4">
-            </video>
-            <video class="hero-video" id="heroVideo4" muted playsinline>
                 <source src="hero3-blur.mp4" type="video/mp4">
             </video>
-            <video class="hero-video" id="heroVideo5" muted playsinline>
+            <video class="hero-video" id="heroVideo3" muted playsinline>
+                <source src="hero4-blur-rev.mp4" type="video/mp4">
+            </video>
+            <video class="hero-video" id="heroVideo4" muted playsinline>
                 <source src="hero5-blur.mp4" type="video/mp4">
+            </video>
+            <video class="hero-video" id="heroVideo5" muted playsinline>
+                <source src="hero1-blur-rev.mp4" type="video/mp4">
+            </video>
+            <video class="hero-video" id="heroVideo6" muted playsinline>
+                <source src="hero2-blur.mp4" type="video/mp4">
+            </video>
+            <video class="hero-video" id="heroVideo7" muted playsinline>
+                <source src="hero3-blur-rev.mp4" type="video/mp4">
+            </video>
+            <video class="hero-video" id="heroVideo8" muted playsinline>
+                <source src="hero4-blur.mp4" type="video/mp4">
+            </video>
+            <video class="hero-video" id="heroVideo9" muted playsinline>
+                <source src="hero5-blur-rev.mp4" type="video/mp4">
             </video>
             <div class="hero-video-overlay"></div>
         </div>
@@ -303,7 +315,11 @@
             document.getElementById('heroVideo2'),
             document.getElementById('heroVideo3'),
             document.getElementById('heroVideo4'),
-            document.getElementById('heroVideo5')
+            document.getElementById('heroVideo5'),
+            document.getElementById('heroVideo6'),
+            document.getElementById('heroVideo7'),
+            document.getElementById('heroVideo8'),
+            document.getElementById('heroVideo9')
         ];
         let currentVideoIndex = 0;
 
