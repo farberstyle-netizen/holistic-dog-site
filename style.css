@@ -135,6 +135,7 @@ header {
 .nav-container nav ul {
   list-style: none;
   display: flex;
+  align-items: center;
   gap: var(--spacing-md);
   margin: 0;
   padding: 0;
@@ -866,7 +867,7 @@ footer {
 .footer-main {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: 4rem;
   margin-bottom: 3rem;
 }
@@ -880,7 +881,7 @@ footer {
 }
 
 .footer-seal-center img {
-  width: 220px;
+  width: 200px;
   height: auto;
   opacity: 0.95;
   transition: opacity 0.3s ease;
