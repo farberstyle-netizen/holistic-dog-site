@@ -265,7 +265,7 @@
                 // Construct URL with query params
                 const url = new URL('https://api-verify.farberstyle.workers.dev');
                 url.searchParams.append('mode', searchMode);
-                url.searchParams.append('query', query);
+                url.searchParams.append('q', query);
                 if (turnstileToken) {
                     url.searchParams.append('cf_turnstile_response', turnstileToken);
                 }

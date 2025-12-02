@@ -147,6 +147,7 @@
 
                 if (response.ok && data.token) {
                     localStorage.setItem('session_token', data.token);
+                    localStorage.setItem('is_admin', data.is_admin ? '1' : '0');
                     
                     if (data.is_admin) {
                         window.location.href = 'admin.html';

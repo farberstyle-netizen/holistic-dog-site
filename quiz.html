@@ -26,10 +26,10 @@
         
         <div id="quiz-container" style="background: white; padding: 3rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); max-width: 700px; margin: 0 auto;">
             <div class="question-box" style="text-align: center;">
-                <h3 style="font-size: 1.5rem; color: var(--primary-maroon); margin-bottom: 2rem;">Does your dog bring comfort and joy to you or others?</h3>
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <button onclick="nextQ()" class="cta-button">Yes, Absolutely</button>
-                    <button onclick="fail()" class="cta-button-outline">No</button>
+                <h3 style="font-size: 1.5rem; color: var(--primary-maroon); margin-bottom: 2rem;">Does your dog bring comfort and joy to you and those around you?</h3>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+                    <button onclick="nextQ()" class="cta-button" style="min-width: 250px; padding: 1.2rem 2.5rem; font-size: 1.1rem;">Yes, Absolutely</button>
+                    <button onclick="fail()" style="background: none; border: none; color: #999; font-size: 0.85rem; cursor: pointer; text-decoration: underline;">No</button>
                 </div>
             </div>
         </div>
@@ -47,19 +47,19 @@
             if (q === 1) {
                 container.innerHTML = `
                     <div class="question-box" style="text-align: center;">
-                        <h3 style="font-size: 1.5rem; color: var(--primary-maroon); margin-bottom: 2rem;">Is your dog generally calm and friendly in public spaces?</h3>
-                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                            <button onclick="nextQ()" class="cta-button">Yes, They Are</button>
-                            <button onclick="fail()" class="cta-button-outline">No</button>
+                        <h3 style="font-size: 1.5rem; color: var(--primary-maroon); margin-bottom: 2rem;">Does your dog seem to have an intuitive sense of when you or others need comfort?</h3>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+                            <button onclick="nextQ()" class="cta-button" style="min-width: 250px; padding: 1.2rem 2.5rem; font-size: 1.1rem;">Yes, They Do</button>
+                            <button onclick="fail()" style="background: none; border: none; color: #999; font-size: 0.85rem; cursor: pointer; text-decoration: underline;">No</button>
                         </div>
                     </div>`;
             } else if (q === 2) {
                 container.innerHTML = `
                     <div class="question-box" style="text-align: center;">
                         <h3 style="font-size: 1.5rem; color: var(--primary-maroon); margin-bottom: 2rem;">Do you believe in the healing power of the human-animal bond?</h3>
-                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                            <button onclick="finish()" class="cta-button">Yes, I Do</button>
-                            <button onclick="fail()" class="cta-button-outline">No</button>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+                            <button onclick="finish()" class="cta-button" style="min-width: 250px; padding: 1.2rem 2.5rem; font-size: 1.1rem;">Yes, I Do</button>
+                            <button onclick="fail()" style="background: none; border: none; color: #999; font-size: 0.85rem; cursor: pointer; text-decoration: underline;">No</button>
                         </div>
                     </div>`;
             }

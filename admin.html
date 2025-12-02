@@ -71,9 +71,14 @@
     <script src="footer.js"></script>
     <script>
         const token = localStorage.getItem('session_token');
+        const isAdmin = localStorage.getItem('is_admin');
+        
         if (!token) {
             alert('Please log in');
             window.location.href = 'login.html';
+        } else if (isAdmin !== '1') {
+            alert('Access denied. Admin privileges required.');
+            window.location.href = 'account.html';
         }
 
         // Fetch real stats from database
