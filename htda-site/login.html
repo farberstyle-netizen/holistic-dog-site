@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | HTDA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .login-container {
+            max-width: 500px;
+            margin: 3rem auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--primary-maroon);
+        }
+        .form-title {
+            text-align: center;
+            color: var(--primary-maroon);
+            margin-bottom: 2rem;
+        }
+        .error-box {
+            background: #ffebee;
+            color: #c62828;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #c62828;
+            display: none;
+        }
+        .form-footer-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .form-footer-link a {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+        .btn-login {
+            width: 100%;
+            background-color: var(--accent-gold);
+            color: var(--dark-maroon);
+            padding: 15px 32px;
+            border: 2px solid var(--accent-gold);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-login:hover {
+            background-color: #9A7209;
+            border-color: #9A7209;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(184, 134, 11, 0.4);
+        }
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Holistic Therapy Dog<br>Association</a>
+            <nav>
+                <ul id="nav-links"></ul>
+            </nav>
+            <div class="nav-account" id="nav-account-links"></div>
+        </div>
+    </header>
+
+    <div class="login-container">
+        <h1 class="form-title">Login to Your Account</h1>
+        
+        <div id="error-box" class="error-box"></div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email or Username</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit" class="btn-login">Login</button>
+        </form>
+        
+        <p class="form-footer-link">
+            Don't have an account? <a href="signup.html">Sign up here</a>
+        </p>
+        
+        <p class="form-footer-link">
+            <a href="forgot-password.html">Forgot your password?</a>
+        </p>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="verify.html">Verify License</a>
+            <a href="contact.html">Contact</a>
+            <a href="privacy-policy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+        </div>
+        <p class="disclaimer">
+            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is commemorative and does not confer legal rights under the ADA.
+        </p>
+        <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+    </footer>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+    <script>
+        const API_URL = 'https://api-login.farberstyle.workers.dev';
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const errorBox = document.getElementById('error-box');
+            const btn = document.querySelector('.btn-login');
+            
+            btn.disabled = true;
+            btn.innerText = "Logging in...";
+            errorBox.style.display = 'none';
+
+            try {
+                const formData = new FormData(document.getElementById('loginForm'));
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.token) {
+                    localStorage.setItem('session_token', data.token);
+                    localStorage.setItem('is_admin', data.is_admin ? '1' : '0');
+                    
+                    if (data.is_admin) {
+                        window.location.href = 'admin.html';
+                    } else {
+                        window.location.href = 'account.html';
+                    }
+                } else {
+                    errorBox.textContent = data.message || 'Invalid email/username or password.';
+                    errorBox.style.display = 'block';
+                    btn.disabled = false;
+                    btn.innerText = "Login";
+                }
+            } catch (error) {
+                errorBox.textContent = 'Network error. Please try again.';
+                errorBox.style.display = 'block';
+                btn.disabled = false;
+                btn.innerText = "Login";
+            }
+        });
+    </script>
+</body>
+</html>

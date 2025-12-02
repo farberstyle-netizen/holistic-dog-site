@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Certification | HTDA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <style>
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .search-options {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+        
+        .search-option {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+            background: white;
+            font-family: 'Lato', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .search-option.active {
+            border-color: var(--primary-maroon);
+            background: var(--primary-maroon);
+            color: white;
+        }
+        
+        .results-container {
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+        
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #e6f4ea;
+            color: #1e7e34;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        /* Modal Styles for Disclaimer */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 3rem;
+            max-width: 600px;
+            width: 90%;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--accent-gold);
+        }
+
+        .result-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--accent-gold);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .result-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--light-gray);
+        }
+
+        .result-info h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-maroon);
+            margin: 0 0 0.5rem 0;
+            font-size: 1.8rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Holistic Therapy Dog<br>Association</a>
+            <nav>
+                <ul id="nav-links"></ul>
+            </nav>
+            <div class="nav-account" id="nav-account-links"></div>
+        </div>
+    </header>
+
+    <div id="disclaimerModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h2 style="font-family: 'Playfair Display', serif; color: var(--primary-maroon); margin-bottom: 1.5rem;">Database Access Agreement</h2>
+            <p style="margin-bottom: 1.5rem; line-height: 1.8; color: #555;">
+                You are about to access the Official Holistic Therapy Dog Registry. 
+                Please note that this certification is <strong>commemorative</strong> and recognizes the therapeutic bond. 
+                It does <strong>not</strong> grant public access rights under the ADA (Americans with Disabilities Act) for Service Dogs.
+            </p>
+            <div style="margin-bottom: 2rem;">
+                <label style="display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;">
+                    <input type="checkbox" id="agreeCheckbox" style="width: 20px; height: 20px;">
+                    <span>I understand and agree to these terms</span>
+                </label>
+            </div>
+            <button id="enterBtn" class="cta-button" disabled style="opacity: 0.5; cursor: not-allowed;">Access Database</button>
+        </div>
+    </div>
+
+    <main class="page-container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--primary-maroon); margin-bottom: 1rem;">Verify Certification</h1>
+            <p style="font-size: 1.2rem; color: #666;">Search the official global registry of Holistic Therapy Dogs.</p>
+        </div>
+
+        <div class="search-container">
+            <div class="search-options">
+                <button class="search-option active" onclick="setMode('name')">Search by Name</button>
+                <button class="search-option" onclick="setMode('id')">Search by License ID</button>
+            </div>
+
+            <form id="verifyForm">
+                <div class="form-group">
+                    <label id="inputLabel" for="searchInput">Dog's Name</label>
+                    <input type="text" id="searchInput" name="searchInput" placeholder="Enter dog's name..." required>
+                </div>
+                
+                <div class="form-group" style="display: flex; justify-content: center; margin: 1.5rem 0;">
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAAznM8b67f1A-xP3" data-callback="onTurnstileSuccess"></div>
+                </div>
+
+                <button type="submit" class="cta-button" style="width: 100%;">Verify License</button>
+            </form>
+            
+            <div id="msg-box" class="status-msg" style="display: none; margin-top: 1rem;"></div>
+        </div>
+
+        <div id="results" class="results-container"></div>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="verify.html">Verify License</a>
+            <a href="contact.html">Contact</a>
+            <a href="privacy-policy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+        </div>
+        <p class="disclaimer">
+            <strong>Disclaimer:</strong> The Holistic Therapy Dog certification is commemorative and does not confer legal rights under the ADA.
+        </p>
+        <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
+    </footer>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+    <script>
+        // Modal Logic
+        const modal = document.getElementById('disclaimerModal');
+        const checkbox = document.getElementById('agreeCheckbox');
+        const enterBtn = document.getElementById('enterBtn');
+        let searchMode = 'name';
+        let turnstileToken = null;
+
+        checkbox.addEventListener('change', () => {
+            if(checkbox.checked) {
+                enterBtn.disabled = false;
+                enterBtn.style.opacity = '1';
+                enterBtn.style.cursor = 'pointer';
+            } else {
+                enterBtn.disabled = true;
+                enterBtn.style.opacity = '0.5';
+                enterBtn.style.cursor = 'not-allowed';
+            }
+        });
+
+        enterBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Search Logic
+        function setMode(mode) {
+            searchMode = mode;
+            document.querySelectorAll('.search-option').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const input = document.getElementById('searchInput');
+            const label = document.getElementById('inputLabel');
+            
+            if (mode === 'name') {
+                label.textContent = "Dog's Name";
+                input.placeholder = "Enter dog's name...";
+            } else {
+                label.textContent = "License ID";
+                input.placeholder = "Enter License ID (e.g. HTDA-2025-...)";
+            }
+        }
+
+        function onTurnstileSuccess(token) {
+            turnstileToken = token;
+        }
+
+        document.getElementById('verifyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const resultsDiv = document.getElementById('results');
+            const msgBox = document.getElementById('msg-box');
+            const query = document.getElementById('searchInput').value;
+
+            resultsDiv.innerHTML = '';
+            msgBox.style.display = 'none';
+
+            // Turnstile is now optional - proceed even without token
+            // if (!turnstileToken) {
+            //     msgBox.textContent = "Please complete the security check.";
+            //     msgBox.className = "status-msg error";
+            //     msgBox.style.display = "block";
+            //     return;
+            // }
+
+            // Show Loading
+            resultsDiv.innerHTML = '<p style="text-align: center;">Searching registry...</p>';
+
+            try {
+                // Construct URL with query params
+                const url = new URL('https://api-verify.farberstyle.workers.dev');
+                url.searchParams.append('mode', searchMode);
+                url.searchParams.append('q', query);
+                if (turnstileToken) {
+                    url.searchParams.append('cf_turnstile_response', turnstileToken);
+                }
+
+                const response = await fetch(url);
+                const data = await response.json();
+
+                resultsDiv.innerHTML = ''; // Clear loading text
+
+                if (data.success && data.results.length > 0) {
+                    // Render Results
+                    resultsDiv.innerHTML = data.results.map(dog => `
+                        <div class="result-card">
+                            <img src="${dog.photo_url ? 'https://pub-6ce181398b9b4e588bcc0db8db53f07a.r2.dev/' + dog.photo_url : 'default-dog.png'}" 
+                                 class="result-img" alt="${dog.dog_name}">
+                            <div class="result-info">
+                                <div class="verified-badge">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    OFFICIALLY VERIFIED
+                                </div>
+                                <h3>${dog.dog_name}</h3>
+                                <p><strong>Handler:</strong> ${dog.handler_name}</p>
+                                <p><strong>License ID:</strong> ${dog.license_id}</p>
+                                <p><strong>Valid Through:</strong> ${new Date(dog.expires_at).toLocaleDateString()}</p>
+                                <p><strong>State:</strong> ${dog.state}</p>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    resultsDiv.innerHTML = `
+                        <div style="text-align: center; padding: 2rem; background: #fff5f5; border-radius: 8px; color: var(--primary-maroon);">
+                            <h3>No Records Found</h3>
+                            <p>We could not find a certification matching "${query}".</p>
+                        </div>
+                    `;
+                }
+
+            } catch (error) {
+                console.error(error);
+                msgBox.textContent = "Search failed. Please try again.";
+                msgBox.className = "status-msg error";
+                msgBox.style.display = "block";
+                resultsDiv.innerHTML = '';
+            } finally {
+                // FIX: Reset Turnstile for next search
+                if (window.turnstile) {
+                    window.turnstile.reset();
+                }
+                turnstileToken = null;
+            }
+        });
+    </script>
+</body>
+</html>
