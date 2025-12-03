@@ -366,18 +366,18 @@
             
             // Draw the dog's name (below "Hereby Certifies", above "The Title and Certification of")
             const dogName = document.getElementById('dog_name').value || '[Dog Name]';
-            ctx.font = 'bold 44px "Playfair Display", serif';
-            ctx.fillStyle = '#000';
+            ctx.font = 'bold 42px "Playfair Display", serif';
+            ctx.fillStyle = '#1a1a1a';
             ctx.textAlign = 'center';
-            ctx.fillText(dogName.toUpperCase(), canvas.width / 2, 365);
+            ctx.fillText(dogName.toUpperCase(), canvas.width / 2, 410);
             
             // Draw the date (below "Given This")
             const today = new Date();
             const options = { day: 'numeric', month: 'long', year: 'numeric' };
             const dateStr = today.toLocaleDateString('en-US', { day: 'numeric' }) + getDaySuffix(today.getDate()) + ' Day of ' + today.toLocaleDateString('en-US', { month: 'long' }) + ', ' + numberToWords(today.getFullYear());
-            ctx.font = '22px "Playfair Display", serif';
-            ctx.fillStyle = '#000';
-            ctx.fillText(dateStr.toUpperCase(), canvas.width / 2, 545);
+            ctx.font = '20px "Playfair Display", serif';
+            ctx.fillStyle = '#1a1a1a';
+            ctx.fillText(dateStr.toUpperCase(), canvas.width / 2, 565);
         }
         
         function getDaySuffix(day) {
