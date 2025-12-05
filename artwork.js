@@ -1,11 +1,6 @@
 /**
  * HTDA Artwork System - Self-Contained
- * Just include this ONE file - it handles everything
- * 
- * Add to header.js:
- *   const artworkScript = document.createElement('script');
- *   artworkScript.src = 'artwork.js';
- *   document.head.appendChild(artworkScript);
+ * Applies artwork as backgrounds to existing header/footer
  */
 
 (function() {
@@ -18,7 +13,6 @@
     const CONFIG = {
         baseUrl: 'https://pub-b8de7488131f47ae9cb4c0c980d7a984.r2.dev',
         
-        // Style families - same style won't appear in header AND footer
         styleFamilies: {
             'pollock': [1, 2],
             'kusama': [3, 4],
@@ -43,12 +37,10 @@
             'misc3': [43, 44]
         },
 
-        // Which families work for each position
         headerStyles: ['greek', 'egyptian', 'roman', 'chinese', 'artnouveau', 'haring', 'miro', 'klee', 'cave'],
         backgroundStyles: ['klimt', 'kusama', 'pollock', 'mondrian', 'dubuffet', 'misc1', 'misc2'],
         footerStyles: ['matisse', 'warhol', 'picasso', 'lichtenstein', 'greek', 'egyptian', 'artnouveau', 'misc3'],
 
-        // Fixed assignments per page (consistent each visit)
         pageAssignments: {
             'index.html':         { header: 23, background: 13, footer: 15 },
             'about.html':         { header: 26, background: 3,  footer: 9 },
@@ -79,7 +71,7 @@
     // =====================================================
     
     const css = `
-        /* ===== HEADER WITH ARTWORK BACKGROUND ===== */
+        /* Header with artwork background */
         header.has-artwork {
             background-size: cover !important;
             background-position: center !important;
@@ -98,7 +90,7 @@
             z-index: 1;
         }
 
-        /* ===== FOOTER WITH ARTWORK BACKGROUND ===== */
+        /* Footer with artwork background */
         footer.has-artwork {
             background-size: cover !important;
             background-position: center !important;
@@ -117,7 +109,7 @@
             z-index: 1;
         }
 
-        /* ===== PAGE BACKGROUND ===== */
+        /* Page background */
         .artwork-background {
             position: fixed;
             top: -20px;
@@ -134,35 +126,6 @@
         }
     `;
 
-        /* ===== LOADING STATE ===== */
-        .artwork-header.loading,
-        .artwork-footer.loading,
-        .artwork-background.loading {
-            background-color: #4B0000;
-            background-image: none;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .artwork-header { height: 60px; }
-            .artwork-footer { height: 80px; }
-            .artwork-background { opacity: 0.05; }
-        }
-        @media (max-width: 480px) {
-            .artwork-header { height: 50px; }
-            .artwork-footer { height: 60px; }
-        }
-
-        /* ===== FADE IN ===== */
-        @keyframes artworkFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .artwork-header, .artwork-footer {
-            animation: artworkFadeIn 0.8s ease-out;
-        }
-    `;
-
     const styleEl = document.createElement('style');
     styleEl.textContent = css;
     document.head.appendChild(styleEl);
@@ -173,15 +136,18 @@
 
     function getImageUrl(num) {
         const padded = String(num).padStart(2, '0');
-        return `${CONFIG.baseUrl}/dog_art_${padded}.jpg`;
+        return CONFIG.baseUrl + '/dog_art_' + padded + '.jpg';
     }
 
     function randomFrom(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
     }
 
-    function getRandomImage(allowedStyles, excludeFamilies = []) {
-        const available = allowedStyles.filter(s => !excludeFamilies.includes(s));
+    function getRandomImage(allowedStyles, excludeFamilies) {
+        excludeFamilies = excludeFamilies || [];
+        const available = allowedStyles.filter(function(s) { 
+            return excludeFamilies.indexOf(s) === -1; 
+        });
         if (available.length === 0) return { url: getImageUrl(1), style: 'fallback' };
         
         const chosenStyle = randomFrom(available);
@@ -192,8 +158,11 @@
     }
 
     function getPageAssignment() {
-        const pageName = window.location.pathname.split('/').pop() || 'index.html';
-        const assignment = CONFIG.pageAssignments[pageName];
+        var path = window.location.pathname;
+        var pageName = path.split('/').pop() || 'index.html';
+        if (pageName === '' || pageName === '/') pageName = 'index.html';
+        
+        var assignment = CONFIG.pageAssignments[pageName];
         
         if (assignment) {
             return {
@@ -204,67 +173,67 @@
         }
         
         // Fallback: random non-matching set
-        const header = getRandomImage(CONFIG.headerStyles);
-        const background = getRandomImage(CONFIG.backgroundStyles, [header.style]);
-        const footer = getRandomImage(CONFIG.footerStyles, [header.style, background.style]);
-        return { header, background, footer };
+        var header = getRandomImage(CONFIG.headerStyles);
+        var background = getRandomImage(CONFIG.backgroundStyles, [header.style]);
+        var footer = getRandomImage(CONFIG.footerStyles, [header.style, background.style]);
+        return { header: header, background: background, footer: footer };
     }
 
     // =====================================================
-    // APPLY ARTWORK
+    // INIT
     // =====================================================
-
-    function applyArtwork(type, imageUrl, insertFn) {
-        let el = document.querySelector(`.artwork-${type}`);
-        
-        if (!el) {
-            el = document.createElement('div');
-            el.className = `artwork-${type} loading`;
-            insertFn(el);
-        }
-
-        const img = new Image();
-        img.onload = function() {
-            el.style.backgroundImage = `url('${imageUrl}')`;
-            el.classList.remove('loading');
-        };
-        img.onerror = function() {
-            el.classList.remove('loading');
-        };
-        img.src = imageUrl;
-    }
 
     function init() {
-        const artwork = getPageAssignment();
+        var artwork = getPageAssignment();
+        console.log('HTDA Artwork init:', artwork);
 
-        // Apply artwork to existing HEADER
-        const header = document.querySelector('header');
+        // Apply to HEADER
+        var header = document.querySelector('header');
         if (header) {
-            const img = new Image();
-            img.onload = function() {
-                header.style.backgroundImage = `url('${artwork.header.url}')`;
+            var headerImg = new Image();
+            headerImg.onload = function() {
+                header.style.backgroundImage = "url('" + artwork.header.url + "')";
                 header.classList.add('has-artwork');
+                console.log('Header artwork applied');
             };
-            img.src = artwork.header.url;
+            headerImg.onerror = function() {
+                console.log('Header image failed to load:', artwork.header.url);
+            };
+            headerImg.src = artwork.header.url;
+        } else {
+            console.log('No header element found');
         }
 
-        // Apply artwork to existing FOOTER
-        const footer = document.querySelector('footer');
+        // Apply to FOOTER
+        var footer = document.querySelector('footer');
         if (footer) {
-            const img = new Image();
-            img.onload = function() {
-                footer.style.backgroundImage = `url('${artwork.footer.url}')`;
+            var footerImg = new Image();
+            footerImg.onload = function() {
+                footer.style.backgroundImage = "url('" + artwork.footer.url + "')";
                 footer.classList.add('has-artwork');
+                console.log('Footer artwork applied');
             };
-            img.src = artwork.footer.url;
+            footerImg.onerror = function() {
+                console.log('Footer image failed to load:', artwork.footer.url);
+            };
+            footerImg.src = artwork.footer.url;
+        } else {
+            console.log('No footer element found');
         }
 
-        // Page background (still a separate element)
-        applyArtwork('background', artwork.background.url, function(el) {
-            document.body.insertBefore(el, document.body.firstChild);
-        });
-        
-        console.log('HTDA Artwork loaded:', artwork);
+        // Apply BACKGROUND
+        var bgEl = document.createElement('div');
+        bgEl.className = 'artwork-background';
+        var bgImg = new Image();
+        bgImg.onload = function() {
+            bgEl.style.backgroundImage = "url('" + artwork.background.url + "')";
+            document.body.insertBefore(bgEl, document.body.firstChild);
+            console.log('Background artwork applied');
+        };
+        bgImg.onerror = function() {
+            console.log('Background image failed to load:', artwork.background.url);
+        };
+        bgImg.src = artwork.background.url;
     }
 
     // Run on DOM ready
