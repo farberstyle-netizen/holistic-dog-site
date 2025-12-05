@@ -19,7 +19,8 @@
         .video-hero {
             position: relative;
             height: 100vh;
-            margin-top: 80px;
+            padding-top: 80px;
+            box-sizing: border-box;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -130,8 +131,8 @@
         /* Mobile adjustments */
         @media (max-width: 768px) {
             .video-hero {
-                margin-top: 70px;
-                height: calc(100vh - 70px);
+                padding-top: 70px;
+                height: 100vh;
             }
             .hero-content-box {
                 padding: 2rem 1.5rem;
