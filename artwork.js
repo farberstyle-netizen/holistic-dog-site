@@ -82,7 +82,7 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(75, 0, 0, 0.85);
+            background: rgba(75, 0, 0, 0.42);
             z-index: 0;
         }
         header.has-artwork > * {
@@ -101,7 +101,7 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(75, 0, 0, 0.75);
+            background: rgba(75, 0, 0, 0.37);
             z-index: 0;
         }
         footer.has-artwork > * {
@@ -121,7 +121,7 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             z-index: -1;
-            opacity: 0.06;
+            opacity: 0.12;
             filter: grayscale(20%);
         }
     `;
