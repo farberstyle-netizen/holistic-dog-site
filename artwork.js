@@ -1,8 +1,8 @@
 /**
  * HTDA Artwork Rotation System
  * 
- * Self-contained script that applies rotating dog artwork to headers,
- * footers, and page backgrounds. Uses cropped/cleaned images.
+ * Self-contained script that applies rotating dog artwork strips to headers
+ * and footers. Wide strips only (2.5:1 ratio or higher).
  * 
  * INSTALLATION: Add this single line to the top of header.js:
  *   document.head.appendChild(Object.assign(document.createElement('script'), {src: 'artwork.js'}));
@@ -17,57 +17,46 @@
     
     const R2_BASE = 'https://pub-b8de7488131f47ae9cb4c0c980d7a984.r2.dev';
     
-    // Style families - images grouped by artistic style
-    // Used to prevent matching styles in header AND footer
+    // Style families - prevent same style in header AND footer
     const styleFamilies = {
-        greek:     [23, 25, 33, 37],       // Greek meander/key patterns
-        roman:     [29, 30, 43],           // Roman mosaic
-        chinese:   [38, 40, 42],           // Chinese patterns
-        artnouveau:[31, 34],               // Art nouveau/baroque scrollwork
-        victorian: [28, 44],               // Victorian damask
-        warhol:    [2, 3, 6, 24, 26],      // Pop art style
-        klimt:     [11, 14, 15, 16],       // Klimt-inspired organic
-        pixel:     [32, 35, 36],           // Pixel art style
-        other:     [1, 4, 5, 7, 8, 9, 10, 12, 13, 17, 18, 19, 20, 22, 27]
+        greek:     [33, 37],               // Greek meander strips
+        chinese:   [38, 40, 42],           // Chinese pattern strips
+        artnouveau:[31, 34],               // Art nouveau scrollwork strips
+        victorian: [28, 44],               // Victorian damask strips
+        pixel:     [32, 35, 36],           // Pixel art strips
+        other:     [27, 43]                // Other strip patterns
     };
     
-    // Images appropriate for each zone
-    // Headers: Bold decorative friezes
-    const headerStyles = [23, 24, 25, 26, 28, 29, 30, 31, 33, 34, 37, 38, 40, 42, 43];
+    // ONLY wide strips (2.5:1 ratio or higher) for headers/footers
+    const headerStyles = [27, 28, 31, 32, 33, 34, 35, 36, 37, 38, 40, 42, 43, 44];
+    const footerStyles = [27, 28, 31, 32, 33, 34, 35, 36, 37, 38, 40, 42, 43, 44];
     
-    // Footers: All friezes including subtler ones
-    const footerStyles = [23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 40, 42, 43, 44];
+    // NO backgrounds - only header/footer strips
+    // Excluded: 39 (grey), 41 (tan) - wrong color palette
     
-    // Backgrounds: Full-coverage patterns (work at low opacity)
-    const backgroundStyles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22];
-    
-    // EXCLUDED (wrong color palette):
-    // 39 = Cave painting (grey/brown)
-    // 41 = Egyptian Anubis (tan/beige)
-    
-    // Fixed assignments per page for consistency
+    // Fixed assignments per page - header and footer strips ONLY
     const pageAssignments = {
-        'index.html':           { header: 29, background: 13, footer: 37 },  // Roman mosaic, Klimt, Greek
-        'about.html':           { header: 30, background: 3,  footer: 38 },
-        'certification.html':   { header: 23, background: 15, footer: 42 },
-        'faq.html':             { header: 43, background: 1,  footer: 31 },
-        'contact.html':         { header: 25, background: 11, footer: 28 },
-        'blog.html':            { header: 33, background: 14, footer: 40 },
-        'services.html':        { header: 34, background: 2,  footer: 23 },
-        'training.html':        { header: 37, background: 16, footer: 29 },
-        'resources.html':       { header: 38, background: 4,  footer: 30 },
-        'testimonials.html':    { header: 42, background: 5,  footer: 33 },
-        'events.html':          { header: 26, background: 6,  footer: 34 },
-        'membership.html':      { header: 28, background: 7,  footer: 25 },
-        'directory.html':       { header: 31, background: 8,  footer: 43 },
-        'gallery.html':         { header: 24, background: 9,  footer: 26 },
-        'news.html':            { header: 40, background: 10, footer: 24 },
-        'partners.html':        { header: 29, background: 12, footer: 44 },
-        'volunteer.html':       { header: 30, background: 17, footer: 32 },
-        'donate.html':          { header: 23, background: 18, footer: 35 },
-        'privacy.html':         { header: 25, background: 19, footer: 36 },
-        'terms.html':           { header: 33, background: 20, footer: 27 },
-        'sitemap.html':         { header: 34, background: 22, footer: 28 }
+        'index.html':           { header: 28, footer: 37 },
+        'about.html':           { header: 31, footer: 38 },
+        'certification.html':   { header: 33, footer: 42 },
+        'faq.html':             { header: 43, footer: 34 },
+        'contact.html':         { header: 35, footer: 27 },
+        'blog.html':            { header: 36, footer: 40 },
+        'services.html':        { header: 34, footer: 32 },
+        'training.html':        { header: 37, footer: 28 },
+        'resources.html':       { header: 38, footer: 31 },
+        'testimonials.html':    { header: 42, footer: 33 },
+        'events.html':          { header: 27, footer: 35 },
+        'membership.html':      { header: 28, footer: 36 },
+        'directory.html':       { header: 31, footer: 43 },
+        'gallery.html':         { header: 32, footer: 44 },
+        'news.html':            { header: 40, footer: 38 },
+        'partners.html':        { header: 33, footer: 44 },
+        'volunteer.html':       { header: 34, footer: 27 },
+        'donate.html':          { header: 35, footer: 42 },
+        'privacy.html':         { header: 36, footer: 43 },
+        'terms.html':           { header: 37, footer: 40 },
+        'sitemap.html':         { header: 38, footer: 31 }
     };
     
     // ========================================
@@ -120,22 +109,6 @@
             position: relative;
             z-index: 1;
         }
-        
-        /* Page background watermark */
-        #htda-page-bg {
-            position: fixed;
-            top: -20px;
-            left: -20px;
-            right: -20px;
-            bottom: -20px;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.12;
-            filter: grayscale(20%);
-            pointer-events: none;
-            z-index: -1;
-        }
     `;
     
     // ========================================
@@ -178,16 +151,8 @@
         // Footer must be different family
         const availableFooters = footerStyles.filter(n => getStyleFamily(n) !== headerFamily);
         const footer = randomFrom(availableFooters);
-        const footerFamily = getStyleFamily(footer);
         
-        // Background must be different from both
-        const availableBgs = backgroundStyles.filter(n => {
-            const family = getStyleFamily(n);
-            return family !== headerFamily && family !== footerFamily;
-        });
-        const background = randomFrom(availableBgs);
-        
-        return { header, footer, background };
+        return { header, footer };
     }
     
     // ========================================
@@ -204,13 +169,11 @@
         const assignment = getPageAssignment();
         const headerUrl = getImageUrl(assignment.header);
         const footerUrl = getImageUrl(assignment.footer);
-        const bgUrl = getImageUrl(assignment.background);
         
         console.log('HTDA Artwork init:', {
             page: getPageName(),
             header: assignment.header,
-            footer: assignment.footer,
-            background: assignment.background
+            footer: assignment.footer
         });
         
         // Apply header background
@@ -226,13 +189,6 @@
             footer.style.backgroundImage = `url('${footerUrl}')`;
             console.log('Footer artwork applied:', footerUrl);
         }
-        
-        // Create and apply page background
-        const bgDiv = document.createElement('div');
-        bgDiv.id = 'htda-page-bg';
-        bgDiv.style.backgroundImage = `url('${bgUrl}')`;
-        document.body.insertBefore(bgDiv, document.body.firstChild);
-        console.log('Background artwork applied:', bgUrl);
     }
     
     // Run when DOM is ready
