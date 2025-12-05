@@ -79,36 +79,45 @@
     // =====================================================
     
     const css = `
-        /* ===== ARTWORK HEADER STRIP ===== */
-        .artwork-header {
-            width: 100%;
-            height: 80px;
-            background-size: calc(100% + 40px) calc(100% + 40px);
-            background-position: center;
-            background-repeat: no-repeat;
+        /* ===== HEADER WITH ARTWORK BACKGROUND ===== */
+        header.has-artwork {
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            position: relative !important;
+        }
+        header.has-artwork::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(75, 0, 0, 0.85);
+            z-index: 0;
+        }
+        header.has-artwork > * {
             position: relative;
-            overflow: hidden;
-        }
-        .artwork-header::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom,
-                rgba(75, 0, 0, 0.3) 0%,
-                rgba(75, 0, 0, 0.15) 50%,
-                rgba(75, 0, 0, 0.3) 100%);
-            pointer-events: none;
-        }
-        .artwork-header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            box-shadow: inset 0 2px 8px rgba(0,0,0,0.3), inset 0 -2px 8px rgba(0,0,0,0.2);
-            pointer-events: none;
             z-index: 1;
         }
 
-        /* ===== ARTWORK BACKGROUND ===== */
+        /* ===== FOOTER WITH ARTWORK BACKGROUND ===== */
+        footer.has-artwork {
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            position: relative !important;
+        }
+        footer.has-artwork::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(75, 0, 0, 0.75);
+            z-index: 0;
+        }
+        footer.has-artwork > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== PAGE BACKGROUND ===== */
         .artwork-background {
             position: fixed;
             top: -20px;
@@ -120,39 +129,10 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             z-index: -1;
-            opacity: 0.08;
-            filter: grayscale(30%);
+            opacity: 0.06;
+            filter: grayscale(20%);
         }
-
-        /* ===== ARTWORK FOOTER STRIP ===== */
-        .artwork-footer {
-            width: 100%;
-            height: 120px;
-            background-size: calc(100% + 40px) calc(100% + 40px);
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
-            overflow: hidden;
-            margin-top: auto;
-        }
-        .artwork-footer::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to top,
-                rgba(75, 0, 0, 0.35) 0%,
-                rgba(75, 0, 0, 0.15) 50%,
-                rgba(75, 0, 0, 0.35) 100%);
-            pointer-events: none;
-        }
-        .artwork-footer::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            box-shadow: inset 0 2px 8px rgba(0,0,0,0.25), inset 0 -2px 8px rgba(0,0,0,0.15);
-            pointer-events: none;
-            z-index: 1;
-        }
+    `;
 
         /* ===== LOADING STATE ===== */
         .artwork-header.loading,
@@ -257,30 +237,34 @@
     function init() {
         const artwork = getPageAssignment();
 
-        // Header - insert before <header> or at top of body
-        applyArtwork('header', artwork.header.url, function(el) {
-            const header = document.querySelector('header');
-            if (header) {
-                header.parentNode.insertBefore(el, header);
-            } else {
-                document.body.insertBefore(el, document.body.firstChild);
-            }
-        });
+        // Apply artwork to existing HEADER
+        const header = document.querySelector('header');
+        if (header) {
+            const img = new Image();
+            img.onload = function() {
+                header.style.backgroundImage = `url('${artwork.header.url}')`;
+                header.classList.add('has-artwork');
+            };
+            img.src = artwork.header.url;
+        }
 
-        // Background - insert at start of body
+        // Apply artwork to existing FOOTER
+        const footer = document.querySelector('footer');
+        if (footer) {
+            const img = new Image();
+            img.onload = function() {
+                footer.style.backgroundImage = `url('${artwork.footer.url}')`;
+                footer.classList.add('has-artwork');
+            };
+            img.src = artwork.footer.url;
+        }
+
+        // Page background (still a separate element)
         applyArtwork('background', artwork.background.url, function(el) {
             document.body.insertBefore(el, document.body.firstChild);
         });
-
-        // Footer - insert after <footer> or at end of body
-        applyArtwork('footer', artwork.footer.url, function(el) {
-            const footer = document.querySelector('footer');
-            if (footer) {
-                footer.parentNode.insertBefore(el, footer.nextSibling);
-            } else {
-                document.body.appendChild(el);
-            }
-        });
+        
+        console.log('HTDA Artwork loaded:', artwork);
     }
 
     // Run on DOM ready
