@@ -93,6 +93,16 @@
             background-size: cover !important;
             background-position: center !important;
             background-repeat: no-repeat !important;
+            border: none !important;
+            margin-top: 0 !important;
+        }
+        
+        /* Remove any gap/border above footer */
+        body > section:last-of-type,
+        body > main:last-of-type,
+        body > div:last-of-type:not(.modal-overlay) {
+            margin-bottom: 0 !important;
+            border-bottom: none !important;
         }
         footer::before {
             content: '';
