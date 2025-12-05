@@ -1,3 +1,6 @@
+// Load artwork system (self-contained, no conflicts)
+document.head.appendChild(Object.assign(document.createElement('script'), {src: 'artwork.js'}));
+
 /**
  * HEADER.JS - Minimal Institutional Header
  * Logo (two lines) + Verify License + Login/Account
