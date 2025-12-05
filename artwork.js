@@ -1,246 +1,245 @@
 /**
- * HTDA Artwork System - Self-Contained
- * Applies artwork as backgrounds to existing header/footer
+ * HTDA Artwork Rotation System
+ * 
+ * Self-contained script that applies rotating dog artwork to headers,
+ * footers, and page backgrounds. Uses cropped/cleaned images.
+ * 
+ * INSTALLATION: Add this single line to the top of header.js:
+ *   document.head.appendChild(Object.assign(document.createElement('script'), {src: 'artwork.js'}));
  */
 
 (function() {
     'use strict';
-
-    // =====================================================
-    // CONFIGURATION
-    // =====================================================
     
-    const CONFIG = {
-        baseUrl: 'https://pub-b8de7488131f47ae9cb4c0c980d7a984.r2.dev',
-        
-        styleFamilies: {
-            'pollock': [1, 2],
-            'kusama': [3, 4],
-            'picasso': [5, 6],
-            'miro': [7, 8],
-            'warhol': [9, 10],
-            'mondrian': [11, 12],
-            'klimt': [13, 14],
-            'matisse': [15, 16],
-            'haring': [17, 18],
-            'lichtenstein': [19, 20],
-            'klee': [21, 22],
-            'greek': [23, 24, 25],
-            'egyptian': [26, 27, 28],
-            'roman': [29, 30],
-            'chinese': [31, 32],
-            'artnouveau': [33, 34],
-            'dubuffet': [35, 36],
-            'cave': [37, 38],
-            'misc1': [39, 40],
-            'misc2': [41, 42],
-            'misc3': [43, 44]
-        },
-
-        headerStyles: ['greek', 'egyptian', 'roman', 'chinese', 'artnouveau', 'haring', 'miro', 'klee', 'cave'],
-        backgroundStyles: ['klimt', 'kusama', 'pollock', 'mondrian', 'dubuffet', 'misc1', 'misc2'],
-        footerStyles: ['matisse', 'warhol', 'picasso', 'lichtenstein', 'greek', 'egyptian', 'artnouveau', 'misc3'],
-
-        pageAssignments: {
-            'index.html':         { header: 23, background: 13, footer: 15 },
-            'about.html':         { header: 26, background: 3,  footer: 9 },
-            'how-it-works.html':  { header: 17, background: 11, footer: 5 },
-            'gallery.html':       { header: 29, background: 1,  footer: 19 },
-            'meet-our-dogs.html': { header: 31, background: 35, footer: 33 },
-            'verify.html':        { header: 7,  background: 4,  footer: 27 },
-            'quiz.html':          { header: 37, background: 21, footer: 10 },
-            'contact.html':       { header: 34, background: 12, footer: 6 },
-            'privacy.html':       { header: 24, background: 2,  footer: 16 },
-            'terms.html':         { header: 28, background: 14, footer: 20 },
-            'advocacy.html':      { header: 8,  background: 36, footer: 25 },
-            'login.html':         { header: 18, background: 39, footer: 30 },
-            'signup.html':        { header: 32, background: 40, footer: 38 },
-            'account.html':       { header: 22, background: 41, footer: 34 },
-            'dashboard.html':     { header: 25, background: 42, footer: 17 },
-            'order-history.html': { header: 27, background: 43, footer: 7 },
-            'my-dogs.html':       { header: 30, background: 44, footer: 21 },
-            'diploma.html':       { header: 33, background: 13, footer: 1 },
-            'payment-success.html': { header: 23, background: 3, footer: 19 },
-            'admin.html':         { header: 38, background: 3,  footer: 11 },
-            'admin-shipments.html': { header: 23, background: 35, footer: 19 },
-        }
+    // ========================================
+    // CONFIGURATION
+    // ========================================
+    
+    const R2_BASE = 'https://pub-b8de7488131f47ae9cb4c0c980d7a984.r2.dev';
+    
+    // Style families - images grouped by artistic style
+    // Used to prevent matching styles in header AND footer
+    const styleFamilies = {
+        greek:     [23, 25, 33, 37],       // Greek meander/key patterns
+        roman:     [29, 30, 43],           // Roman mosaic
+        chinese:   [38, 40, 42],           // Chinese patterns
+        artnouveau:[31, 34],               // Art nouveau/baroque scrollwork
+        victorian: [28, 44],               // Victorian damask
+        warhol:    [2, 3, 6, 24, 26],      // Pop art style
+        klimt:     [11, 14, 15, 16],       // Klimt-inspired organic
+        pixel:     [32, 35, 36],           // Pixel art style
+        other:     [1, 4, 5, 7, 8, 9, 10, 12, 13, 17, 18, 19, 20, 22, 27]
     };
-
-    // =====================================================
-    // INJECT CSS
-    // =====================================================
+    
+    // Images appropriate for each zone
+    // Headers: Bold decorative friezes
+    const headerStyles = [23, 24, 25, 26, 28, 29, 30, 31, 33, 34, 37, 38, 40, 42, 43];
+    
+    // Footers: All friezes including subtler ones
+    const footerStyles = [23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 40, 42, 43, 44];
+    
+    // Backgrounds: Full-coverage patterns (work at low opacity)
+    const backgroundStyles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22];
+    
+    // EXCLUDED (wrong color palette):
+    // 39 = Cave painting (grey/brown)
+    // 41 = Egyptian Anubis (tan/beige)
+    
+    // Fixed assignments per page for consistency
+    const pageAssignments = {
+        'index.html':           { header: 29, background: 13, footer: 37 },  // Roman mosaic, Klimt, Greek
+        'about.html':           { header: 30, background: 3,  footer: 38 },
+        'certification.html':   { header: 23, background: 15, footer: 42 },
+        'faq.html':             { header: 43, background: 1,  footer: 31 },
+        'contact.html':         { header: 25, background: 11, footer: 28 },
+        'blog.html':            { header: 33, background: 14, footer: 40 },
+        'services.html':        { header: 34, background: 2,  footer: 23 },
+        'training.html':        { header: 37, background: 16, footer: 29 },
+        'resources.html':       { header: 38, background: 4,  footer: 30 },
+        'testimonials.html':    { header: 42, background: 5,  footer: 33 },
+        'events.html':          { header: 26, background: 6,  footer: 34 },
+        'membership.html':      { header: 28, background: 7,  footer: 25 },
+        'directory.html':       { header: 31, background: 8,  footer: 43 },
+        'gallery.html':         { header: 24, background: 9,  footer: 26 },
+        'news.html':            { header: 40, background: 10, footer: 24 },
+        'partners.html':        { header: 29, background: 12, footer: 44 },
+        'volunteer.html':       { header: 30, background: 17, footer: 32 },
+        'donate.html':          { header: 23, background: 18, footer: 35 },
+        'privacy.html':         { header: 25, background: 19, footer: 36 },
+        'terms.html':           { header: 33, background: 20, footer: 27 },
+        'sitemap.html':         { header: 34, background: 22, footer: 28 }
+    };
+    
+    // ========================================
+    // CSS INJECTION
+    // ========================================
     
     const css = `
-        /* Header with artwork background */
-        header.has-artwork {
+        /* Header artwork background */
+        header {
+            position: relative !important;
             background-size: cover !important;
             background-position: center !important;
             background-repeat: no-repeat !important;
-            position: relative !important;
         }
-        header.has-artwork::before {
+        header::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(75, 0, 0, 0.42);
+            pointer-events: none;
             z-index: 0;
         }
-        header.has-artwork > * {
+        header > * {
             position: relative;
             z-index: 1;
         }
-
-        /* Footer with artwork background */
-        footer.has-artwork {
+        
+        /* Footer artwork background */
+        footer {
+            position: relative !important;
             background-size: cover !important;
             background-position: center !important;
             background-repeat: no-repeat !important;
-            position: relative !important;
         }
-        footer.has-artwork::before {
+        footer::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(75, 0, 0, 0.37);
+            pointer-events: none;
             z-index: 0;
         }
-        footer.has-artwork > * {
+        footer > * {
             position: relative;
             z-index: 1;
         }
-
-        /* Page background */
-        .artwork-background {
+        
+        /* Page background watermark */
+        #htda-page-bg {
             position: fixed;
             top: -20px;
             left: -20px;
-            width: calc(100% + 40px);
-            height: calc(100% + 40px);
+            right: -20px;
+            bottom: -20px;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
-            z-index: -1;
             opacity: 0.12;
             filter: grayscale(20%);
+            pointer-events: none;
+            z-index: -1;
         }
     `;
-
-    const styleEl = document.createElement('style');
-    styleEl.textContent = css;
-    document.head.appendChild(styleEl);
-
-    // =====================================================
+    
+    // ========================================
     // HELPER FUNCTIONS
-    // =====================================================
-
+    // ========================================
+    
     function getImageUrl(num) {
-        const padded = String(num).padStart(2, '0');
-        return CONFIG.baseUrl + '/dog_art_' + padded + '.jpg';
+        return `${R2_BASE}/dog_art_${String(num).padStart(2, '0')}.jpg`;
     }
-
+    
+    function getStyleFamily(imageNum) {
+        for (const [family, nums] of Object.entries(styleFamilies)) {
+            if (nums.includes(imageNum)) return family;
+        }
+        return 'unknown';
+    }
+    
     function randomFrom(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
     }
-
-    function getRandomImage(allowedStyles, excludeFamilies) {
-        excludeFamilies = excludeFamilies || [];
-        const available = allowedStyles.filter(function(s) { 
-            return excludeFamilies.indexOf(s) === -1; 
-        });
-        if (available.length === 0) return { url: getImageUrl(1), style: 'fallback' };
-        
-        const chosenStyle = randomFrom(available);
-        const images = CONFIG.styleFamilies[chosenStyle] || [1];
-        const chosenImage = randomFrom(images);
-        
-        return { url: getImageUrl(chosenImage), style: chosenStyle, imageNum: chosenImage };
+    
+    function getPageName() {
+        const path = window.location.pathname;
+        const page = path.split('/').pop() || 'index.html';
+        return page.endsWith('.html') ? page : page + '.html';
     }
-
+    
     function getPageAssignment() {
-        var path = window.location.pathname;
-        var pageName = path.split('/').pop() || 'index.html';
-        if (pageName === '' || pageName === '/') pageName = 'index.html';
+        const page = getPageName();
         
-        var assignment = CONFIG.pageAssignments[pageName];
-        
-        if (assignment) {
-            return {
-                header: { url: getImageUrl(assignment.header) },
-                background: { url: getImageUrl(assignment.background) },
-                footer: { url: getImageUrl(assignment.footer) }
-            };
+        // Use fixed assignment if available
+        if (pageAssignments[page]) {
+            return pageAssignments[page];
         }
         
-        // Fallback: random non-matching set
-        var header = getRandomImage(CONFIG.headerStyles);
-        var background = getRandomImage(CONFIG.backgroundStyles, [header.style]);
-        var footer = getRandomImage(CONFIG.footerStyles, [header.style, background.style]);
-        return { header: header, background: background, footer: footer };
+        // Otherwise pick random but ensure no style matching
+        const header = randomFrom(headerStyles);
+        const headerFamily = getStyleFamily(header);
+        
+        // Footer must be different family
+        const availableFooters = footerStyles.filter(n => getStyleFamily(n) !== headerFamily);
+        const footer = randomFrom(availableFooters);
+        const footerFamily = getStyleFamily(footer);
+        
+        // Background must be different from both
+        const availableBgs = backgroundStyles.filter(n => {
+            const family = getStyleFamily(n);
+            return family !== headerFamily && family !== footerFamily;
+        });
+        const background = randomFrom(availableBgs);
+        
+        return { header, footer, background };
     }
-
-    // =====================================================
-    // INIT
-    // =====================================================
-
+    
+    // ========================================
+    // INITIALIZATION
+    // ========================================
+    
     function init() {
-        var artwork = getPageAssignment();
-        console.log('HTDA Artwork init:', artwork);
-
-        // Apply to HEADER
-        var header = document.querySelector('header');
+        // Inject CSS
+        const style = document.createElement('style');
+        style.textContent = css;
+        document.head.appendChild(style);
+        
+        // Get assignments for this page
+        const assignment = getPageAssignment();
+        const headerUrl = getImageUrl(assignment.header);
+        const footerUrl = getImageUrl(assignment.footer);
+        const bgUrl = getImageUrl(assignment.background);
+        
+        console.log('HTDA Artwork init:', {
+            page: getPageName(),
+            header: assignment.header,
+            footer: assignment.footer,
+            background: assignment.background
+        });
+        
+        // Apply header background
+        const header = document.querySelector('header');
         if (header) {
-            var headerImg = new Image();
-            headerImg.onload = function() {
-                header.style.backgroundImage = "url('" + artwork.header.url + "')";
-                header.classList.add('has-artwork');
-                console.log('Header artwork applied');
-            };
-            headerImg.onerror = function() {
-                console.log('Header image failed to load:', artwork.header.url);
-            };
-            headerImg.src = artwork.header.url;
-        } else {
-            console.log('No header element found');
+            header.style.backgroundImage = `url('${headerUrl}')`;
+            console.log('Header artwork applied:', headerUrl);
         }
-
-        // Apply to FOOTER
-        var footer = document.querySelector('footer');
+        
+        // Apply footer background
+        const footer = document.querySelector('footer');
         if (footer) {
-            var footerImg = new Image();
-            footerImg.onload = function() {
-                footer.style.backgroundImage = "url('" + artwork.footer.url + "')";
-                footer.classList.add('has-artwork');
-                console.log('Footer artwork applied');
-            };
-            footerImg.onerror = function() {
-                console.log('Footer image failed to load:', artwork.footer.url);
-            };
-            footerImg.src = artwork.footer.url;
-        } else {
-            console.log('No footer element found');
+            footer.style.backgroundImage = `url('${footerUrl}')`;
+            console.log('Footer artwork applied:', footerUrl);
         }
-
-        // Apply BACKGROUND
-        var bgEl = document.createElement('div');
-        bgEl.className = 'artwork-background';
-        var bgImg = new Image();
-        bgImg.onload = function() {
-            bgEl.style.backgroundImage = "url('" + artwork.background.url + "')";
-            document.body.insertBefore(bgEl, document.body.firstChild);
-            console.log('Background artwork applied');
-        };
-        bgImg.onerror = function() {
-            console.log('Background image failed to load:', artwork.background.url);
-        };
-        bgImg.src = artwork.background.url;
+        
+        // Create and apply page background
+        const bgDiv = document.createElement('div');
+        bgDiv.id = 'htda-page-bg';
+        bgDiv.style.backgroundImage = `url('${bgUrl}')`;
+        document.body.insertBefore(bgDiv, document.body.firstChild);
+        console.log('Background artwork applied:', bgUrl);
     }
-
-    // Run on DOM ready
+    
+    // Run when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
         init();
     }
-
+    
 })();
