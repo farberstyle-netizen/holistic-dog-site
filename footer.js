@@ -34,10 +34,6 @@
           </div>
         </div>
         
-        <div class="footer-disclaimer">
-          <p><strong>Disclaimer:</strong> The Holistic Therapy Dog certification is commemorative and does not confer legal rights under the ADA.</p>
-        </div>
-        
         <div class="footer-bottom">
           <p>&copy; ${new Date().getFullYear()} Holistic Therapy Dog Association. All Rights Reserved.</p>
         </div>

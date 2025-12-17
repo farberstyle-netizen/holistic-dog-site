@@ -1,6 +1,9 @@
 // Load artwork system (self-contained, no conflicts)
 document.head.appendChild(Object.assign(document.createElement('script'), {src: 'artwork.js'}));
 
+// Load video wall background for non-homepage pages
+document.head.appendChild(Object.assign(document.createElement('script'), {src: 'video-bg.js'}));
+
 /**
  * HEADER.JS - Minimal Institutional Header
  * Logo (two lines) + Verify License + Login/Account
@@ -17,13 +20,13 @@ document.head.appendChild(Object.assign(document.createElement('script'), {src: 
     logoElement.innerHTML = 'Holistic Therapy<br>Dog Association';
   }
 
-  // Navigation - Main links + Verify License button
+  // Navigation - Main links + Verify License (nav-link style, not button)
   if (navLinks) {
     navLinks.innerHTML = `
       <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
       <li><a href="gallery.html" class="nav-link">Gallery</a></li>
       <li><a href="meet-our-dogs.html" class="nav-link">Meet Our Dogs</a></li>
-      <li><a href="verify.html" class="nav-btn nav-btn-gold">Verify a License</a></li>
+      <li><a href="verify.html" class="nav-link">Verify License</a></li>
     `;
   }
 
