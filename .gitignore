@@ -7,3 +7,6 @@ COMPREHENSIVE_AUDIT.md
 api-ai.js
 wrangler-api-ai.toml
 package-lock.json
+backup-before-fixes/
+clips/
+*.zip
