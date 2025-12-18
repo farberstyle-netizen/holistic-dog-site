@@ -1,17 +1,11 @@
 /**
  * VIDEO-BG.JS - Living Mosaic Video Background
- * 
- * A 3×4 grid of 12 looping dog videos that "breathes" - 
- * periodically one video gently expands while neighbors softly compress.
- * Soft edges, smooth transitions, organic feel.
- * 
- * DESKTOP: 3×4 grid (12 videos) with pulse focus effect
- * MOBILE: 2×3 grid (6 videos) with same effect, scaled down
+ * DESKTOP: 4x3 grid of 12 videos with pulse focus effect
+ * MOBILE: 2x3 grid of 6 videos
+ * Features: Soft-edge transitions, breathing animation, depth effects
  */
 
 (function() {
-  'use strict';
-
   // Don't run on homepage
   if (window.location.pathname === '/' || 
       window.location.pathname === '/index.html' || 
@@ -19,22 +13,17 @@
     return;
   }
 
-  // ========================================
-  // CONFIGURATION
-  // ========================================
-  
+  // R2 public URL for wall clips
   const R2_URL = 'https://pub-b8de7488131f47ae9cb4c0c980d7a984.r2.dev';
-  const TOTAL_CLIPS = 29;
-  const DESKTOP_COUNT = 12;  // 3×4 grid
-  const MOBILE_COUNT = 6;    // 2×3 grid
-  const PULSE_INTERVAL_MIN = 5000;  // Min ms between focus shifts
-  const PULSE_INTERVAL_MAX = 8000;  // Max ms between focus shifts
-  const TRANSITION_DURATION = 1.8;  // Seconds for grow/shrink animation
 
-  // ========================================
-  // HELPERS
-  // ========================================
+  // Build array of 29 wall clips (wall_01.mp4 through wall_29.mp4)
+  const clips = [];
+  for (let i = 1; i <= 29; i++) {
+    const num = i.toString().padStart(2, '0');
+    clips.push(`${R2_URL}/wall_${num}.mp4`);
+  }
 
+  // Shuffle array helper
   function shuffle(arr) {
     const a = [...arr];
     for (let i = a.length - 1; i > 0; i--) {
@@ -44,145 +33,66 @@
     return a;
   }
 
-  function getRandomInterval() {
-    return Math.floor(Math.random() * (PULSE_INTERVAL_MAX - PULSE_INTERVAL_MIN)) + PULSE_INTERVAL_MIN;
-  }
-
-  function getClipUrl(num) {
-    return `${R2_URL}/wall_${String(num).padStart(2, '0')}.mp4`;
-  }
-
-  // Get all clip numbers (1-29), shuffle, take what we need
-  function getRandomClips(count) {
-    const allClips = Array.from({ length: TOTAL_CLIPS }, (_, i) => i + 1);
-    return shuffle(allClips).slice(0, count);
-  }
-
-  // ========================================
-  // GRID NEIGHBOR LOGIC
-  // ========================================
-
-  // For a grid, get indices of adjacent cells (including diagonals)
-  function getNeighbors(index, cols, total) {
-    const row = Math.floor(index / cols);
-    const col = index % cols;
-    const rows = Math.ceil(total / cols);
-    const neighbors = [];
-
-    for (let dr = -1; dr <= 1; dr++) {
-      for (let dc = -1; dc <= 1; dc++) {
-        if (dr === 0 && dc === 0) continue;
-        const nr = row + dr;
-        const nc = col + dc;
-        if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
-          const ni = nr * cols + nc;
-          if (ni < total) neighbors.push(ni);
-        }
-      }
-    }
-    return neighbors;
-  }
-
-  // ========================================
-  // MAIN INITIALIZATION
-  // ========================================
-
+  // Detect mobile
   const isMobile = window.innerWidth <= 768;
-  const videoCount = isMobile ? MOBILE_COUNT : DESKTOP_COUNT;
+  
+  // Grid configuration
   const cols = isMobile ? 2 : 4;
-  const rows = isMobile ? 3 : 3;
-  const clips = getRandomClips(videoCount);
+  const rows = 3;
+  const totalCells = cols * rows;
 
-  // Create container
-  const container = document.createElement('div');
-  container.className = 'living-mosaic-bg';
+  // Shuffle and select clips
+  const shuffled = shuffle(clips);
+  const selectedClips = shuffled.slice(0, totalCells);
 
-  // Create grid
-  const grid = document.createElement('div');
-  grid.className = 'mosaic-grid';
+  // Create main container
+  const wallContainer = document.createElement('div');
+  wallContainer.className = 'video-wall-bg';
 
-  // Create video cells
-  const cells = [];
-  clips.forEach((clipNum, index) => {
+  // Create grid container
+  const gridContainer = document.createElement('div');
+  gridContainer.className = 'video-wall-grid';
+  gridContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+  gridContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+
+  // Create cells with videos
+  selectedClips.forEach((clipUrl, index) => {
     const cell = document.createElement('div');
-    cell.className = 'mosaic-cell';
+    cell.className = 'video-wall-cell';
     cell.dataset.index = index;
+    cell.dataset.col = index % cols;
+    cell.dataset.row = Math.floor(index / cols);
 
-    const video = document.createElement('video');
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.autoplay = true;
-    video.src = getClipUrl(clipNum);
+    // Vignette overlay for soft edges
+    const vignette = document.createElement('div');
+    vignette.className = 'cell-vignette';
+    cell.appendChild(vignette);
+
+    // Video element (will load staggered)
+    cell.dataset.src = clipUrl;
     
-    // Stagger load for performance
-    setTimeout(() => {
-      video.play().catch(() => {});
-    }, index * 200);
-
-    cell.appendChild(video);
-    grid.appendChild(cell);
-    cells.push(cell);
+    gridContainer.appendChild(cell);
   });
 
-  // Add overlay for darkening
+  wallContainer.appendChild(gridContainer);
+
+  // Overall dark overlay
   const overlay = document.createElement('div');
-  overlay.className = 'mosaic-overlay';
+  overlay.className = 'video-wall-overlay';
+  wallContainer.appendChild(overlay);
 
-  // Add soft edge vignette
-  const vignette = document.createElement('div');
-  vignette.className = 'mosaic-vignette';
+  // Overall vignette for seamless edges
+  const masterVignette = document.createElement('div');
+  masterVignette.className = 'video-wall-master-vignette';
+  wallContainer.appendChild(masterVignette);
 
-  container.appendChild(grid);
-  container.appendChild(overlay);
-  container.appendChild(vignette);
-  document.body.insertBefore(container, document.body.firstChild);
+  // Insert into DOM
+  document.body.insertBefore(wallContainer, document.body.firstChild);
 
-  // ========================================
-  // PULSE FOCUS ANIMATION
-  // ========================================
-
-  let currentFocus = -1;
-  let previousNeighbors = [];
-
-  function pulse() {
-    // Reset previous states
-    cells.forEach(cell => {
-      cell.classList.remove('focused', 'compressed');
-    });
-
-    // Pick new focus (different from current)
-    let newFocus;
-    do {
-      newFocus = Math.floor(Math.random() * videoCount);
-    } while (newFocus === currentFocus && videoCount > 1);
-
-    currentFocus = newFocus;
-    const neighbors = getNeighbors(currentFocus, cols, videoCount);
-
-    // Apply focus to chosen cell
-    cells[currentFocus].classList.add('focused');
-
-    // Apply compression to neighbors
-    neighbors.forEach(ni => {
-      cells[ni].classList.add('compressed');
-    });
-
-    // Schedule next pulse
-    setTimeout(pulse, getRandomInterval());
-  }
-
-  // Start pulsing after videos have loaded
-  setTimeout(pulse, 2000);
-
-  // ========================================
-  // INJECT STYLES
-  // ========================================
-
+  // Inject styles
   const style = document.createElement('style');
   style.textContent = `
-    /* Container */
-    .living-mosaic-bg {
+    .video-wall-bg {
       position: fixed;
       top: 0;
       left: 0;
@@ -193,116 +103,105 @@
       background: #1a0000;
     }
 
-    /* Grid Layout */
-    .mosaic-grid {
+    .video-wall-grid {
       position: absolute;
       top: -5%;
       left: -5%;
       width: 110%;
       height: 110%;
       display: grid;
-      grid-template-columns: repeat(${cols}, 1fr);
-      grid-template-rows: repeat(${rows}, 1fr);
       gap: 0;
       z-index: 1;
     }
 
-    /* Individual Cell */
-    .mosaic-cell {
+    .video-wall-cell {
       position: relative;
       overflow: hidden;
-      transition: transform ${TRANSITION_DURATION}s cubic-bezier(0.4, 0, 0.2, 1),
-                  filter ${TRANSITION_DURATION}s cubic-bezier(0.4, 0, 0.2, 1),
-                  opacity ${TRANSITION_DURATION}s cubic-bezier(0.4, 0, 0.2, 1);
+      background: #1a0000;
       transform: scale(1);
-      filter: blur(0px) brightness(0.7);
-      border-radius: 0;
+      transition: transform 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  filter 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      filter: brightness(0.7);
     }
 
-    /* Video inside cell */
-    .mosaic-cell video {
+    .video-wall-cell.focused {
+      transform: scale(1.15);
+      filter: brightness(1);
+      z-index: 10;
+    }
+
+    .video-wall-cell.neighbor {
+      transform: scale(0.92);
+      filter: brightness(0.5) blur(1px);
+    }
+
+    .video-wall-cell video {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      min-width: 120%;
-      min-height: 120%;
+      min-width: 100%;
+      min-height: 100%;
       width: auto;
       height: auto;
       object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.8s ease;
     }
 
-    /* Soft edge gradient on each cell */
-    .mosaic-cell::after {
-      content: '';
+    .video-wall-cell video.loaded {
+      opacity: 0.85;
+    }
+
+    /* Soft edge vignette per cell */
+    .cell-vignette {
       position: absolute;
       top: 0;
       left: 0;
-      right: 0;
-      bottom: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
       background: radial-gradient(
         ellipse at center,
         transparent 40%,
-        rgba(26, 0, 0, 0.3) 80%,
+        rgba(26, 0, 0, 0.3) 70%,
         rgba(26, 0, 0, 0.6) 100%
       );
+    }
+
+    /* Master vignette for overall soft edges */
+    .video-wall-master-vignette {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
-      z-index: 2;
-      transition: opacity ${TRANSITION_DURATION}s ease;
+      z-index: 3;
+      background: radial-gradient(
+        ellipse at center,
+        transparent 30%,
+        rgba(26, 0, 0, 0.2) 60%,
+        rgba(26, 0, 0, 0.5) 85%,
+        rgba(26, 0, 0, 0.8) 100%
+      );
     }
 
-    /* Focused cell - grows and brightens */
-    .mosaic-cell.focused {
-      transform: scale(1.15);
-      filter: blur(0px) brightness(0.9);
-      z-index: 10;
-    }
-
-    .mosaic-cell.focused::after {
-      opacity: 0.3;
-    }
-
-    /* Compressed neighbors - shrink and dim slightly */
-    .mosaic-cell.compressed {
-      transform: scale(0.92);
-      filter: blur(1px) brightness(0.55);
-    }
-
-    .mosaic-cell.compressed::after {
-      opacity: 1;
-    }
-
-    /* Overall dark overlay */
-    .mosaic-overlay {
+    /* Dark overlay for content readability */
+    .video-wall-overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       background: rgba(75, 0, 0, 0.55);
-      z-index: 2;
       pointer-events: none;
+      z-index: 4;
     }
 
-    /* Soft vignette around edges */
-    .mosaic-vignette {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(
-        ellipse at center,
-        transparent 30%,
-        rgba(26, 0, 0, 0.4) 70%,
-        rgba(26, 0, 0, 0.8) 100%
-      );
-      z-index: 3;
-      pointer-events: none;
-    }
-
-    /* Ensure page content stays above */
-    body > *:not(.living-mosaic-bg) {
+    /* Ensure content is above video wall */
+    body > *:not(.video-wall-bg) {
       position: relative;
       z-index: 1;
     }
@@ -313,18 +212,113 @@
 
     /* Mobile adjustments */
     @media (max-width: 768px) {
-      .mosaic-cell.focused {
-        transform: scale(1.12);
+      .video-wall-cell.focused {
+        transform: scale(1.1);
       }
-      .mosaic-cell.compressed {
-        transform: scale(0.94);
-      }
-      .mosaic-overlay {
-        background: rgba(75, 0, 0, 0.6);
+      .video-wall-cell.neighbor {
+        transform: scale(0.95);
       }
     }
   `;
-
   document.head.appendChild(style);
+
+  // Staggered video loading
+  function loadVideos() {
+    const cells = document.querySelectorAll('.video-wall-cell');
+    
+    function loadVideoAt(index) {
+      if (index >= cells.length) {
+        // All loaded, start pulse animation
+        setTimeout(startPulseAnimation, 1000);
+        return;
+      }
+      
+      const cell = cells[index];
+      const src = cell.dataset.src;
+      
+      const video = document.createElement('video');
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.setAttribute('playsinline', '');
+      video.innerHTML = `<source src="${src}" type="video/mp4">`;
+      
+      cell.insertBefore(video, cell.firstChild);
+      
+      video.play().then(() => {
+        video.classList.add('loaded');
+      }).catch(() => {
+        // Autoplay blocked, still show
+        video.classList.add('loaded');
+      });
+      
+      // Load next after short delay
+      setTimeout(() => loadVideoAt(index + 1), 150);
+    }
+    
+    loadVideoAt(0);
+  }
+
+  // Pulse focus animation
+  function startPulseAnimation() {
+    const cells = document.querySelectorAll('.video-wall-cell');
+    const totalCells = cells.length;
+    
+    function getNeighborIndices(index) {
+      const col = parseInt(cells[index].dataset.col);
+      const row = parseInt(cells[index].dataset.row);
+      const neighbors = [];
+      
+      // Check all 8 surrounding positions
+      for (let dc = -1; dc <= 1; dc++) {
+        for (let dr = -1; dr <= 1; dr++) {
+          if (dc === 0 && dr === 0) continue;
+          
+          const nc = col + dc;
+          const nr = row + dr;
+          
+          if (nc >= 0 && nc < cols && nr >= 0 && nr < rows) {
+            const ni = nr * cols + nc;
+            if (ni < totalCells) {
+              neighbors.push(ni);
+            }
+          }
+        }
+      }
+      
+      return neighbors;
+    }
+    
+    function pulse() {
+      // Clear previous states
+      cells.forEach(cell => {
+        cell.classList.remove('focused', 'neighbor');
+      });
+      
+      // Pick random cell to focus
+      const focusIndex = Math.floor(Math.random() * totalCells);
+      cells[focusIndex].classList.add('focused');
+      
+      // Mark neighbors
+      const neighbors = getNeighborIndices(focusIndex);
+      neighbors.forEach(ni => {
+        cells[ni].classList.add('neighbor');
+      });
+      
+      // Schedule next pulse (5-8 seconds)
+      const nextDelay = 5000 + Math.random() * 3000;
+      setTimeout(pulse, nextDelay);
+    }
+    
+    // Start pulsing
+    pulse();
+  }
+
+  // Start loading when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadVideos);
+  } else {
+    setTimeout(loadVideos, 100);
+  }
 
 })();
