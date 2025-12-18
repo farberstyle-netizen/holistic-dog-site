@@ -92,6 +92,19 @@
   // Inject styles
   const style = document.createElement('style');
   style.textContent = `
+    /* Make body transparent so video wall shows through */
+    body {
+      background-color: transparent !important;
+    }
+
+    /* Give page content a background for text readability */
+    .page-container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 8px;
+      padding: 2rem;
+      margin-top: 100px;
+    }
+
     .video-wall-bg {
       position: fixed;
       top: 0;
@@ -217,6 +230,11 @@
       }
       .video-wall-cell.neighbor {
         transform: scale(0.95);
+      }
+      .page-container {
+        margin-top: 80px;
+        padding: 1.5rem;
+        border-radius: 0;
       }
     }
   `;
