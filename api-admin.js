@@ -2,12 +2,20 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname;
-    
-    // CORS headers
+
+    // Restrict CORS to production origin
+    const origin = request.headers.get('Origin');
+    const allowedOrigins = [
+      'https://holistictherapydogassociation.com',
+      'http://localhost:8080',
+      'http://localhost:3000',
+      'http://127.0.0.1:8080'
+    ];
     const corsHeaders = {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': allowedOrigins.includes(origin) ? origin : allowedOrigins[0],
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Vary': 'Origin'
     };
 
     if (request.method === 'OPTIONS') {
@@ -32,15 +40,14 @@ export default {
         return jsonResponse({ success: false, error: 'Invalid or expired token' }, 401, corsHeaders);
       }
 
-      // Optional: Verify user is admin
+      // SECURITY: Verify user is admin
       const user = await env.DB.prepare(
         'SELECT is_admin FROM users WHERE id = ?'
       ).bind(session.user_id).first();
 
-      // If you have an is_admin column, uncomment this check:
-      // if (!user?.is_admin) {
-      //   return jsonResponse({ success: false, error: 'Unauthorized' }, 403, corsHeaders);
-      // }
+      if (!user?.is_admin) {
+        return jsonResponse({ success: false, error: 'Unauthorized - admin access required' }, 403, corsHeaders);
+      }
 
       // GET /stats - Get admin dashboard statistics
       if (path === '/stats' && request.method === 'GET') {

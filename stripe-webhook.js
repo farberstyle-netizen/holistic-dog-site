@@ -11,7 +11,37 @@ export default {
 
     try {
       const body = await request.text();
+      const sig = request.headers.get('stripe-signature');
+
+      // Verify Stripe webhook signature (SECURITY: prevent fake webhooks)
+      if (!sig || !env.STRIPE_WEBHOOK_SECRET) {
+        console.error('Missing signature or webhook secret');
+        return new Response('Unauthorized', { status: 401 });
+      }
+
+      const isValid = await verifyStripeSignature(body, sig, env.STRIPE_WEBHOOK_SECRET);
+      if (!isValid) {
+        console.error('Invalid Stripe signature');
+        return new Response('Invalid signature', { status: 401 });
+      }
+
       const event = JSON.parse(body);
+
+      // Idempotency: Check if event already processed
+      const eventId = event.id;
+      if (eventId) {
+        const existing = await env.DB.prepare(
+          'SELECT id FROM processed_webhook_events WHERE event_id = ?'
+        ).bind(eventId).first();
+
+        if (existing) {
+          console.log(`Event ${eventId} already processed, skipping`);
+          return new Response(JSON.stringify({ received: true, duplicate: true }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+          });
+        }
+      }
 
       // Handle successful payment
       if (event.type === 'checkout.session.completed') {
@@ -67,7 +97,17 @@ export default {
 
         // Send confirmation email
         if (user && user.email) {
-          await sendConfirmationEmail(user, dog, licenseId, expiryFormatted);
+          const emailSent = await sendConfirmationEmail(user, dog, licenseId, expiryFormatted, env);
+          if (!emailSent) {
+            console.error('Failed to send confirmation email');
+          }
+        }
+
+        // Mark event as processed (idempotency)
+        if (eventId) {
+          await env.DB.prepare(
+            'INSERT INTO processed_webhook_events (event_id, event_type, processed_at) VALUES (?, ?, datetime("now"))'
+          ).bind(eventId, event.type).run();
         }
       }
 
@@ -86,7 +126,53 @@ export default {
   }
 };
 
-async function sendConfirmationEmail(user, dog, licenseId, expiryDate) {
+// Verify Stripe webhook signature using HMAC SHA-256
+async function verifyStripeSignature(payload, header, secret) {
+  try {
+    const parts = header.split(',');
+    const timestamp = parts.find(p => p.startsWith('t='))?.split('=')[1];
+    const signature = parts.find(p => p.startsWith('v1='))?.split('=')[1];
+
+    if (!timestamp || !signature) {
+      return false;
+    }
+
+    // Prevent replay attacks (reject events older than 5 minutes)
+    const currentTime = Math.floor(Date.now() / 1000);
+    if (currentTime - parseInt(timestamp) > 300) {
+      console.error('Webhook timestamp too old');
+      return false;
+    }
+
+    const signedPayload = `${timestamp}.${payload}`;
+    const encoder = new TextEncoder();
+    const key = await crypto.subtle.importKey(
+      'raw',
+      encoder.encode(secret),
+      { name: 'HMAC', hash: 'SHA-256' },
+      false,
+      ['sign']
+    );
+
+    const signatureBytes = await crypto.subtle.sign(
+      'HMAC',
+      key,
+      encoder.encode(signedPayload)
+    );
+
+    const expectedSignature = Array.from(new Uint8Array(signatureBytes))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+
+    // Constant-time comparison to prevent timing attacks
+    return signature === expectedSignature;
+  } catch (error) {
+    console.error('Signature verification error:', error);
+    return false;
+  }
+}
+
+async function sendConfirmationEmail(user, dog, licenseId, expiryDate, env) {
   const giftNote = dog.is_gift 
     ? `<p style="background: #fef3c7; padding: 12px; border-radius: 6px; margin: 20px 0;">🎁 <strong>Gift Order:</strong> This certification will be shipped to ${dog.gift_name}.</p>`
     : '';
@@ -211,6 +297,12 @@ async function sendConfirmationEmail(user, dog, licenseId, expiryDate) {
 </html>
   `;
 
+  // Validate SendGrid API key is configured
+  if (!env.SENDGRID_API_KEY) {
+    console.error('SendGrid API key not configured');
+    return false;
+  }
+
   try {
     const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
       method: 'POST',
@@ -223,9 +315,9 @@ async function sendConfirmationEmail(user, dog, licenseId, expiryDate) {
           to: [{ email: user.email }],
           subject: `🎓 ${dog.dog_name} is Now Certified!`
         }],
-        from: { 
-          email: 'noreply@holistictherapydogassociation.com', 
-          name: 'Holistic Therapy Dog Association' 
+        from: {
+          email: 'noreply@holistictherapydogassociation.com',
+          name: 'Holistic Therapy Dog Association'
         },
         reply_to: {
           email: 'support@holistictherapydogassociation.com',
@@ -240,11 +332,14 @@ async function sendConfirmationEmail(user, dog, licenseId, expiryDate) {
 
     if (response.ok) {
       console.log(`✅ Confirmation email sent to ${user.email}`);
+      return true;
     } else {
       const errorText = await response.text();
       console.error('SendGrid error:', response.status, errorText);
+      return false;
     }
   } catch (error) {
     console.error('Email send error:', error);
+    return false;
   }
 }

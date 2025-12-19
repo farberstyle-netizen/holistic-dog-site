@@ -1,0 +1,8 @@
+name = "api-login"
+main = "api-login.js"
+compatibility_date = "2024-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "holistic-dog-db"
+database_id = "1c56ce64-c3be-4946-a644-ec7c04d4ea14"

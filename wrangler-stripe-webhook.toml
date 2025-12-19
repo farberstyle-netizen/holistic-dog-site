@@ -2,6 +2,10 @@ name = "stripe-webhook"
 main = "stripe-webhook.js"
 compatibility_date = "2025-11-20"
 
+# REQUIRED SECRETS (set via: wrangler secret put STRIPE_WEBHOOK_SECRET)
+# - STRIPE_WEBHOOK_SECRET: Stripe webhook signing secret (whsec_...)
+# - SENDGRID_API_KEY: SendGrid API key for sending emails
+
 [[d1_databases]]
 binding = "DB"
 database_name = "holistic-dog-db"
