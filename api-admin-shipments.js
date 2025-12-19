@@ -10,7 +10,7 @@ export default {
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     };
 
     if (request.method === 'OPTIONS') {
@@ -18,6 +18,41 @@ export default {
     }
 
     try {
+      // SECURITY: Require authentication
+      const authHeader = request.headers.get('Authorization');
+      const token = authHeader?.replace('Bearer ', '');
+
+      if (!token) {
+        return new Response(JSON.stringify({ success: false, error: 'No token provided' }), {
+          status: 401,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
+      }
+
+      // Verify session token
+      const session = await env.DB.prepare(
+        'SELECT * FROM sessions WHERE token = ? AND expires_at > datetime("now")'
+      ).bind(token).first();
+
+      if (!session) {
+        return new Response(JSON.stringify({ success: false, error: 'Invalid or expired token' }), {
+          status: 401,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
+      }
+
+      // SECURITY: Verify user is admin
+      const user = await env.DB.prepare(
+        'SELECT is_admin FROM users WHERE id = ?'
+      ).bind(session.user_id).first();
+
+      if (!user?.is_admin) {
+        return new Response(JSON.stringify({ success: false, error: 'Admin access required' }), {
+          status: 403,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
+      }
+
       if (request.method === 'GET') {
         // Fetch all paid dogs with user info AND gift shipping info
         const { results } = await env.DB.prepare(`

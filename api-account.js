@@ -227,16 +227,26 @@ export default {
         if (!data.current_password || !data.new_password) {
           return jsonResponse({ success: false, error: "Missing required fields" }, 400, corsHeaders);
         }
+
+        // Validate new password strength
+        if (data.new_password.length < 8) {
+          return jsonResponse({ success: false, error: "Password must be at least 8 characters" }, 400, corsHeaders);
+        }
+
         const user = await env.DB.prepare(
           "SELECT password_hash FROM users WHERE id = ?"
         ).bind(userId).first();
         if (!user) {
           return jsonResponse({ success: false, error: "User not found" }, 404, corsHeaders);
         }
-        const currentHash = await hashPassword(data.current_password);
-        if (user.password_hash !== currentHash) {
+
+        // Verify current password using new verification function
+        const passwordMatch = await verifyPassword(data.current_password, user.password_hash);
+        if (!passwordMatch) {
           return jsonResponse({ success: false, error: "Current password is incorrect" }, 401, corsHeaders);
         }
+
+        // Hash new password with PBKDF2
         const newHash = await hashPassword(data.new_password);
         const result = await env.DB.prepare(
           "UPDATE users SET password_hash = ? WHERE id = ?"
@@ -270,10 +280,84 @@ function jsonResponse(data, status = 200, extraHeaders = {}) {
   });
 }
 
+// Secure password hashing using PBKDF2 with salt
+// Format: salt:hash (both hex-encoded)
 async function hashPassword(password) {
+  // Generate random 16-byte salt
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+
+  // Convert password to key material
   const encoder = new TextEncoder();
-  const data = encoder.encode(password);
-  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+  const passwordKey = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(password),
+    'PBKDF2',
+    false,
+    ['deriveBits']
+  );
+
+  // Derive key using PBKDF2 with 100,000 iterations
+  const derivedBits = await crypto.subtle.deriveBits(
+    {
+      name: 'PBKDF2',
+      salt: salt,
+      iterations: 100000,
+      hash: 'SHA-256'
+    },
+    passwordKey,
+    256 // 32 bytes
+  );
+
+  const hashArray = Array.from(new Uint8Array(derivedBits));
+  const saltHex = Array.from(salt).map(b => b.toString(16).padStart(2, '0')).join('');
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+  return `${saltHex}:${hashHex}`;
+}
+
+// Verify password against stored hash
+async function verifyPassword(password, storedHash) {
+  // Handle legacy SHA-256 hashes (64 hex chars, no colon)
+  if (storedHash.length === 64 && !storedHash.includes(':')) {
+    // Legacy verification
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hash === storedHash;
+  }
+
+  // New PBKDF2 verification
+  const [saltHex, expectedHashHex] = storedHash.split(':');
+  if (!saltHex || !expectedHashHex) return false;
+
+  // Convert hex salt back to Uint8Array
+  const salt = new Uint8Array(saltHex.match(/.{2}/g).map(byte => parseInt(byte, 16)));
+
+  // Derive key with same parameters
+  const encoder = new TextEncoder();
+  const passwordKey = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(password),
+    'PBKDF2',
+    false,
+    ['deriveBits']
+  );
+
+  const derivedBits = await crypto.subtle.deriveBits(
+    {
+      name: 'PBKDF2',
+      salt: salt,
+      iterations: 100000,
+      hash: 'SHA-256'
+    },
+    passwordKey,
+    256
+  );
+
+  const hashArray = Array.from(new Uint8Array(derivedBits));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+  return hashHex === expectedHashHex;
 }

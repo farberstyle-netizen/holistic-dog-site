@@ -32,15 +32,14 @@ export default {
         return jsonResponse({ success: false, error: 'Invalid or expired token' }, 401, corsHeaders);
       }
 
-      // Optional: Verify user is admin
+      // SECURITY: Verify user is admin - REQUIRED
       const user = await env.DB.prepare(
         'SELECT is_admin FROM users WHERE id = ?'
       ).bind(session.user_id).first();
 
-      // If you have an is_admin column, uncomment this check:
-      // if (!user?.is_admin) {
-      //   return jsonResponse({ success: false, error: 'Unauthorized' }, 403, corsHeaders);
-      // }
+      if (!user?.is_admin) {
+        return jsonResponse({ success: false, error: 'Admin access required' }, 403, corsHeaders);
+      }
 
       // GET /stats - Get admin dashboard statistics
       if (path === '/stats' && request.method === 'GET') {
