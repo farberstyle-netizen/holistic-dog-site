@@ -1,0 +1,479 @@
+/* ========================================
+   HTDA Design System - Design Tokens
+   Version: 1.0
+   Last Updated: 2025-12-19
+   ======================================== */
+
+:root {
+  /* ===== Color Palette ===== */
+
+  /* Primary Colors - Maroon */
+  --color-primary: #800000;
+  --color-primary-dark: #5F0000;
+  --color-primary-darker: #4b0000;
+  --color-primary-light: #A00000;
+
+  /* Accent Colors - Gold */
+  --color-accent: #B8860B;
+  --color-accent-dark: #8B6914;
+  --color-accent-darker: #9A7209;
+  --color-accent-light: #DAA520;
+
+  /* Neutral Colors */
+  --color-neutral-white: #FFFFFF;
+  --color-neutral-light: #F8F8F8;
+  --color-neutral-gray: #666666;
+  --color-neutral-dark: #333333;
+  --color-neutral-black: #000000;
+
+  /* Semantic Colors - Status */
+  --color-status-success: #27AE60;
+  --color-status-error: #E74C3C;
+  --color-status-warning: #F39C12;
+  --color-status-info: #3498DB;
+
+  /* Background Overlays */
+  --overlay-dark: rgba(75, 0, 0, 0.92);
+  --overlay-medium: rgba(75, 0, 0, 0.7);
+  --overlay-light: rgba(75, 0, 0, 0.4);
+  --overlay-black-50: rgba(0, 0, 0, 0.5);
+  --overlay-black-70: rgba(0, 0, 0, 0.7);
+
+  /* ===== Spacing Scale ===== */
+  --spacing-xs: 0.25rem;    /* 4px */
+  --spacing-sm: 0.5rem;     /* 8px */
+  --spacing-md: 1rem;       /* 16px */
+  --spacing-lg: 1.5rem;     /* 24px */
+  --spacing-xl: 2rem;       /* 32px */
+  --spacing-2xl: 3rem;      /* 48px */
+  --spacing-3xl: 4rem;      /* 64px */
+  --spacing-4xl: 6rem;      /* 96px */
+
+  /* ===== Typography ===== */
+
+  /* Font Families */
+  --font-family-serif: 'Playfair Display', serif;
+  --font-family-sans: 'Lato', sans-serif;
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.875rem;     /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;     /* 18px */
+  --font-size-xl: 1.5rem;       /* 24px */
+  --font-size-2xl: 2rem;        /* 32px */
+  --font-size-3xl: 2.5rem;      /* 40px */
+  --font-size-4xl: 3rem;        /* 48px */
+
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.6;
+  --line-height-loose: 1.75;
+
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.01em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.02em;
+  --letter-spacing-wider: 0.05em;
+
+  /* ===== Shadows & Elevation ===== */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.25);
+  --shadow-2xl: 0 25px 60px rgba(0, 0, 0, 0.3);
+
+  /* Interactive Shadows */
+  --shadow-focus: 0 0 0 3px rgba(184, 134, 11, 0.15);
+  --shadow-focus-primary: 0 0 0 3px rgba(128, 0, 0, 0.1);
+  --shadow-button-hover: 0 5px 15px rgba(184, 134, 11, 0.4);
+
+  /* ===== Border Radius ===== */
+  --radius-none: 0;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* ===== Transitions & Animations ===== */
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 250ms ease-in-out;
+  --transition-slow: 350ms ease-in-out;
+  --transition-slower: 500ms ease-in-out;
+
+  /* Timing Functions */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ===== Z-Index Scale ===== */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-popover: 600;
+  --z-tooltip: 700;
+  --z-notification: 800;
+
+  /* ===== Breakpoints (for reference in media queries) ===== */
+  /* Use these values in media queries, not as CSS variables */
+  /* --breakpoint-xs: 320px; */
+  /* --breakpoint-sm: 640px; */
+  /* --breakpoint-md: 768px; */
+  /* --breakpoint-lg: 1024px; */
+  /* --breakpoint-xl: 1280px; */
+  /* --breakpoint-2xl: 1536px; */
+}
+
+/* ========================================
+   Utility Classes
+   ======================================== */
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus Visible (for keyboard navigation) */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ========================================
+   Typography Base Styles
+   ======================================== */
+
+body {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-neutral-dark);
+  background-color: var(--color-neutral-light);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-serif);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-primary);
+}
+
+h1 {
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--spacing-lg);
+}
+
+h2 {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--spacing-md);
+}
+
+h3 {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-md);
+}
+
+h4 {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-sm);
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+  line-height: var(--line-height-relaxed);
+}
+
+/* ========================================
+   Button Components
+   ======================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 2px solid transparent;
+  border-radius: var(--radius-full);
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  line-height: 1;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Primary Button - Gold */
+.btn--primary {
+  background-color: var(--color-accent);
+  color: var(--color-primary-darker);
+  border-color: var(--color-accent);
+}
+
+.btn--primary:hover {
+  background-color: var(--color-accent-darker);
+  border-color: var(--color-accent-darker);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-button-hover);
+  text-decoration: none;
+}
+
+/* Secondary Button - Outlined */
+.btn--secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn--secondary:hover {
+  background-color: var(--color-primary);
+  color: var(--color-neutral-white);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+/* Outline Gold Button */
+.btn--outline-gold {
+  background-color: transparent;
+  color: var(--color-neutral-white);
+  border-color: var(--color-accent);
+}
+
+.btn--outline-gold:hover {
+  background-color: var(--color-accent);
+  color: var(--color-primary-darker);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-button-hover);
+  text-decoration: none;
+}
+
+/* ========================================
+   Form Components
+   ======================================== */
+
+.form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-dark);
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-neutral-gray);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-focus);
+}
+
+.form-input:invalid,
+.form-textarea:invalid,
+.form-select:invalid {
+  border-color: var(--color-status-error);
+}
+
+.form-hint {
+  display: block;
+  margin-top: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-gray);
+}
+
+.form-error {
+  display: block;
+  margin-top: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-status-error);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ========================================
+   Card Components
+   ======================================== */
+
+.card {
+  background-color: var(--color-neutral-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-xl);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-title {
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+/* ========================================
+   Modal Components
+   ======================================== */
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--overlay-black-70);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal-backdrop);
+}
+
+.modal {
+  background-color: var(--color-neutral-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2xl);
+  padding: var(--spacing-2xl);
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  z-index: var(--z-modal);
+}
+
+.modal:focus {
+  outline: none;
+}
+
+.modal-close {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background: none;
+  border: none;
+  font-size: var(--font-size-2xl);
+  cursor: pointer;
+  color: var(--color-neutral-gray);
+  line-height: 1;
+  transition: color var(--transition-fast);
+}
+
+.modal-close:hover {
+  color: var(--color-primary);
+}
+
+/* ========================================
+   Layout Containers
+   ======================================== */
+
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing-md);
+  padding-right: var(--spacing-md);
+}
+
+.page-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: calc(var(--spacing-4xl) + var(--spacing-xl)) var(--spacing-xl) var(--spacing-3xl);
+}
+
+.page-container--wide {
+  max-width: 1100px;
+}
+
+/* ========================================
+   Responsive Utilities
+   ======================================== */
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-3xl: 2rem;
+    --font-size-2xl: 1.5rem;
+  }
+
+  .page-container {
+    padding-top: calc(var(--spacing-3xl) + var(--spacing-lg));
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+}
+
+/* ========================================
+   Dark Mode Support (Future)
+   ======================================== */
+
+@media (prefers-color-scheme: dark) {
+  /* Uncomment when dark mode is implemented
+  :root {
+    --color-neutral-white: #1a1a1a;
+    --color-neutral-light: #2a2a2a;
+    --color-neutral-dark: #f5f5f5;
+  }
+  */
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}
