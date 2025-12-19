@@ -103,26 +103,56 @@ function createDogCard(dog) {
     imageStyle = 'aspect-ratio: 1/1; object-fit: cover;';
   }
 
-  // Build the card HTML
-  card.innerHTML = `
-    <div class="${containerClass}">
-      ${photoUrl ? 
-        `<img src="https://photos.holistictherapydogassociation.com/${photoUrl}" 
-             alt="${dogName}" 
-             class="dog-image"
-             style="${imageStyle}"
-             onerror="this.parentElement.innerHTML='<div class=\\'dog-image-placeholder\\'>Photo Loading...</div>'">` 
-        : 
-        '<div class="dog-image-placeholder">Photo Loading...</div>'
-      }
-    </div>
-    <div class="dog-content">
-      <h3 class="dog-name">${dogName}</h3>
-      <h4 class="dog-status">LICENSE: ACTIVE</h4>
-      <p class="dog-bio">License ID: ${dog.license_id || 'Pending'}</p>
-      <p class="dog-bio">Certified: ${certDate}</p>
-    </div>
-  `;
+  // Build the card using DOM methods to prevent XSS
+  const imageContainer = document.createElement('div');
+  imageContainer.className = containerClass;
+
+  if (photoUrl) {
+    const img = document.createElement('img');
+    img.src = `https://photos.holistictherapydogassociation.com/${encodeURIComponent(photoUrl)}`;
+    img.alt = dogName; // textContent auto-escapes
+    img.className = 'dog-image';
+    img.style.cssText = imageStyle;
+    img.onerror = function() {
+      const placeholder = document.createElement('div');
+      placeholder.className = 'dog-image-placeholder';
+      placeholder.textContent = 'Photo Loading...';
+      this.parentElement.replaceChild(placeholder, this);
+    };
+    imageContainer.appendChild(img);
+  } else {
+    const placeholder = document.createElement('div');
+    placeholder.className = 'dog-image-placeholder';
+    placeholder.textContent = 'Photo Loading...';
+    imageContainer.appendChild(placeholder);
+  }
+
+  const contentDiv = document.createElement('div');
+  contentDiv.className = 'dog-content';
+
+  const nameHeading = document.createElement('h3');
+  nameHeading.className = 'dog-name';
+  nameHeading.textContent = dogName; // Safely escapes HTML
+
+  const statusHeading = document.createElement('h4');
+  statusHeading.className = 'dog-status';
+  statusHeading.textContent = 'LICENSE: ACTIVE';
+
+  const licenseP = document.createElement('p');
+  licenseP.className = 'dog-bio';
+  licenseP.textContent = `License ID: ${dog.license_id || 'Pending'}`;
+
+  const certP = document.createElement('p');
+  certP.className = 'dog-bio';
+  certP.textContent = `Certified: ${certDate}`;
+
+  contentDiv.appendChild(nameHeading);
+  contentDiv.appendChild(statusHeading);
+  contentDiv.appendChild(licenseP);
+  contentDiv.appendChild(certP);
+
+  card.appendChild(imageContainer);
+  card.appendChild(contentDiv);
 
   return card;
 }

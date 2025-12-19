@@ -132,6 +132,17 @@
         const token = localStorage.getItem('session_token');
         if (!token) window.location.href = 'login.html';
 
+        // XSS Protection: HTML escape utility
+        function escapeHtml(unsafe) {
+            if (unsafe == null) return '';
+            return String(unsafe)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
         function showMsg(text, type) {
             const msgBox = document.getElementById('msg-box');
             msgBox.textContent = text;
@@ -187,48 +198,48 @@
                     document.getElementById('bill_state').value = data.user.billing_state || '';
                     document.getElementById('bill_zip').value = data.user.billing_zip || '';
 
-                    // --- LOAD DOGS (NEW FULL WIDTH LAYOUT) ---
+                    // --- LOAD DOGS (NEW FULL WIDTH LAYOUT) - XSS PROTECTED ---
                     const dogsContainer = document.getElementById('dogs-container');
                     if (data.dogs && data.dogs.length > 0) {
                         dogsContainer.innerHTML = data.dogs.map(dog => `
                             <div class="dog-full-profile">
                                 <div class="dog-info-side">
-                                    <h3>${dog.dog_name}</h3>
-                                    <p class="license-tag">License ID: ${dog.license_id}</p>
-                                    
-                                    <form onsubmit="updateDog(event, '${dog.id}')" class="dog-details-form">
+                                    <h3>${escapeHtml(dog.dog_name)}</h3>
+                                    <p class="license-tag">License ID: ${escapeHtml(dog.license_id)}</p>
+
+                                    <form onsubmit="updateDog(event, '${escapeHtml(dog.id)}')" class="dog-details-form">
                                         <div class="form-row">
                                             <div class="form-group-half">
                                                 <label>Breed</label>
-                                                <input type="text" name="breed" value="${dog.breed || ''}" placeholder="e.g. Golden Retriever">
+                                                <input type="text" name="breed" value="${escapeHtml(dog.breed || '')}" placeholder="e.g. Golden Retriever">
                                             </div>
                                             <div class="form-group-half">
                                                 <label>Birthday</label>
-                                                <input type="text" name="birthday" value="${dog.birthday || ''}" placeholder="MM/DD/YYYY">
+                                                <input type="text" name="birthday" value="${escapeHtml(dog.birthday || '')}" placeholder="MM/DD/YYYY">
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group-third">
                                                 <label>Weight (lbs)</label>
-                                                <input type="text" name="weight" value="${dog.weight || ''}" placeholder="50">
+                                                <input type="text" name="weight" value="${escapeHtml(dog.weight || '')}" placeholder="50">
                                             </div>
                                             <div class="form-group-third">
                                                 <label>Height (in)</label>
-                                                <input type="text" name="height" value="${dog.height || ''}" placeholder="24">
+                                                <input type="text" name="height" value="${escapeHtml(dog.height || '')}" placeholder="24">
                                             </div>
                                             <div class="form-group-third">
                                                 <label>Eye Color</label>
-                                                <input type="text" name="eye_color" value="${dog.eye_color || ''}" placeholder="Brown">
+                                                <input type="text" name="eye_color" value="${escapeHtml(dog.eye_color || '')}" placeholder="Brown">
                                             </div>
                                         </div>
                                         <button type="submit" class="cta-button small-btn">Save Dog Details</button>
                                     </form>
                                 </div>
                                 <div class="dog-photo-side">
-                                    ${dog.photo_url ? 
-                                        `<img src="https://pub-6ce181398b9b4e588bcc0db8db53f07a.r2.dev/${dog.photo_url}" 
-                                              alt="${dog.dog_name}" 
-                                              onerror="this.onerror=null;this.src='default-pfp.png';">` 
+                                    ${dog.photo_url ?
+                                        `<img src="https://pub-6ce181398b9b4e588bcc0db8db53f07a.r2.dev/${encodeURIComponent(dog.photo_url)}"
+                                              alt="${escapeHtml(dog.dog_name)}"
+                                              onerror="this.onerror=null;this.src='default-pfp.png';">`
                                         : '<div class="no-photo">No Photo</div>'}
                                 </div>
                             </div>
@@ -237,14 +248,14 @@
                         dogsContainer.innerHTML = '<p>No certified dogs yet. <a href="add-dog.html">Certify your first dog!</a></p>';
                     }
 
-                    // Load Orders
+                    // Load Orders - XSS PROTECTED
                     const ordersContainer = document.getElementById('orders-container');
                     if (data.orders && data.orders.length > 0) {
                         ordersContainer.innerHTML = data.orders.map(order => `
                             <div style="background:white; padding:1.5rem; margin-bottom:1rem; border-radius:8px; border:1px solid #eee;">
-                                <h3>Order for ${order.dog_name}</h3>
-                                <p><strong>Date:</strong> ${new Date(order.paid_at).toLocaleDateString()}</p>
-                                <p><strong>License:</strong> ${order.license_id}</p>
+                                <h3>Order for ${escapeHtml(order.dog_name)}</h3>
+                                <p><strong>Date:</strong> ${escapeHtml(new Date(order.paid_at).toLocaleDateString())}</p>
+                                <p><strong>License:</strong> ${escapeHtml(order.license_id)}</p>
                                 <p><strong>Status:</strong> <span style="color:green">Paid</span></p>
                             </div>
                         `).join('');
