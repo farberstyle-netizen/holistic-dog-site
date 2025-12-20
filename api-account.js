@@ -2,10 +2,20 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname;
+
+    // Restrict CORS to production origin
+    const origin = request.headers.get('Origin');
+    const allowedOrigins = [
+      'https://holistictherapydogassociation.com',
+      'http://localhost:8080',
+      'http://localhost:3000',
+      'http://127.0.0.1:8080'
+    ];
     const corsHeaders = {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": allowedOrigins.includes(origin) ? origin : allowedOrigins[0],
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      "Vary": "Origin"
     };
     if (request.method === "OPTIONS") {
       return new Response(null, { headers: corsHeaders });
