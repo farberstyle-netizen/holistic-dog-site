@@ -1,65 +1,26 @@
 /**
  * API Admin Shipments Worker
  * Fetches all paid dogs with user info and gift addresses for shipment management
- * Deploy to: api-admin-shipments.farberstyle.workers.dev
  * Bindings needed: DB (holistic-dog-db)
  */
 
+import { requireAdmin, getCORSHeaders, handleCORSPreflight } from './auth.js';
+
 export default {
   async fetch(request, env) {
-    // Restrict CORS to production origin
-    const origin = request.headers.get('Origin');
-    const allowedOrigins = [
-      'https://holistictherapydogassociation.com',
-      'http://localhost:8080',
-      'http://localhost:3000',
-      'http://127.0.0.1:8080'
-    ];
-    const corsHeaders = {
-      'Access-Control-Allow-Origin': allowedOrigins.includes(origin) ? origin : allowedOrigins[0],
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Vary': 'Origin'
-    };
-
+    // Handle CORS preflight
     if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders });
+      return handleCORSPreflight(request);
     }
 
-    // SECURITY: Require authentication for admin endpoints
-    const authHeader = request.headers.get('Authorization');
-    const token = authHeader?.replace('Bearer ', '');
-
-    if (!token) {
-      return new Response(JSON.stringify({ success: false, error: 'No token provided' }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-      });
+    // SECURITY: Require admin authentication via cookie
+    const authResult = await requireAdmin(request, env);
+    if (authResult instanceof Response) {
+      return authResult; // Auth failed, return error response
     }
 
-    // Verify session token
-    const session = await env.DB.prepare(
-      'SELECT user_id FROM sessions WHERE token = ? AND expires_at > datetime("now")'
-    ).bind(token).first();
-
-    if (!session) {
-      return new Response(JSON.stringify({ success: false, error: 'Invalid or expired token' }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-      });
-    }
-
-    // SECURITY: Verify user is admin
-    const user = await env.DB.prepare(
-      'SELECT is_admin FROM users WHERE id = ?'
-    ).bind(session.user_id).first();
-
-    if (!user?.is_admin) {
-      return new Response(JSON.stringify({ success: false, error: 'Unauthorized - admin access required' }), {
-        status: 403,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-      });
-    }
+    const { user, session } = authResult;
+    const corsHeaders = getCORSHeaders(request);
 
     try {
       if (request.method === 'GET') {

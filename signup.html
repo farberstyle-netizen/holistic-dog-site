@@ -282,7 +282,7 @@
 
                 const data = await response.json();
 
-                if (response.ok && data.token) {
+                if (response.ok && data.success) {
                     window.location.href = 'add-dog.html';
                 } else {
                     errorBox.textContent = data.message || 'An error occurred. Please try again.';

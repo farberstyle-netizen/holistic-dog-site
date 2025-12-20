@@ -386,11 +386,6 @@
         
         // Load order data from sessionStorage
         document.addEventListener('DOMContentLoaded', function() {
-            if (!token) {
-                window.location.href = 'login.html';
-                return;
-            }
-            
             // Get order data from sessionStorage
             const storedData = sessionStorage.getItem('checkout_data');
             if (!storedData) {
@@ -434,7 +429,7 @@
         
         async function fetchUserAddress() {
             try {
-                const response = await fetch(${API_CONFIG.endpoints.account}/profile', {
+                const response = await fetch(`${API_CONFIG.endpoints.account}/profile`, {
                     headers: { }
                 });
                 const data = await response.json();

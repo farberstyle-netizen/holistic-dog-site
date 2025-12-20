@@ -237,15 +237,10 @@
     <script src="header.js"></script>
     <script src="footer.js"></script>
     <script>
-        // Check if user is logged in when clicking Start HERE
+        // Start certification - always go to quiz
+        // Backend will handle authentication state
         function startCertification() {
-            if (token) {
-                // User is logged in - show choice modal
-                document.getElementById('choiceModal').style.display = 'flex';
-            } else {
-                // Not logged in - go to quiz
-                window.location.href = 'quiz.html';
-            }
+            window.location.href = 'quiz.html';
         }
 
         function closeModal() {

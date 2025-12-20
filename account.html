@@ -129,10 +129,7 @@
     <script src="api-config.js"></script>
     <script src="header.js"></script>
     <script src="footer.js"></script>
-    <script>
-        if (!token) window.location.href = 'login.html';
-
-        function showMsg(text, type) {
+    <script>function showMsg(text, type) {
             const msgBox = document.getElementById('msg-box');
             msgBox.textContent = text;
             msgBox.className = `status-msg ${type}`;
@@ -157,7 +154,7 @@
 
         async function loadAccount() {
             try {
-                const response = await fetch(${API_CONFIG.endpoints.account}/profile', {
+                const response = await fetch(`${API_CONFIG.endpoints.account}/profile`, {
                     headers: { }
                 });
                 const data = await response.json();
@@ -265,7 +262,7 @@
             const data = Object.fromEntries(formData);
             
             try {
-                const response = await fetch(${API_CONFIG.endpoints.account}/update-dog', {
+                const response = await fetch(`${API_CONFIG.endpoints.account}/update-dog`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ ...data, dog_id: dogId })
@@ -288,7 +285,7 @@
             const lastName = nameParts.slice(1).join(' ') || '';
 
             try {
-                const response = await fetch(${API_CONFIG.endpoints.account}/update', {
+                const response = await fetch(`${API_CONFIG.endpoints.account}/update`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -311,7 +308,7 @@
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData);
             try {
-                const response = await fetch(${API_CONFIG.endpoints.account}/update-billing', {
+                const response = await fetch(`${API_CONFIG.endpoints.account}/update-billing`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -338,7 +335,7 @@
             if (newPass !== confirmPass) { showMsg('Passwords do not match', 'error'); return; }
 
             try {
-                const response = await fetch(${API_CONFIG.endpoints.account}/change-password', {
+                const response = await fetch(`${API_CONFIG.endpoints.account}/change-password`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ current_password: document.getElementById('current_password').value, new_password: newPass })
