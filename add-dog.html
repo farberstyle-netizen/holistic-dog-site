@@ -318,6 +318,7 @@
         <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>
 
+    <script src="api-config.js"></script>
     <script src="header.js"></script>
     <script src="footer.js"></script>
     <script>
@@ -470,7 +471,6 @@
             submitBtn.disabled = true;
             submitBtn.textContent = 'Processing...';
 
-            const token = localStorage.getItem('session_token');
             if (!token) {
                 window.location.href = 'login.html';
                 return;
@@ -484,7 +484,7 @@
                     formData.append('photo', photoFile);
                     formData.append('token', token);
 
-                    const uploadResponse = await fetch('https://api-dogs.farberstyle.workers.dev/upload-photo', {
+                    const uploadResponse = await fetch(${API_CONFIG.endpoints.dogs}/upload-photo', {
                         method: 'POST',
                         body: formData
                     });

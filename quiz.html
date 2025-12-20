@@ -37,6 +37,7 @@
 
     <footer></footer>
 
+    <script src="api-config.js"></script>
     <script src="header.js"></script>
     <script src="footer.js"></script>
     <script>
@@ -66,7 +67,6 @@
         }
         function finish() {
             // If user is already logged in, go directly to add-dog
-            const token = localStorage.getItem('session_token');
             if (token) {
                 window.location.href = 'add-dog.html';
             } else {

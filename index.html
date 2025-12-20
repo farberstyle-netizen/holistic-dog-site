@@ -233,12 +233,12 @@
         </div>
     </div>
 
+    <script src="api-config.js"></script>
     <script src="header.js"></script>
     <script src="footer.js"></script>
     <script>
         // Check if user is logged in when clicking Start HERE
         function startCertification() {
-            const token = localStorage.getItem('session_token');
             if (token) {
                 // User is logged in - show choice modal
                 document.getElementById('choiceModal').style.display = 'flex';

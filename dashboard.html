@@ -89,11 +89,11 @@
         <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>
 
+    <script src="api-config.js"></script>
     <script src="header.js"></script>
     <script src="footer.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const token = localStorage.getItem('session_token');
             if (!token) {
                 window.location.href = 'login.html';
             }

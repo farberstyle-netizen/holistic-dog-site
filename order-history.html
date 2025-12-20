@@ -66,11 +66,11 @@
 
     <footer></footer>
 
+    <script src="api-config.js"></script>
     <script src="header.js"></script>
     <script src="footer.js"></script>
     <script>
         async function loadOrders() {
-            const token = localStorage.getItem('session_token');
             if (!token) { 
                 window.location.href = 'login.html'; 
                 return; 
@@ -78,8 +78,8 @@
             
             try {
                 // Use same API endpoint as account page
-                const res = await fetch('https://api-account.farberstyle.workers.dev/profile', {
-                    headers: { 'Authorization': `Bearer ${token}` }
+                const res = await fetch(${API_CONFIG.endpoints.account}/profile', {
+                    headers: { }
                 });
                 const data = await res.json();
                 const container = document.getElementById('orders-container');

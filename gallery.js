@@ -15,7 +15,7 @@
 
   try {
     // Fetch gallery dogs from API
-    const response = await fetch('https://api-gallery.farberstyle.workers.dev');
+    const response = await fetch(API_CONFIG.endpoints.gallery);
     
     if (!response.ok) {
       throw new Error(`API returned status ${response.status}`);
