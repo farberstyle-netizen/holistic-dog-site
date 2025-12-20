@@ -2,6 +2,12 @@ name = "api-checkout"
 main = "api-checkout.js"
 compatibility_date = "2025-11-20"
 
+# Production route
+routes = [
+  "holistictherapydogassociation.com/api/checkout",
+  "www.holistictherapydogassociation.com/api/checkout"
+]
+
 [[d1_databases]]
 binding = "DB"
 database_name = "holistic-dog-db"

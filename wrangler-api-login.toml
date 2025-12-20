@@ -2,6 +2,12 @@ name = "api-login"
 main = "api-login.js"
 compatibility_date = "2024-01-01"
 
+# Production route
+routes = [
+  "holistictherapydogassociation.com/api/login",
+  "www.holistictherapydogassociation.com/api/login"
+]
+
 [[d1_databases]]
 binding = "DB"
 database_name = "holistic-dog-db"

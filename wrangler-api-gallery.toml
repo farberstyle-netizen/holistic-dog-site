@@ -2,6 +2,12 @@ name = "api-gallery"
 main = "api-gallery.js"
 compatibility_date = "2024-01-01"
 
+# Production route
+routes = [
+  "holistictherapydogassociation.com/api/gallery",
+  "www.holistictherapydogassociation.com/api/gallery"
+]
+
 [[d1_databases]]
 binding = "DB"
 database_name = "holistic-dog-db"

@@ -6,6 +6,12 @@ compatibility_date = "2025-11-20"
 # - STRIPE_WEBHOOK_SECRET: Stripe webhook signing secret (whsec_...)
 # - SENDGRID_API_KEY: SendGrid API key for sending emails
 
+# Production route
+routes = [
+  "holistictherapydogassociation.com/stripe/webhook",
+  "www.holistictherapydogassociation.com/stripe/webhook"
+]
+
 [[d1_databases]]
 binding = "DB"
 database_name = "holistic-dog-db"

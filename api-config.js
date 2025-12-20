@@ -1,5 +1,5 @@
 // API Configuration - Single source of truth for all API endpoints
-// Eliminates hardcoded .workers.dev and r2.dev URLs throughout the codebase
+// Uses environment-based routing without hardcoded development domains
 
 const API_CONFIG = {
   // Detect environment
@@ -8,7 +8,8 @@ const API_CONFIG = {
   // API endpoints (same-origin paths for production, full URLs for dev)
   get endpoints() {
     const isDev = this.isDev;
-    const devBase = 'https://farberstyle.workers.dev';
+    // Development: use subdomain-based Worker URLs (configure DEV_API_BASE as needed)
+    const devBase = isDev ? (window.DEV_API_BASE || 'https://dev-api.example.com') : '';
 
     if (isDev) {
       return {
@@ -21,7 +22,8 @@ const API_CONFIG = {
         resetPassword: `${devBase}/api-reset-password`,
         gallery: `${devBase}/api-gallery`,
         admin: `${devBase}/api-admin`,
-        adminShipments: `${devBase}/api-admin-shipments`
+        adminShipments: `${devBase}/api-admin-shipments`,
+        logout: `${devBase}/api-logout`
       };
     }
 
@@ -36,14 +38,16 @@ const API_CONFIG = {
       resetPassword: '/api/reset-password',
       gallery: '/api/gallery',
       admin: '/api/admin',
-      adminShipments: '/api/admin-shipments'
+      adminShipments: '/api/admin-shipments',
+      logout: '/api/logout'
     };
   },
 
   // R2 bucket URL for dog photos
   get r2Origin() {
     if (this.isDev) {
-      return 'https://pub-6ce181398b9b4e588bcc0db8db53f07a.r2.dev';
+      // Development: use public R2 URL (configure DEV_R2_ORIGIN as needed)
+      return window.DEV_R2_ORIGIN || 'https://dev-r2.example.com';
     }
     // Production: use CDN subdomain or same-origin path
     return '/cdn';
