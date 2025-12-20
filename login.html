@@ -121,41 +121,41 @@
         <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>
 
+    <script src="api-config.js"></script>
     <script src="header.js"></script>
     <script src="footer.js"></script>
     <script>
-        const API_URL = 'https://api-login.farberstyle.workers.dev';
-
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const errorBox = document.getElementById('error-box');
             const btn = document.querySelector('.btn-login');
-            
+
             btn.disabled = true;
             btn.innerText = "Logging in...";
             errorBox.style.display = 'none';
 
             try {
-                const formData = new FormData(document.getElementById('loginForm'));
-                
-                const response = await fetch(API_URL, {
+                const email = document.querySelector('[name="email"]').value;
+                const password = document.querySelector('[name="password"]').value;
+
+                const response = await fetch(API_CONFIG.endpoints.login, {
                     method: 'POST',
-                    body: formData
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ email, password })
                 });
 
                 const data = await response.json();
 
-                if (response.ok && data.token) {
-                    localStorage.setItem('session_token', data.token);
-                    localStorage.setItem('is_admin', data.is_admin ? '1' : '0');
-                    
-                    if (data.is_admin) {
+                if (response.ok && data.success) {
+                    // Session stored in HttpOnly cookie by server
+                    if (data.user?.is_admin) {
                         window.location.href = 'admin.html';
                     } else {
                         window.location.href = 'account.html';
                     }
                 } else {
-                    errorBox.textContent = data.message || 'Invalid email/username or password.';
+                    errorBox.textContent = data.error || 'Invalid email/username or password.';
                     errorBox.style.display = 'block';
                     btn.disabled = false;
                     btn.innerText = "Login";

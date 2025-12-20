@@ -1,6 +1,3 @@
-// Load artwork system (self-contained, no conflicts)
-document.head.appendChild(Object.assign(document.createElement('script'), {src: 'artwork.js'}));
-
 /**
  * HEADER.JS - Minimal Institutional Header
  * Logo (two lines) + Verify License + Login/Account
@@ -10,7 +7,6 @@ document.head.appendChild(Object.assign(document.createElement('script'), {src: 
 (function() {
   const navLinks = document.getElementById('nav-links');
   const navAccount = document.getElementById('nav-account-links');
-  const sessionToken = localStorage.getItem('session_token');
 
   // Update logo to two-line wordmark
   const logoElement = document.querySelector('.logo');
@@ -28,11 +24,9 @@ document.head.appendChild(Object.assign(document.createElement('script'), {src: 
     `;
   }
 
-  // Account area based on login state
+  // Account area - show account dropdown (server will handle auth redirects)
   if (navAccount) {
-    if (sessionToken) {
-      // User is logged in - show account dropdown
-      navAccount.innerHTML = `
+    navAccount.innerHTML = `
         <div class="account-dropdown-container">
           <button class="nav-btn nav-btn-gold account-trigger" aria-label="Account menu">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -86,13 +80,6 @@ document.head.appendChild(Object.assign(document.createElement('script'), {src: 
           }
         });
       }
-
-    } else {
-      // Not logged in - show login button (outlined style)
-      navAccount.innerHTML = `
-        <a href="login.html" class="nav-btn nav-btn-outline">Login</a>
-      `;
-    }
   }
 
   // Mobile hamburger
@@ -133,10 +120,18 @@ document.head.appendChild(Object.assign(document.createElement('script'), {src: 
   // ========================================
   initVideoBackground();
 
-  // Logout function
-  window.logout = function(event) {
+  // Logout function - clears HttpOnly cookie via server
+  window.logout = async function(event) {
     if (event) event.preventDefault();
-    localStorage.removeItem('session_token');
+    try {
+      // Call logout endpoint to clear server-side session/cookie
+      await fetch('/api/logout', {
+        method: 'POST',
+        credentials: 'include'
+      });
+    } catch (err) {
+      console.error('Logout error:', err);
+    }
     window.location.href = 'index.html';
   };
 })();
@@ -152,12 +147,11 @@ function initVideoBackground() {
     return;
   }
 
-  const R2_URL = 'https://pub-b8de7488131f47ae9cb4c0c980d7a984.r2.dev';
-  
   // Build clip list (wall_01.mp4 through wall_30.mp4)
   const clips = [];
+  const videoBase = window.API_CONFIG ? API_CONFIG.r2Origin : '/cdn';
   for (let i = 1; i <= 30; i++) {
-    clips.push(`${R2_URL}/wall_${i.toString().padStart(2, '0')}.mp4`);
+    clips.push(`${videoBase}/wall_${i.toString().padStart(2, '0')}.mp4`);
   }
 
   // Shuffle array

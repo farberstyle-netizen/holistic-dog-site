@@ -126,10 +126,10 @@
         <p>&copy; 2025 HTDA.</p>
     </footer>
 
+    <script src="api-config.js"></script>
     <script src="header.js"></script>
     <script src="footer.js"></script>
     <script>
-        const token = localStorage.getItem('session_token');
         if (!token) window.location.href = 'login.html';
 
         function showMsg(text, type) {
@@ -157,8 +157,8 @@
 
         async function loadAccount() {
             try {
-                const response = await fetch('https://api-account.farberstyle.workers.dev/profile', {
-                    headers: { 'Authorization': `Bearer ${token}` }
+                const response = await fetch(${API_CONFIG.endpoints.account}/profile', {
+                    headers: { }
                 });
                 const data = await response.json();
                 
@@ -226,7 +226,7 @@
                                 </div>
                                 <div class="dog-photo-side">
                                     ${dog.photo_url ? 
-                                        `<img src="https://pub-6ce181398b9b4e588bcc0db8db53f07a.r2.dev/${dog.photo_url}" 
+                                        `<img src="' + API_CONFIG.r2Origin + '/${dog.photo_url}" 
                                               alt="${dog.dog_name}" 
                                               onerror="this.onerror=null;this.src='default-pfp.png';">` 
                                         : '<div class="no-photo">No Photo</div>'}
@@ -265,9 +265,9 @@
             const data = Object.fromEntries(formData);
             
             try {
-                const response = await fetch('https://api-account.farberstyle.workers.dev/update-dog', {
+                const response = await fetch(${API_CONFIG.endpoints.account}/update-dog', {
                     method: 'PUT',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ ...data, dog_id: dogId })
                 });
                 const result = await response.json();
@@ -288,9 +288,9 @@
             const lastName = nameParts.slice(1).join(' ') || '';
 
             try {
-                const response = await fetch('https://api-account.farberstyle.workers.dev/update', {
+                const response = await fetch(${API_CONFIG.endpoints.account}/update', {
                     method: 'PUT',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         first_name: firstName, last_name: lastName,
                         address: data.ship_address, city: data.ship_city,
@@ -311,9 +311,9 @@
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData);
             try {
-                const response = await fetch('https://api-account.farberstyle.workers.dev/update-billing', {
+                const response = await fetch(${API_CONFIG.endpoints.account}/update-billing', {
                     method: 'PUT',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         billing_name: data.bill_name,
                         billing_address: data.bill_address,
@@ -338,9 +338,9 @@
             if (newPass !== confirmPass) { showMsg('Passwords do not match', 'error'); return; }
 
             try {
-                const response = await fetch('https://api-account.farberstyle.workers.dev/change-password', {
+                const response = await fetch(${API_CONFIG.endpoints.account}/change-password', {
                     method: 'PUT',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ current_password: document.getElementById('current_password').value, new_password: newPass })
                 });
                 const result = await response.json();

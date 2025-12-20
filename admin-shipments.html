@@ -129,6 +129,7 @@
 
     <footer></footer>
 
+    <script src="api-config.js"></script>
     <script src="header.js"></script>
     <script src="footer.js"></script>
     <script>
@@ -143,7 +144,7 @@
             }
 
             try {
-                const response = await fetch('https://api-admin-shipments.farberstyle.workers.dev');
+                const response = await fetch(API_CONFIG.endpoints.adminShipments);
                 const data = await response.json();
                 
                 if (data.success) {
@@ -260,7 +261,7 @@
             const trackingNumber = document.getElementById(`tracking-${dogId}`).value;
             
             try {
-                const response = await fetch('https://api-admin-shipments.farberstyle.workers.dev', {
+                const response = await fetch(API_CONFIG.endpoints.adminShipments, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ dog_id: dogId, tracking_number: trackingNumber })

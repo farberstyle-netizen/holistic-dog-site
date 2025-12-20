@@ -226,11 +226,11 @@
         <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>
 
+    <script src="api-config.js"></script>
     <script src="header.js"></script>
     <script src="footer.js"></script>
     <script>
         // If user is already logged in, redirect to add-dog
-        const existingToken = localStorage.getItem('session_token');
         if (existingToken) {
             window.location.href = 'add-dog.html';
         }
@@ -242,7 +242,7 @@
             }
         });
 
-        const API_URL = 'https://api-signup.farberstyle.workers.dev';
+        const API_URL = API_CONFIG.endpoints.signup;
 
         document.getElementById('signupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -283,7 +283,6 @@
                 const data = await response.json();
 
                 if (response.ok && data.token) {
-                    localStorage.setItem('session_token', data.token);
                     window.location.href = 'add-dog.html';
                 } else {
                     errorBox.textContent = data.message || 'An error occurred. Please try again.';

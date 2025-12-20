@@ -1,32 +1,42 @@
 // API Configuration - Single source of truth for all API endpoints
-// This prevents hardcoded .workers.dev URLs throughout the codebase
+// Eliminates hardcoded .workers.dev and r2.dev URLs throughout the codebase
 
 const API_CONFIG = {
   // Detect environment
   isDev: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1',
 
-  // Base API origin (same-origin for production, workers.dev for development)
-  get baseOrigin() {
-    if (this.isDev) {
-      return 'https://farberstyle.workers.dev';
-    }
-    return 'https://api.holistictherapydogassociation.com';
-  },
-
-  // API endpoints
+  // API endpoints (same-origin paths for production, full URLs for dev)
   get endpoints() {
-    const base = this.baseOrigin;
+    const isDev = this.isDev;
+    const devBase = 'https://farberstyle.workers.dev';
+
+    if (isDev) {
+      return {
+        login: `${devBase}/api-login`,
+        signup: `${devBase}/api-signup`,
+        verify: `${devBase}/api-verify`,
+        account: `${devBase}/api-account`,
+        checkout: `${devBase}/api-checkout`,
+        dogs: `${devBase}/api-dogs`,
+        resetPassword: `${devBase}/api-reset-password`,
+        gallery: `${devBase}/api-gallery`,
+        admin: `${devBase}/api-admin`,
+        adminShipments: `${devBase}/api-admin-shipments`
+      };
+    }
+
+    // Production: same-origin paths (routed by Cloudflare)
     return {
-      login: `${base}/api-login`,
-      signup: `${base}/api-signup`,
-      verify: `${base}/api-verify`,
-      account: `${base}/api-account`,
-      checkout: `${base}/api-checkout`,
-      dogs: `${base}/api-dogs`,
-      resetPassword: `${base}/api-reset-password`,
-      gallery: `${base}/api-gallery`,
-      admin: `${base}/api-admin`,
-      adminShipments: `${base}/api-admin-shipments`
+      login: '/api/login',
+      signup: '/api/signup',
+      verify: '/api/verify',
+      account: '/api/account',
+      checkout: '/api/checkout',
+      dogs: '/api/dogs',
+      resetPassword: '/api/reset-password',
+      gallery: '/api/gallery',
+      admin: '/api/admin',
+      adminShipments: '/api/admin-shipments'
     };
   },
 
@@ -35,13 +45,30 @@ const API_CONFIG = {
     if (this.isDev) {
       return 'https://pub-6ce181398b9b4e588bcc0db8db53f07a.r2.dev';
     }
-    return 'https://cdn.holistictherapydogassociation.com';
+    // Production: use CDN subdomain or same-origin path
+    return '/cdn';
   },
 
   // Helper to get full photo URL
   getPhotoUrl(photoFilename) {
     if (!photoFilename) return '/default-pfp.png';
+    if (photoFilename.startsWith('http')) return photoFilename;
     return `${this.r2Origin}/${photoFilename}`;
+  },
+
+  // Helper for authenticated fetch (uses cookies, not localStorage)
+  async fetch(endpoint, options = {}) {
+    const url = typeof endpoint === 'string' ? endpoint : endpoint;
+    const config = {
+      ...options,
+      credentials: 'include', // Always include cookies
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+      }
+    };
+
+    return fetch(url, config);
   }
 };
 

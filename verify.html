@@ -193,6 +193,7 @@
         <p>&copy; 2025 Holistic Therapy Dog Association. All Rights Reserved.</p>
     </footer>
 
+    <script src="api-config.js"></script>
     <script src="header.js"></script>
     <script src="footer.js"></script>
     <script>
@@ -263,7 +264,7 @@
 
             try {
                 // Construct URL with query params
-                const url = new URL('https://api-verify.farberstyle.workers.dev');
+                const url = new URL(API_CONFIG.endpoints.verify);
                 url.searchParams.append('mode', searchMode);
                 url.searchParams.append('q', query);
                 if (turnstileToken) {
@@ -279,7 +280,7 @@
                     // Render Results
                     resultsDiv.innerHTML = data.results.map(dog => `
                         <div class="result-card">
-                            <img src="${dog.photo_url ? 'https://pub-6ce181398b9b4e588bcc0db8db53f07a.r2.dev/' + dog.photo_url : 'default-dog.png'}" 
+                            <img src="${dog.photo_url ? '' + API_CONFIG.r2Origin + '/' + dog.photo_url : 'default-dog.png'}" 
                                  class="result-img" alt="${dog.dog_name}">
                             <div class="result-info">
                                 <div class="verified-badge">
