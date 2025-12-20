@@ -1,11 +1,11 @@
-name = "api-signup"
-main = "api-signup.js"
+name = "api-admin"
+main = "api-admin.js"
 compatibility_date = "2024-01-01"
 
 # Production route
 routes = [
-  "holistictherapydogassociation.com/api/signup",
-  "www.holistictherapydogassociation.com/api/signup"
+  "holistictherapydogassociation.com/api/admin/*",
+  "www.holistictherapydogassociation.com/api/admin/*"
 ]
 
 [[d1_databases]]

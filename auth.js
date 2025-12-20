@@ -8,7 +8,7 @@
  * @param {string} cookieHeader - Raw Cookie header value
  * @returns {Object} Parsed cookies as key-value pairs
  */
-function parseCookies(cookieHeader) {
+export function parseCookies(cookieHeader) {
   const cookies = {};
   if (!cookieHeader) return cookies;
 
