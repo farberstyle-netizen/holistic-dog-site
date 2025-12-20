@@ -1,55 +1,29 @@
+import { requireAuth, getCORSHeaders, handleCORSPreflight } from './auth.js';
+
 export default {
   async fetch(request, env) {
-    // Restrict CORS to production origin
-    const origin = request.headers.get('Origin');
-    const allowedOrigins = [
-      'https://holistictherapydogassociation.com',
-      'http://localhost:8080',
-      'http://localhost:3000',
-      'http://127.0.0.1:8080'
-    ];
-    const corsHeaders = {
-      'Access-Control-Allow-Origin': allowedOrigins.includes(origin) ? origin : allowedOrigins[0],
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Vary': 'Origin'
-    };
-
+    // Handle CORS preflight
     if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders });
+      return handleCORSPreflight(request);
     }
 
     if (request.method !== 'POST') {
       return new Response(JSON.stringify({ error: 'Method not allowed' }), {
         status: 405,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: { ...getCORSHeaders(request), 'Content-Type': 'application/json' }
       });
     }
 
+    // SECURITY: Require authentication via cookie
+    const authResult = await requireAuth(request, env);
+    if (authResult instanceof Response) {
+      return authResult; // Auth failed, return error response
+    }
+
+    const { user, session } = authResult;
+    const corsHeaders = getCORSHeaders(request);
+
     try {
-      const token = request.headers.get('Authorization')?.replace('Bearer ', '');
-      
-      if (!token) {
-        return new Response(JSON.stringify({ error: 'No token provided' }), {
-          status: 401,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-        });
-      }
-
-      const session = await env.DB.prepare(`
-        SELECT s.user_id, u.email, u.id
-        FROM sessions s
-        JOIN users u ON s.user_id = u.id
-        WHERE s.token = ? AND s.expires_at > datetime('now')
-      `).bind(token).first();
-
-      if (!session) {
-        return new Response(JSON.stringify({ error: 'Invalid or expired token' }), {
-          status: 401,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-        });
-      }
-
       const data = await request.json();
       const licenseId = Math.floor(10000000 + Math.random() * 90000000).toString();
       const frameOrientation = data.frame_orientation || 'square';
@@ -64,10 +38,10 @@ export default {
 
       if (data.coupon === 'BETA2025') {
         await env.DB.prepare(
-          `INSERT INTO dogs (user_id, dog_name, license_id, state_of_licensure, payment_status, paid_at, expires_at, photo_url, frame_orientation, is_gift, gift_name, gift_address, gift_city, gift_state, gift_zip, created_at) 
+          `INSERT INTO dogs (user_id, dog_name, license_id, state_of_licensure, payment_status, paid_at, expires_at, photo_url, frame_orientation, is_gift, gift_name, gift_address, gift_city, gift_state, gift_zip, created_at)
            VALUES (?, ?, ?, ?, 'paid', datetime('now'), date('now', '+2 years'), ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`
         ).bind(
-          session.user_id,
+          user.id,
           data.dog_name,
           licenseId,
           data.state,
@@ -96,7 +70,7 @@ export default {
           `INSERT INTO dogs (user_id, dog_name, license_id, state_of_licensure, payment_status, photo_url, frame_orientation, is_gift, gift_name, gift_address, gift_city, gift_state, gift_zip, created_at, expires_at) 
            VALUES (?, ?, ?, ?, 'pending', ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), date('now', '+2 years'))`
         ).bind(
-          session.user_id,
+          user.id,
           data.dog_name,
           licenseId,
           data.state,
@@ -128,7 +102,7 @@ export default {
         `INSERT INTO dogs (user_id, dog_name, license_id, state_of_licensure, payment_status, photo_url, frame_orientation, is_gift, gift_name, gift_address, gift_city, gift_state, gift_zip, created_at, expires_at) 
          VALUES (?, ?, ?, ?, 'pending', ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), date('now', '+2 years'))`
       ).bind(
-        session.user_id,
+        user.id,
         data.dog_name,
         licenseId,
         data.state,

@@ -1,53 +1,25 @@
+import { requireAdmin, getCORSHeaders, handleCORSPreflight } from './auth.js';
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname;
 
-    // Restrict CORS to production origin
-    const origin = request.headers.get('Origin');
-    const allowedOrigins = [
-      'https://holistictherapydogassociation.com',
-      'http://localhost:8080',
-      'http://localhost:3000',
-      'http://127.0.0.1:8080'
-    ];
-    const corsHeaders = {
-      'Access-Control-Allow-Origin': allowedOrigins.includes(origin) ? origin : allowedOrigins[0],
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Vary': 'Origin'
-    };
-
+    // Handle CORS preflight
     if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders });
+      return handleCORSPreflight(request);
     }
 
+    // SECURITY: Require admin authentication via cookie
+    const authResult = await requireAdmin(request, env);
+    if (authResult instanceof Response) {
+      return authResult; // Auth failed, return error response
+    }
+
+    const { user, session } = authResult;
+    const corsHeaders = getCORSHeaders(request);
+
     try {
-      // Get token from Authorization header
-      const authHeader = request.headers.get('Authorization');
-      const token = authHeader?.replace('Bearer ', '');
-
-      if (!token) {
-        return jsonResponse({ success: false, error: 'No token provided' }, 401, corsHeaders);
-      }
-
-      // Verify session token
-      const session = await env.DB.prepare(
-        'SELECT * FROM sessions WHERE token = ? AND expires_at > datetime("now")'
-      ).bind(token).first();
-
-      if (!session) {
-        return jsonResponse({ success: false, error: 'Invalid or expired token' }, 401, corsHeaders);
-      }
-
-      // SECURITY: Verify user is admin
-      const user = await env.DB.prepare(
-        'SELECT is_admin FROM users WHERE id = ?'
-      ).bind(session.user_id).first();
-
-      if (!user?.is_admin) {
-        return jsonResponse({ success: false, error: 'Unauthorized - admin access required' }, 403, corsHeaders);
-      }
 
       // GET /stats - Get admin dashboard statistics
       if (path === '/stats' && request.method === 'GET') {

@@ -47,12 +47,7 @@
     <script src="api-config.js"></script>
     <script src="header.js"></script>
     <script src="footer.js"></script>
-    <script>
-        if (!token) {
-            window.location.href = 'login.html';
-        }
-
-        async function loadMessages() {
+    <script>async function loadMessages() {
             const container = document.getElementById('messages-container');
             container.innerHTML = '<div style="background: white; padding: 2rem; border-radius: 8px; text-align: center;"><p>Contact message system will be implemented when api-contact worker is deployed.</p></div>';
         }

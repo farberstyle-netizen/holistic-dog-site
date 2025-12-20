@@ -67,9 +67,8 @@
         }
         function finish() {
             // If user is already logged in, go directly to add-dog
-            if (token) {
-                window.location.href = 'add-dog.html';
-            } else {
+            // Cookie-based auth - signup will redirect
+            {
                 window.location.href = 'signup.html?qualified=yes';
             }
         }

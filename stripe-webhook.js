@@ -126,6 +126,23 @@ export default {
   }
 };
 
+/**
+ * Constant-time string comparison to prevent timing attacks
+ * Compares two strings of equal length in constant time
+ */
+function constantTimeCompare(a, b) {
+  if (a.length !== b.length) {
+    return false;
+  }
+
+  let result = 0;
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+
+  return result === 0;
+}
+
 // Verify Stripe webhook signature using HMAC SHA-256
 async function verifyStripeSignature(payload, header, secret) {
   try {
@@ -165,7 +182,7 @@ async function verifyStripeSignature(payload, header, secret) {
       .join('');
 
     // Constant-time comparison to prevent timing attacks
-    return signature === expectedSignature;
+    return constantTimeCompare(signature, expectedSignature);
   } catch (error) {
     console.error('Signature verification error:', error);
     return false;

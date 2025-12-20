@@ -269,20 +269,15 @@
             submitBtn.disabled = true;
             submitBtn.textContent = 'Processing...';
 
-            if (!token) {
-                window.location.href = 'login.html';
-                return;
-            }
-
             try {
                 const photoFile = document.getElementById('photo').files[0];
                 if (photoFile && !photoSkipped) {
                     const formData = new FormData();
                     formData.append('photo', photoFile);
-                    formData.append('token', token);
 
-                    const uploadResponse = await fetch(${API_CONFIG.endpoints.dogs}/upload-photo', {
+                    const uploadResponse = await fetch(`${API_CONFIG.endpoints.dogs}/upload-photo`, {
                         method: 'POST',
+                        credentials: 'include',
                         body: formData
                     });
                     const uploadData = await uploadResponse.json();
