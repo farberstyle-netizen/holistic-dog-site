@@ -1,0 +1,416 @@
+/**
+ * DARK ACADEMIA THEME
+ * "Immersive Institutional Theatre" - 1920s Bureaucratic Institution Aesthetic
+ * Tactile UI: Texture, Depth, Ink, and Wax
+ */
+
+/* ========================================
+   1. CSS VARIABLES - THE PALETTE
+   ======================================== */
+:root {
+    /* Primary Colors - Deep Oxblood & Cream */
+    --oxblood: #5d1818;
+    --oxblood-dark: #3d0f0f;
+    --cream: #fdfbf7;
+    --bone: #F5F2EE;
+
+    /* Metallic Gold Accents */
+    --gold: #D4A574;
+    --gold-dark: #C5A059;
+    --gold-light: #E8D4B8;
+
+    /* Supporting Neutrals */
+    --charcoal: #2c2c2c;
+    --ink: #1a1a1a;
+    --parchment: #f9f6f1;
+
+    /* Opacity & Effects */
+    --texture-opacity: 0.08;
+    --vignette-strength: rgba(0, 0, 0, 0.6);
+
+    /* Typography Spacing */
+    --letter-spacing-headline: 0.05em;
+    --letter-spacing-label: 0.15em;
+
+    /* Animations */
+    --transition-slow: 0.6s ease-in-out;
+    --transition-medium: 0.4s ease;
+}
+
+/* ========================================
+   2. BODY TEXTURE OVERLAY - "Paper Grain"
+   ======================================== */
+body {
+    background-color: var(--cream);
+    color: var(--charcoal);
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: var(--texture-opacity);
+    mix-blend-mode: overlay;
+
+    /* Subtle noise texture using SVG data URI */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* ========================================
+   3. TYPOGRAPHY - "Engraved" Letterpress
+   ======================================== */
+
+/* Headlines - Playfair Display (Stone Carving) */
+h1, h2, h3, .headline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    letter-spacing: var(--letter-spacing-headline);
+    line-height: 1.1;
+    color: var(--oxblood);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 3.5rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-size: 1.8rem;
+}
+
+/* Subheads & Labels - Lato (Stamped Serial Number) */
+.subhead,
+label,
+.form-label,
+.section-label,
+button,
+.btn {
+    font-family: 'Lato', -apple-system, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-label);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+/* Body Text - Refined Readability */
+p, li, div {
+    font-family: 'Lato', -apple-system, sans-serif;
+    line-height: 1.7;
+    color: var(--charcoal);
+}
+
+/* ========================================
+   4. VIGNETTE EFFECTS - Library Lighting
+   ======================================== */
+.hero-section,
+.quiz-container,
+.content-section,
+section.dark {
+    position: relative;
+    box-shadow: inset 0 0 150px var(--vignette-strength);
+}
+
+/* Oxblood Background Sections */
+.bg-oxblood {
+    background-color: var(--oxblood) !important;
+    color: var(--cream) !important;
+}
+
+.bg-oxblood h1,
+.bg-oxblood h2,
+.bg-oxblood h3 {
+    color: var(--gold) !important;
+}
+
+/* Cream/Parchment Sections */
+.bg-cream {
+    background-color: var(--cream) !important;
+}
+
+.bg-parchment {
+    background-color: var(--parchment) !important;
+}
+
+/* ========================================
+   5. QUIZ PROGRESS BAR - Gold Track
+   ======================================== */
+.quiz-progress-container {
+    width: 100%;
+    height: 6px;
+    background-color: var(--bone);
+    border: 1px solid var(--gold-dark);
+    border-radius: 0;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.quiz-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold) 100%);
+    width: 0%;
+    transition: width var(--transition-slow);
+    box-shadow: 0 0 10px var(--gold);
+}
+
+/* ========================================
+   6. WAX SEAL RADIO BUTTONS
+   ======================================== */
+
+/* Hide default radio inputs */
+.wax-seal-radio input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Custom Radio Container */
+.wax-seal-radio {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 1.2rem 1.5rem;
+    margin: 0.8rem 0;
+    border: 2px solid var(--bone);
+    background-color: var(--parchment);
+    cursor: pointer;
+    transition: all var(--transition-medium);
+}
+
+.wax-seal-radio:hover {
+    border-color: var(--gold);
+    background-color: var(--cream);
+    box-shadow: 0 4px 12px rgba(197, 160, 89, 0.15);
+}
+
+/* The Gold Ring (Unchecked State) */
+.wax-seal-radio::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--gold-dark);
+    border-radius: 50%;
+    margin-right: 1rem;
+    flex-shrink: 0;
+    background-color: transparent;
+    transition: all var(--transition-medium);
+}
+
+/* The Hot Wax Seal (Checked State) */
+.wax-seal-radio input[type="radio"]:checked + label::before,
+.wax-seal-radio:has(input[type="radio"]:checked)::before {
+    background-color: var(--oxblood);
+    border-color: var(--oxblood-dark);
+    box-shadow:
+        0 0 0 3px var(--cream),
+        0 0 0 5px var(--gold-dark),
+        inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    animation: waxSeal 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Wax Seal Bounce Animation */
+@keyframes waxSeal {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Checked Radio Label Text */
+.wax-seal-radio:has(input[type="radio"]:checked) {
+    border-color: var(--gold-dark);
+    background-color: var(--bone);
+    font-weight: 700;
+}
+
+/* ========================================
+   7. BUREAUCRATIC BUTTONS
+   ======================================== */
+.btn-bureaucratic,
+.quiz-btn,
+button.primary {
+    background: linear-gradient(135deg, var(--oxblood) 0%, var(--oxblood-dark) 100%);
+    color: var(--gold);
+    border: 2px solid var(--gold-dark);
+    padding: 1rem 2.5rem;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-label);
+    cursor: pointer;
+    transition: all var(--transition-medium);
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-bureaucratic:hover,
+.quiz-btn:hover {
+    background: linear-gradient(135deg, var(--oxblood-dark) 0%, #2d0a0a 100%);
+    border-color: var(--gold);
+    color: var(--gold-light);
+    box-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(212, 165, 116, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.btn-bureaucratic:active,
+.quiz-btn:active {
+    transform: translateY(0);
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.3),
+        inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   8. THE DELIBERATION SCREEN - "Stamping Seal"
+   ======================================== */
+.deliberation-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--oxblood) 0%, var(--oxblood-dark) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.deliberation-screen.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* The Stamping Seal Animation */
+.seal-stamp {
+    width: 150px;
+    height: 150px;
+    border: 4px solid var(--gold);
+    border-radius: 50%;
+    position: relative;
+    margin-bottom: 2rem;
+    animation: stampRotate 5s ease-in-out infinite;
+    box-shadow:
+        0 0 30px var(--gold),
+        inset 0 0 20px rgba(212, 165, 116, 0.3);
+}
+
+.seal-stamp::before {
+    content: '⚜';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    color: var(--gold);
+    animation: stampPulse 2s ease-in-out infinite;
+}
+
+@keyframes stampRotate {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-5deg) scale(1.05); }
+    50% { transform: rotate(0deg) scale(1); }
+    75% { transform: rotate(5deg) scale(1.05); }
+}
+
+@keyframes stampPulse {
+    0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* Deliberation Status Text */
+.deliberation-text {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-label);
+    text-align: center;
+    animation: textFade 1.5s ease-in-out infinite;
+}
+
+@keyframes textFade {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* ========================================
+   9. REFINEMENTS - Cards, Forms, Inputs
+   ======================================== */
+
+/* Cards with Depth */
+.card,
+.quiz-card {
+    background-color: var(--parchment);
+    border: 1px solid var(--bone);
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.1),
+        0 1px 2px rgba(0, 0, 0, 0.06);
+    padding: 2rem;
+}
+
+/* Input Fields - Inkwell Style */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    background-color: var(--cream);
+    border: 2px solid var(--bone);
+    color: var(--ink);
+    padding: 0.75rem 1rem;
+    font-family: 'Lato', sans-serif;
+    transition: all var(--transition-medium);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--gold-dark);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.15);
+}
+
+/* ========================================
+   10. UTILITY CLASSES
+   ======================================== */
+.text-oxblood { color: var(--oxblood) !important; }
+.text-gold { color: var(--gold) !important; }
+.text-cream { color: var(--cream) !important; }
+
+.border-gold { border-color: var(--gold-dark) !important; }
+.border-oxblood { border-color: var(--oxblood) !important; }
+
+/* Letterpress Effect for Special Text */
+.letterpress {
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3), 0 -1px 0 rgba(0, 0, 0, 0.7);
+}
