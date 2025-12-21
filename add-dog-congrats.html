@@ -295,6 +295,7 @@
 
                 const response = await fetch(API_CONFIG.endpoints.checkout, {
                     method: 'POST',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json'
                     },
