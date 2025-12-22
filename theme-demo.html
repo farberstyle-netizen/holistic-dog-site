@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Academia Theme Demo | HTDA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dark-academia.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .demo-section {
+            padding: 4rem 2rem;
+            margin-bottom: 2rem;
+        }
+        .component-preview {
+            background: var(--cream);
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--bone);
+        }
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .color-swatch {
+            display: inline-block;
+            width: 120px;
+            height: 120px;
+            margin: 1rem;
+            border: 2px solid var(--charcoal);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .color-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 0.5rem;
+            font-size: 0.7rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <!-- Header -->
+        <section class="demo-section bg-oxblood" style="text-align: center; color: var(--cream);">
+            <h1 style="color: var(--gold); font-size: 4rem; margin-bottom: 1rem;">Dark Academia Theme</h1>
+            <p class="subhead" style="color: var(--gold-light);">Immersive Institutional Theatre - Component Showcase</p>
+        </section>
+
+        <!-- Color Palette -->
+        <section class="demo-section bg-parchment">
+            <h2>Color Palette - "Paper & Ink"</h2>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; margin-top: 2rem;">
+                <div class="color-swatch" style="background: var(--oxblood);">
+                    <div class="color-label">Oxblood<br>#5d1818</div>
+                </div>
+                <div class="color-swatch" style="background: var(--cream);">
+                    <div class="color-label" style="color: var(--charcoal);">Cream<br>#fdfbf7</div>
+                </div>
+                <div class="color-swatch" style="background: var(--gold);">
+                    <div class="color-label">Gold<br>#D4A574</div>
+                </div>
+                <div class="color-swatch" style="background: var(--parchment);">
+                    <div class="color-label" style="color: var(--charcoal);">Parchment<br>#f9f6f1</div>
+                </div>
+                <div class="color-swatch" style="background: var(--charcoal);">
+                    <div class="color-label">Charcoal<br>#2c2c2c</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography -->
+        <section class="demo-section bg-cream">
+            <h2>Typography - "Engraved Letterpress"</h2>
+
+            <div class="component-preview">
+                <h1>H1 Headline - Playfair Display</h1>
+                <h2>H2 Subheadline - Stone Carved Elegance</h2>
+                <h3>H3 Section Title - Institutional Authority</h3>
+                <p class="subhead">Subhead Label - Stamped Serial Number Style</p>
+                <p>Body text uses Lato with comfortable line-height for readability. This paragraph demonstrates how regular text appears in the Dark Academia theme, with refined spacing and neutral charcoal color.</p>
+            </div>
+        </section>
+
+        <!-- Buttons -->
+        <section class="demo-section bg-parchment">
+            <h2>Bureaucratic Button System</h2>
+
+            <div class="component-preview" style="text-align: center;">
+                <button class="btn-bureaucratic" style="margin: 1rem;">Submit Application for Review</button>
+                <button class="btn-bureaucratic" style="margin: 1rem;">Proceed to Ratification</button>
+                <button class="btn-bureaucratic" style="margin: 1rem;">Seal & Confer Degree</button>
+                <button class="btn-bureaucratic" style="margin: 1rem;">Record in Official Ledger</button>
+            </div>
+
+            <p style="text-align: center; color: var(--charcoal); margin-top: 2rem;">
+                <em>Hover over buttons to see the gold glow effect</em>
+            </p>
+        </section>
+
+        <!-- Progress Bar -->
+        <section class="demo-section bg-cream">
+            <h2>Quiz Progress Bar - "Gold Track"</h2>
+
+            <div class="component-preview">
+                <p class="subhead" style="margin-bottom: 1rem;">Progress: Question 2 of 3</p>
+                <div class="quiz-progress-container">
+                    <div class="quiz-progress-bar" style="width: 66%;"></div>
+                </div>
+
+                <p style="margin-top: 2rem; text-align: center;">
+                    <button class="btn-bureaucratic" onclick="updateDemoProgress()">Advance Progress</button>
+                    <button class="btn-bureaucratic" onclick="resetDemoProgress()">Reset</button>
+                </p>
+            </div>
+        </section>
+
+        <!-- Wax Seal Radio Buttons -->
+        <section class="demo-section bg-parchment">
+            <h2>Wax Seal Radio Buttons - "Hot Wax Animation"</h2>
+
+            <div class="component-preview">
+                <p class="subhead" style="margin-bottom: 2rem;">Select Your Dog's Certification Level</p>
+
+                <form>
+                    <label class="wax-seal-radio">
+                        <input type="radio" name="cert-level" value="basic">
+                        <span>Basic Certification - Foundational holistic therapy skills</span>
+                    </label>
+
+                    <label class="wax-seal-radio">
+                        <input type="radio" name="cert-level" value="advanced">
+                        <span>Advanced Certification - Specialized therapeutic techniques</span>
+                    </label>
+
+                    <label class="wax-seal-radio">
+                        <input type="radio" name="cert-level" value="master">
+                        <span>Master Certification - Elite professional therapy dog designation</span>
+                    </label>
+
+                    <label class="wax-seal-radio">
+                        <input type="radio" name="cert-level" value="honorary">
+                        <span>Honorary Degree - Lifetime achievement recognition</span>
+                    </label>
+                </form>
+
+                <p style="margin-top: 2rem; text-align: center; font-style: italic; color: var(--charcoal);">
+                    Click any option to see the "wax seal" animation
+                </p>
+            </div>
+        </section>
+
+        <!-- Form Elements -->
+        <section class="demo-section bg-cream">
+            <h2>Form Elements - "Inkwell Style"</h2>
+
+            <div class="component-preview">
+                <form style="max-width: 600px; margin: 0 auto;">
+                    <label class="form-label" style="display: block; margin-bottom: 0.5rem;">Full Legal Name of Canine</label>
+                    <input type="text" placeholder="e.g., Sir Barnaby Wellington III" style="width: 100%; margin-bottom: 1.5rem;">
+
+                    <label class="form-label" style="display: block; margin-bottom: 0.5rem;">Owner's Email Address</label>
+                    <input type="email" placeholder="registrar@institution.edu" style="width: 100%; margin-bottom: 1.5rem;">
+
+                    <label class="form-label" style="display: block; margin-bottom: 0.5rem;">Application Statement</label>
+                    <textarea rows="4" placeholder="Describe your dog's therapeutic qualities..." style="width: 100%; margin-bottom: 1.5rem;"></textarea>
+
+                    <button type="button" class="btn-bureaucratic" style="width: 100%;">Submit for Committee Review</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Cards & Depth -->
+        <section class="demo-section bg-parchment">
+            <h2>Cards with Tactile Depth</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                <div class="card">
+                    <h3>Certificate #1924-001</h3>
+                    <p class="subhead">Golden Retriever - Therapy Certified</p>
+                    <p style="margin-top: 1rem;">Issued by the Holistic Therapy Dog Association on behalf of the Department of Canine Affairs.</p>
+                    <button class="btn-bureaucratic" style="margin-top: 1.5rem; font-size: 0.8rem; padding: 0.75rem 1.5rem;">View Official Record</button>
+                </div>
+
+                <div class="card">
+                    <h3>Registry Entry #1924-042</h3>
+                    <p class="subhead">Labrador Retriever - Master Level</p>
+                    <p style="margin-top: 1rem;">Inscribed in the Master Ledger following unanimous committee approval.</p>
+                    <button class="btn-bureaucratic" style="margin-top: 1.5rem; font-size: 0.8rem; padding: 0.75rem 1.5rem;">Verify Credentials</button>
+                </div>
+
+                <div class="card">
+                    <h3>Application #1924-128</h3>
+                    <p class="subhead">Border Collie - Under Review</p>
+                    <p style="margin-top: 1rem;">Awaiting final deliberation from the Dean's office. Expected ratification: 48 hours.</p>
+                    <button class="btn-bureaucratic" style="margin-top: 1.5rem; font-size: 0.8rem; padding: 0.75rem 1.5rem;">Check Status</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Deliberation Screen Demo -->
+        <section class="demo-section bg-cream" style="text-align: center;">
+            <h2>The Deliberation Screen - "Stamping Seal"</h2>
+            <p style="max-width: 600px; margin: 1rem auto 2rem auto;">
+                The 5-second anticipation funnel appears between quiz completion and checkout. Click the button below to experience the full animation.
+            </p>
+
+            <button class="btn-bureaucratic" onclick="triggerDeliberation()">
+                Experience the Deliberation Screen
+            </button>
+        </section>
+
+        <!-- Vignette Demo -->
+        <section class="demo-section content-section bg-oxblood" style="color: var(--cream); min-height: 400px; display: flex; align-items: center; justify-content: center;">
+            <div style="text-align: center;">
+                <h2 style="color: var(--gold); font-size: 3rem; margin-bottom: 1rem;">Library Lighting Vignette</h2>
+                <p style="max-width: 700px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8;">
+                    Notice the subtle darkening around the edges of this section. This "library lighting" effect creates depth and focuses attention on the central content, mimicking the warm glow of a reading lamp in a 1920s institutional library.
+                </p>
+            </div>
+        </section>
+
+        <!-- Texture Overlay Info -->
+        <section class="demo-section bg-parchment" style="text-align: center;">
+            <h2>Paper Grain Texture</h2>
+            <p style="max-width: 700px; margin: 1rem auto;">
+                The subtle noise texture visible across the entire page is applied via a fixed <code>::before</code> pseudo-element on the body. It uses an SVG data URI with fractal noise to simulate aged paper grain. The effect is set to <code>mix-blend-mode: overlay</code> at low opacity for maximum authenticity without compromising readability.
+            </p>
+        </section>
+    </div>
+
+    <!-- Deliberation Screen (Hidden) -->
+    <div id="demo-deliberation-screen" class="deliberation-screen">
+        <div class="seal-stamp"></div>
+        <p id="demo-deliberation-text" class="deliberation-text">Consulting the 1924 Ledger...</p>
+    </div>
+
+    <script>
+        // Progress Bar Demo
+        let demoProgress = 66;
+        function updateDemoProgress() {
+            demoProgress += 17;
+            if (demoProgress > 100) demoProgress = 100;
+            document.querySelector('.quiz-progress-bar').style.width = demoProgress + '%';
+        }
+        function resetDemoProgress() {
+            demoProgress = 33;
+            document.querySelector('.quiz-progress-bar').style.width = demoProgress + '%';
+        }
+
+        // Deliberation Screen Demo
+        function triggerDeliberation() {
+            const screen = document.getElementById('demo-deliberation-screen');
+            const text = document.getElementById('demo-deliberation-text');
+
+            const messages = [
+                "Consulting the 1924 Ledger...",
+                "Verifying Good Boy Status...",
+                "Awaiting Dean's Signature...",
+                "Ratifying Credentials..."
+            ];
+
+            let index = 0;
+            screen.classList.add('active');
+
+            const interval = setInterval(() => {
+                index = (index + 1) % messages.length;
+                text.textContent = messages[index];
+            }, 1250);
+
+            setTimeout(() => {
+                clearInterval(interval);
+                screen.classList.remove('active');
+                alert('Deliberation complete! In production, this would redirect to the next page.');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

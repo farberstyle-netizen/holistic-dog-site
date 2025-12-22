@@ -144,7 +144,9 @@
             }
 
             try {
-                const response = await fetch(API_CONFIG.endpoints.adminShipments);
+                const response = await fetch(API_CONFIG.endpoints.adminShipments, {
+                    credentials: 'include'
+                });
                 const data = await response.json();
                 
                 if (data.success) {
@@ -263,6 +265,7 @@
             try {
                 const response = await fetch(API_CONFIG.endpoints.adminShipments, {
                     method: 'POST',
+                    credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ dog_id: dogId, tracking_number: trackingNumber })
                 });

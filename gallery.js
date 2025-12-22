@@ -15,8 +15,10 @@
 
   try {
     // Fetch gallery dogs from API
-    const response = await fetch(API_CONFIG.endpoints.gallery);
-    
+    const response = await fetch(API_CONFIG.endpoints.gallery, {
+      credentials: 'include'
+    });
+
     if (!response.ok) {
       throw new Error(`API returned status ${response.status}`);
     }

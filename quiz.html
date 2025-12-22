@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certification Quiz | Holistic Therapy Dog Association</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dark-academia.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
@@ -21,19 +22,30 @@
     </header>
     
     <main class="page-container">
-        <h1>Is Your Dog Ready?</h1>
-        <p class="section-intro">This isn't a test—it's a celebration of your dog's natural gifts. Answer these simple questions to confirm eligibility.</p>
-        
-        <div id="quiz-container" style="background: white; padding: 3rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); max-width: 700px; margin: 0 auto;">
+        <h1>Candidacy Assessment</h1>
+        <p class="section-intro">This assessment evaluates your dog's natural gifts and temperament for holistic therapy certification.</p>
+
+        <div id="quiz-container" class="quiz-card bg-parchment" style="padding: 3rem; max-width: 700px; margin: 0 auto;">
+            <!-- Progress Bar -->
+            <div class="quiz-progress-container">
+                <div id="quiz-progress-bar" class="quiz-progress-bar" style="width: 33%;"></div>
+            </div>
+
             <div class="question-box" style="text-align: center;">
-                <h3 style="font-size: 1.5rem; color: var(--primary-maroon); margin-bottom: 2rem;">Does your dog bring comfort and joy to you and those around you?</h3>
+                <h3 style="font-size: 1.5rem; margin-bottom: 2rem;">Does your dog bring comfort and joy to you and those around you?</h3>
                 <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
-                    <button onclick="nextQ()" class="cta-button" style="min-width: 250px; padding: 1.2rem 2.5rem; font-size: 1.1rem;">Yes, Absolutely</button>
-                    <button onclick="fail()" style="background: none; border: none; color: #999; font-size: 0.85rem; cursor: pointer; text-decoration: underline;">No</button>
+                    <button onclick="nextQ()" class="btn-bureaucratic quiz-btn" style="min-width: 300px;">Proceed to Ratification</button>
+                    <button onclick="fail()" style="background: none; border: none; color: #999; font-size: 0.85rem; cursor: pointer; text-decoration: underline;">Decline</button>
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- Deliberation Screen (Hidden by default) -->
+    <div id="deliberation-screen" class="deliberation-screen">
+        <div class="seal-stamp"></div>
+        <p id="deliberation-text" class="deliberation-text">Consulting the 1924 Ledger...</p>
+    </div>
 
     <footer></footer>
 
@@ -42,37 +54,81 @@
     <script src="footer.js"></script>
     <script>
         let q = 0;
+        const totalQuestions = 3;
+
+        // Progress bar update function
+        function updateProgressBar() {
+            const progressBar = document.getElementById('quiz-progress-bar');
+            const progressPercent = ((q + 1) / totalQuestions) * 100;
+            progressBar.style.width = progressPercent + '%';
+        }
+
         function nextQ() {
             q++;
+            updateProgressBar();
             const container = document.getElementById('quiz-container');
+
             if (q === 1) {
                 container.innerHTML = `
+                    <div class="quiz-progress-container">
+                        <div id="quiz-progress-bar" class="quiz-progress-bar" style="width: 66%;"></div>
+                    </div>
                     <div class="question-box" style="text-align: center;">
-                        <h3 style="font-size: 1.5rem; color: var(--primary-maroon); margin-bottom: 2rem;">Does your dog seem to have an intuitive sense of when you or others need comfort?</h3>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 2rem;">Does your dog seem to have an intuitive sense of when you or others need comfort?</h3>
                         <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
-                            <button onclick="nextQ()" class="cta-button" style="min-width: 250px; padding: 1.2rem 2.5rem; font-size: 1.1rem;">Yes, They Do</button>
-                            <button onclick="fail()" style="background: none; border: none; color: #999; font-size: 0.85rem; cursor: pointer; text-decoration: underline;">No</button>
+                            <button onclick="nextQ()" class="btn-bureaucratic quiz-btn" style="min-width: 300px;">Proceed to Ratification</button>
+                            <button onclick="fail()" style="background: none; border: none; color: #999; font-size: 0.85rem; cursor: pointer; text-decoration: underline;">Decline</button>
                         </div>
                     </div>`;
             } else if (q === 2) {
                 container.innerHTML = `
+                    <div class="quiz-progress-container">
+                        <div id="quiz-progress-bar" class="quiz-progress-bar" style="width: 100%;"></div>
+                    </div>
                     <div class="question-box" style="text-align: center;">
-                        <h3 style="font-size: 1.5rem; color: var(--primary-maroon); margin-bottom: 2rem;">Do you believe in the healing power of the human-animal bond?</h3>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 2rem;">Do you believe in the healing power of the human-animal bond?</h3>
                         <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
-                            <button onclick="finish()" class="cta-button" style="min-width: 250px; padding: 1.2rem 2.5rem; font-size: 1.1rem;">Yes, I Do</button>
-                            <button onclick="fail()" style="background: none; border: none; color: #999; font-size: 0.85rem; cursor: pointer; text-decoration: underline;">No</button>
+                            <button onclick="finish()" class="btn-bureaucratic quiz-btn" style="min-width: 300px;">Seal & Confer Degree</button>
+                            <button onclick="fail()" style="background: none; border: none; color: #999; font-size: 0.85rem; cursor: pointer; text-decoration: underline;">Decline</button>
                         </div>
                     </div>`;
             }
         }
+
+        // Deliberation Screen with cycling messages
         function finish() {
-            // If user is already logged in, go directly to add-dog
-            // Cookie-based auth - signup will redirect
-            {
+            const deliberationScreen = document.getElementById('deliberation-screen');
+            const deliberationText = document.getElementById('deliberation-text');
+
+            const messages = [
+                "Consulting the 1924 Ledger...",
+                "Verifying Good Boy Status...",
+                "Awaiting Dean's Signature...",
+                "Ratifying Credentials..."
+            ];
+
+            let messageIndex = 0;
+
+            // Show the deliberation screen
+            deliberationScreen.classList.add('active');
+
+            // Cycle through messages every 1.25 seconds
+            const messageInterval = setInterval(() => {
+                messageIndex = (messageIndex + 1) % messages.length;
+                deliberationText.textContent = messages[messageIndex];
+            }, 1250);
+
+            // After 5 seconds, redirect to signup
+            setTimeout(() => {
+                clearInterval(messageInterval);
                 window.location.href = 'signup.html?qualified=yes';
-            }
+            }, 5000);
         }
-        function fail() { alert("The HTDA requires these baseline traits."); window.location.href = 'index.html'; }
+
+        function fail() {
+            alert("The HTDA requires these baseline traits for certification eligibility.");
+            window.location.href = 'index.html';
+        }
     </script>
 </body>
 </html>
