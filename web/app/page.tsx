@@ -14,7 +14,7 @@ export default function Home() {
       <section className="video-hero">
         <div className="hero-video-container">
           <video className="hero-video" autoPlay muted loop playsInline>
-            <source src="hero-bg.mp4" type="video/mp4" />
+            <source src="/hero-bg.mp4" type="video/mp4" />
           </video>
           <div className="hero-video-overlay"></div>
         </div>
@@ -48,13 +48,13 @@ export default function Home() {
           </div>
 
           <div className="icon-card">
-            <img src="judge.png" alt="Trust and Integrity Icon" />
+            <img src="/judge.png" alt="Trust and Integrity Icon" />
             <h3>Trusted</h3>
             <p>Every certification is issued with integrity to ensure it reflects the genuine bond between you and your dog.</p>
           </div>
 
           <div className="icon-card">
-            <img src="globe.png" alt="World-Class Standards Icon" />
+            <img src="/globe.png" alt="World-Class Standards Icon" />
             <h3>World-Class Standards</h3>
             <p>A globally accessible database validating your dog's certification—maintaining excellence and credibility worldwide.</p>
           </div>
@@ -70,7 +70,7 @@ export default function Home() {
           <a href="quiz.html" className="cta-button" style={{marginBottom: '2rem'}}>Start Quiz</a>
 
           <div style={{maxWidth: '900px', margin: '0 auto'}}>
-            <img src="diploma-holder.jpg" alt="Official HTDA Diploma in Leatherette Holder" style={{width: '100%', borderRadius: '8px', boxShadow: '0 20px 60px rgba(0,0,0,0.2)'}} />
+            <img src="/diploma-holder.jpg" alt="Official HTDA Diploma in Leatherette Holder" style={{width: '100%', borderRadius: '8px', boxShadow: '0 20px 60px rgba(0,0,0,0.2)'}} />
           </div>
         </div>
       </section>
