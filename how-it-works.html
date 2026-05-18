@@ -8,43 +8,149 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .hiw-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+        .hiw-step {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-gold);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+        .hiw-step-number {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+        .hiw-step h2 {
+            font-family: var(--font-heading);
+            color: var(--primary-maroon);
+            margin: 0 0 0.5rem;
+            font-size: 1.25rem;
+            text-align: left;
+        }
+        .hiw-step p {
+            color: #555;
+            line-height: 1.7;
+            margin: 0;
+            text-align: left;
+        }
+        .hiw-cta {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .hiw-what-you-get {
+            background: white;
+            border: 1px solid #e8e2d6;
+            border-radius: 8px;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+        .hiw-what-you-get h2 {
+            font-family: var(--font-heading);
+            color: var(--primary-maroon);
+            margin-top: 0;
+        }
+        .hiw-what-you-get ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+        }
+        .hiw-what-you-get li {
+            color: #555;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+        .hiw-what-you-get li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+        @media (max-width: 600px) {
+            .hiw-step { flex-direction: column; gap: 0.75rem; }
+            .hiw-what-you-get ul { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="nav-container">
-            <a href="index.html" class="logo">Holistic Therapy Dog<br>Association</a>
-            <nav>
-                <ul id="nav-links"></ul>
-            </nav>
+            <a href="index.html" class="logo">Holistic Therapy<br>Dog Association</a>
+            <nav><ul id="nav-links"></ul></nav>
             <div class="nav-account" id="nav-account-links"></div>
         </div>
     </header>
-    
+
     <main class="page-container">
         <h1>How It Works</h1>
-        <p class="section-intro">A simple, respectful process to recognize your dog's natural abilities.</p>
-        
-        <div style="display: flex; flex-direction: column; gap: 2rem; max-width: 800px; margin: 0 auto;">
-            <div style="background: white; padding: 2rem; border-radius: 8px; border-left: 4px solid var(--accent-gold); box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-                <h2 style="margin-top: 0; color: var(--primary-maroon); text-align: left;">1. The Assessment</h2>
-                <p style="text-align: left;">Take our self-certifying quiz. We don't ask for tricks or obedience commands. We ask about temperament, connection, and the joy your dog brings to others.</p>
+        <p class="section-intro">A simple, respectful process to honor your dog's natural therapeutic presence.</p>
+
+        <div class="hiw-steps">
+            <div class="hiw-step">
+                <span class="hiw-step-number">1</span>
+                <div>
+                    <h2>The Assessment</h2>
+                    <p>Answer a short quiz about your dog's temperament, connection, and the joy they bring to others. We don't ask for tricks or obedience records — we recognize the intuitive bond. Takes under two minutes.</p>
+                </div>
             </div>
-            <div style="background: white; padding: 2rem; border-radius: 8px; border-left: 4px solid var(--accent-gold); box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-                <h2 style="margin-top: 0; color: var(--primary-maroon); text-align: left;">2. Registration</h2>
-                <p style="text-align: left;">Create your account and register your dog in the National Database. This creates a permanent, searchable record of their status.</p>
+            <div class="hiw-step">
+                <span class="hiw-step-number">2</span>
+                <div>
+                    <h2>Registration &amp; Checkout</h2>
+                    <p>Create your account, provide your dog's details and your shipping address, and complete the secure $99.99 checkout. Your dog's unique License ID is issued immediately upon payment.</p>
+                </div>
             </div>
-            <div style="background: white; padding: 2rem; border-radius: 8px; border-left: 4px solid var(--accent-gold); box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-                <h2 style="margin-top: 0; color: var(--primary-maroon); text-align: left;">3. Recognition</h2>
-                <p style="text-align: left;">Receive your official embossed diploma. Your dog has now joined the elite ranks of Certified Holistic Therapy Dogs!</p>
+            <div class="hiw-step">
+                <span class="hiw-step-number">3</span>
+                <div>
+                    <h2>Receive Your Diploma</h2>
+                    <p>Your digital certificate arrives by email within 24 hours. The physical parchment diploma and leatherette holder ship within 2–3 business days via USPS Priority Mail. Your dog's registry record goes live the same day.</p>
+                </div>
             </div>
         </div>
-        <div style="text-align: center; margin-top: 3rem;">
-            <a href="quiz.html" class="cta-button">Start Quiz</a>
+
+        <div class="hiw-what-you-get">
+            <h2>Everything Included — $99.99 One-Time</h2>
+            <ul>
+                <li>Heavyweight parchment diploma (8.5×11")</li>
+                <li>Leatherette diploma holder with HTDA crest</li>
+                <li>Gold foil official seal</li>
+                <li>Wallet certification card with License ID</li>
+                <li>Permanent national registry listing (2 years)</li>
+                <li>Digital certificate PDF (within 24 hours)</li>
+            </ul>
+        </div>
+
+        <div class="hiw-cta">
+            <a href="quiz.html" class="cta-button">Register Your Dog — $99.99</a>
+            <p style="margin-top:1rem; color:#888; font-size:0.9rem;">
+                Questions first? See the <a href="faq.html">FAQ</a> or <a href="diploma.html">view the diploma</a>.
+            </p>
         </div>
     </main>
 
     <footer></footer>
 
+    <script src="api-config.js"></script>
     <script src="header.js"></script>
     <script src="footer.js"></script>
 </body>

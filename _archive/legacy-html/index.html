@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive Index | HTDA</title>
+    <style>
+        body { font-family: Georgia, serif; max-width: 800px; margin: 3rem auto; padding: 0 1.5rem; color: #333; }
+        h1 { font-size: 1.6rem; border-bottom: 2px solid #800000; padding-bottom: 0.5rem; color: #800000; }
+        h2 { font-size: 1.1rem; margin-top: 2rem; color: #4b0000; }
+        table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; font-size: 0.9rem; }
+        th { text-align: left; padding: 0.5rem 0.75rem; background: #f5f0e8; color: #4b0000; font-weight: 700; }
+        td { padding: 0.5rem 0.75rem; border-top: 1px solid #e8e2d6; vertical-align: top; }
+        td:first-child { white-space: nowrap; font-family: monospace; }
+        .reason { color: #666; }
+        a { color: #800000; }
+    </style>
+</head>
+<body>
+    <h1>HTDA Archive Index</h1>
+    <p>Files removed from the public site and preserved here for reference. None of these pages are linked from the live site.</p>
+
+    <h2>legacy-html/ — Archived HTML pages</h2>
+    <table>
+        <tr><th>File</th><th>Reason archived</th><th>Date</th></tr>
+        <tr>
+            <td>about-holistic.html</td>
+            <td class="reason">Superseded by about.html. Content was an earlier draft of the institutional about page with overlapping copy.</td>
+            <td>2025-05</td>
+        </tr>
+        <tr>
+            <td>footer-with-seal.html</td>
+            <td class="reason">Development prototype for the footer seal component. Replaced by footer.js component injection.</td>
+            <td>2025-05</td>
+        </tr>
+        <tr>
+            <td>theme-demo.html</td>
+            <td class="reason">Internal theme/style showcase page. Not part of the public funnel; no external links.</td>
+            <td>2025-05</td>
+        </tr>
+        <tr>
+            <td>why.html</td>
+            <td class="reason">Orphan page — not linked from nav, footer, or any other page. Key ceremonial copy ("this certification bestows no privileges…") merged into faq.html (Legal section) and about.html. Content preserved here.</td>
+            <td>2026-05</td>
+        </tr>
+    </table>
+
+    <h2>docs/ — Archived development documents</h2>
+    <table>
+        <tr><th>File</th><th>Reason archived</th></tr>
+        <tr><td>API-MIGRATION-GUIDE.md</td><td class="reason">Internal migration doc from initial API setup. Superseded by deployed Workers.</td></tr>
+        <tr><td>DARK-ACADEMIA-INTEGRATION-GUIDE.md</td><td class="reason">Integration notes for dark-academia.css theme. Theme is live; guide no longer needed.</td></tr>
+        <tr><td>MERGE-REPORT.md</td><td class="reason">Merge summary from a prior PR cycle. Historical reference only.</td></tr>
+        <tr><td>PR-DELIVERABLES.md</td><td class="reason">PR deliverables checklist from prior cycle. Superseded.</td></tr>
+        <tr><td>PR-DEPLOYMENT-FINALIZATION.md</td><td class="reason">Deployment finalization notes. Configuration is live; doc no longer needed.</td></tr>
+        <tr><td>PR-POST-MERGE-CLEANUP.md</td><td class="reason">Post-merge cleanup checklist. Work completed.</td></tr>
+        <tr><td>PR-REPAIR-BROKEN-AUTH.md</td><td class="reason">Auth repair notes from a prior cycle. Auth is fixed and deployed.</td></tr>
+    </table>
+</body>
+</html>
