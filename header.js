@@ -17,9 +17,10 @@
   // Navigation - Main links + Verify License (nav-link style, not button)
   if (navLinks) {
     navLinks.innerHTML = `
+      <li><a href="diploma.html" class="nav-link">The Diploma</a></li>
       <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
       <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-      <li><a href="meet-our-dogs.html" class="nav-link">Meet Our Dogs</a></li>
       <li><a href="verify.html" class="nav-link">Verify License</a></li>
     `;
   }

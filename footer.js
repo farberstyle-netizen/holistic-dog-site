@@ -46,6 +46,8 @@
         <div class="footer-column">
           <h4>Resources</h4>
           <ul>
+            <li><a href="diploma.html">The Diploma</a></li>
+            <li><a href="faq.html">FAQ</a></li>
             <li><a href="verify.html">Verify License</a></li>
             <li><a href="gallery.html">Gallery</a></li>
             <li><a href="advocacy.html">Advocacy</a></li>
