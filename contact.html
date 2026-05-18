@@ -120,17 +120,14 @@
         <div class="contact-wrapper">
             <div class="contact-cards">
                 <div class="info-card">
-                    <h3>Response Time</h3>
-                    <p>Our team reviews all inquiries and typically responds within 24-48 hours.</p>
+                    <h3>Email Us Directly</h3>
+                    <p><a href="mailto:support@holistictherapydogassociation.com" style="color: var(--primary-maroon); font-weight: 700;">support@holistictherapydogassociation.com</a></p>
+                    <p style="margin-top: 0.75rem;">Our team reviews all inquiries and typically responds within 24–48 business hours.</p>
                 </div>
-                
+
                 <div class="info-card">
-                    <h3>Our Office</h3>
-                    <address>
-                        <strong>Holistic Therapy Dog Association</strong><br>
-                        245 Park Ave<br>
-                        New York, NY 10167
-                    </address>
+                    <h3>Common Questions</h3>
+                    <p>Before reaching out, many answers are available on our <a href="faq.html" style="color: var(--primary-maroon);">FAQ page</a> — including shipping timelines, refund policy, and ADA disclaimers.</p>
                 </div>
             </div>
 
@@ -165,22 +162,51 @@
 
     <footer></footer>
 
+    <script src="api-config.js"></script>
     <script src="header.js"></script>
     <script src="footer.js"></script>
     <script>
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const btn = this.querySelector('.cta-button');
-            btn.textContent = 'Sending...';
+            const form = this;
+            const btn = form.querySelector('.cta-button');
+            btn.textContent = 'Sending…';
             btn.disabled = true;
-            
-            // In production, this would POST to an API endpoint
-            setTimeout(() => {
-                alert('Thank you for your message! We will get back to you within 24-48 hours.');
-                this.reset();
+
+            const payload = {
+                name: form.name.value.trim(),
+                email: form.email.value.trim(),
+                subject: form.subject.value.trim(),
+                message: form.message.value.trim()
+            };
+
+            try {
+                const res = await fetch(window.API_CONFIG ? API_CONFIG.getUrl('/api/contact') : '/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify(payload)
+                });
+
+                if (res.ok) {
+                    btn.closest('.contact-form-card').innerHTML = `
+                        <div style="text-align:center; padding: 2rem 0;">
+                            <p style="font-size:2rem; margin-bottom:1rem;">&#10003;</p>
+                            <h3 style="color: var(--primary-maroon);">Message Received</h3>
+                            <p style="color:#555; line-height:1.7;">Thank you — we'll respond to <strong>${payload.email}</strong> within 24–48 business hours.</p>
+                        </div>`;
+                } else {
+                    throw new Error('non-2xx');
+                }
+            } catch {
                 btn.textContent = 'Send Message';
                 btn.disabled = false;
-            }, 1000);
+                const errEl = form.querySelector('.form-error') || document.createElement('p');
+                errEl.className = 'form-error';
+                errEl.style.cssText = 'color:#800000; margin-top:1rem; font-size:0.9rem;';
+                errEl.textContent = 'Message could not be sent. Please email us directly at support@holistictherapydogassociation.com';
+                if (!form.querySelector('.form-error')) form.appendChild(errEl);
+            }
         });
     </script>
 </body>
