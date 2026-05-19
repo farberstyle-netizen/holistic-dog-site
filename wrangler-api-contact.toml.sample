@@ -1,0 +1,35 @@
+# wrangler-api-contact.toml.sample
+#
+# SETUP INSTRUCTIONS
+# ──────────────────────────────────────────────────────────────────────────────
+# 1. Copy this file:
+#      cp wrangler-api-contact.toml.sample wrangler-api-contact.toml
+#
+# 2. Set the destination email secret (never commit this value):
+#      npx wrangler secret put CONTACT_TO_EMAIL --config wrangler-api-contact.toml
+#    Enter your support email when prompted, e.g. support@holistictherapydogassociation.com
+#
+# 3. Deploy the Worker:
+#      npx wrangler deploy --config wrangler-api-contact.toml
+#
+# 4. Uncomment the MailChannels block in api-contact.js to enable email delivery.
+#
+# ──────────────────────────────────────────────────────────────────────────────
+
+name = "api-contact"
+main = "api-contact.js"
+compatibility_date = "2024-01-01"
+
+# Production route — matches /api/contact on both apex and www
+routes = [
+  "holistictherapydogassociation.com/api/contact",
+  "www.holistictherapydogassociation.com/api/contact"
+]
+
+# Secret bindings (set via `wrangler secret put`, never hardcode values here)
+# CONTACT_TO_EMAIL — the inbox where form submissions are forwarded
+# Set with: npx wrangler secret put CONTACT_TO_EMAIL --config wrangler-api-contact.toml
+
+# Optional: MailChannels sender domain authentication
+# Requires a DNS TXT record on holistictherapydogassociation.com
+# See: https://support.mailchannels.com/hc/en-us/articles/16918954360845
